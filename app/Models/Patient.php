@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-
+use App\Models\Result;
 class Patient extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -31,6 +31,12 @@ class Patient extends Authenticatable
         'remember_token',
         'code'
     ];
+
+
+    public function result()
+    {
+        return $this->hasMany(Result::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.

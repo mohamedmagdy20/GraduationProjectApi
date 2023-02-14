@@ -19,7 +19,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('login',[PatientAuthController::class,'login']);
+Route::post('patient/login',[PatientAuthController::class,'login']);
 Route::post('patient/register',[PatientAuthController::class,'Register']);
 Route::post('patient/verfiy',[PatientAuthController::class,'verifyUser']);
 Route::post('patient/resend',[PatientAuthController::class,'resendCode']);
@@ -31,4 +31,7 @@ Route::put('patient/reset-password', [PatientController::class,'resetPassword'])
 Route::middleware('auth:api-patient')->prefix('patient')->group(function(){
     Route::get('logout',[PatientAuthController::class,'logout']);
     Route::put('change-password',[PatientController::class,'changePassword']);
+    Route::get('profile/{id}',[PatientController::class,'profile']);
+    Route::post('edit',[PatientController::class,'editProfile']);
+
 });

@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Hash;
 use App\Mail\PatientEmail;
 use Illuminate\Support\Facades\Mail;
 use Laravel\Sanctum\PersonalAccessToken;
+use Illuminate\Support\Facades\Storage;
+
 
 class PatientAuthController extends Controller
 {
@@ -62,7 +64,7 @@ class PatientAuthController extends Controller
             'address'=>'required',
             'gender'=>'required'
         ];
-
+        // return $request->all();
         $validator = Validator::make($request->all(),$rule);
         if($validator->fails())
         {
@@ -87,9 +89,10 @@ class PatientAuthController extends Controller
 
             $imgName = time().$request->file('img')->getClientOriginalName();
 
-            $request->file('img')->move(public_path('files/profile'),$imgName);
-
-            $data = array_merge($validator->validated(),['img'=>$imgName,'password'=>Hash::make($request->password),'code'=>$code ]);
+            // $request->file('img')->move(public_path('files/profile'),$imgName);
+            Storage::disk('profile')->put($imgName, file_get_contents($request->file('img')));
+            $image = 'public/files/profile/'.$imgName;
+            $data = array_merge($validator->validated(),['img'=>$image,'password'=>Hash::make($request->password),'code'=>$code ]);
             $patient = Patient::create($data);
             if($patient)
             {
