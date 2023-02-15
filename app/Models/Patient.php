@@ -8,9 +8,13 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Result;
-class Patient extends Authenticatable
+use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
+use Astrotomic\Translatable\Translatable;
+class Patient extends Authenticatable implements TranslatableContract
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable ,Translatable;
+
+    public $translatedAttributes = ['name', 'address'];
     protected $table = 'patients';
     protected $gaurded = [];
     /**
@@ -19,10 +23,8 @@ class Patient extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
         'email',
         'password',
-        'address',
         'gender',
         'img',
         'phone',

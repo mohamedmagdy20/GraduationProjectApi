@@ -44,11 +44,10 @@ class PatientAuthController extends Controller
 
         $patient = Patient::where('email',$request->email)->first();
         $token = $patient->createToken('myapptoken')->plainTextToken;
-
+        $patient->token = $token;
         return response()->json([
             'pateint'=>$patient,
-            'token'=>$token,
-            'states'=>true
+            'status'=>true
         ], 200);
 
     }
@@ -56,12 +55,14 @@ class PatientAuthController extends Controller
     public function Register(Request $request)
     {
         $rule = [
-            'name'=>'required',
+            'name_en'=>'required',
+            'name_ar'=>'required',
+            'address_en'=>'required',
             'email'=>'email|required',
             'password'=>'required|confirmed',
             'phone'=>'required',
             'date_of_birth'=>'required',
-            'address'=>'required',
+            'address_ar'=>'required',
             'gender'=>'required'
         ];
         // return $request->all();
@@ -92,7 +93,19 @@ class PatientAuthController extends Controller
             // $request->file('img')->move(public_path('files/profile'),$imgName);
             Storage::disk('profile')->put($imgName, file_get_contents($request->file('img')));
             $image = 'public/files/profile/'.$imgName;
-            $data = array_merge($validator->validated(),['img'=>$image,'password'=>Hash::make($request->password),'code'=>$code ]);
+            $data_en = [
+                'name'=>$request->name_en,
+                'address'=>$request->address_en
+            ];
+
+            $data_ar = [
+                'name'=>$request->name_ar,
+                'address'=>$request->address_ar
+            ];
+          
+          
+            $data = array_merge($validator->validated(),['en'=>$data_en],['ar'=>$data_ar],['img'=>$image,'password'=>Hash::make($request->password),'code'=>$code ]);
+            // return $data;
             $patient = Patient::create($data);
             if($patient)
             {
@@ -108,10 +121,21 @@ class PatientAuthController extends Controller
                 ], 401);
             }
         }else{
-            $patient = Patient::create(array_merge($validator->validated(),[
+            $data_en = [
+                'name'=>$request->name_en,
+                'address'=>$request->address_en
+            ];
+
+            $data_ar = [
+                'name'=>$request->name_ar,
+                'address'=>$request->address_ar
+            ];
+            $data = array_merge($validator->validated(),[
                 'password'=>Hash::make($request->password),
-                'code'=>$code
-            ]));
+                'code'=>$code , 
+                ['en'=>$data_en],
+                ['ar'=>$data_ar]]);
+            $patient = Patient::create($data);
             if($patient)
             {
                 Mail::to($patient->email)->send(new PatientEmail($patient->email,$code));
@@ -200,5 +224,4 @@ class PatientAuthController extends Controller
     {
         $code =  rand(10000,99999);
         return $code;
-    }
-}
+    }}

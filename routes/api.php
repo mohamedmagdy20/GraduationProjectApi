@@ -31,7 +31,7 @@ Route::put('patient/reset-password', [PatientController::class,'resetPassword'])
 Route::middleware('auth:api-patient')->prefix('patient')->group(function(){
     Route::get('logout',[PatientAuthController::class,'logout']);
     Route::put('change-password',[PatientController::class,'changePassword']);
-    Route::get('profile/{id}',[PatientController::class,'profile']);
+    Route::get('profile',[PatientController::class,'profile']);
     Route::post('edit',[PatientController::class,'editProfile']);
 
 });

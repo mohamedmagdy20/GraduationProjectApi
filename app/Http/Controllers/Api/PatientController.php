@@ -146,9 +146,16 @@ class PatientController extends Controller
     }
 
 
-    public function profile($id)
+    public function profile(Request $request)
     {
-        $patient = Patient::with('result')->find($id);
+        app()->setLocale($request->header('lang'));
+        // return Auth::user()->id;
+        // return $request->header('lang');
+        $patient = Patient::with('result')->find(Auth::user()->id);
+        // $patient = $data->translate('ar');
+
+        // return $data;
+        // $patient->translateOrDefault($request->header('lang'));
         if($patient)
         {
             return response()->json([
@@ -181,7 +188,6 @@ class PatientController extends Controller
                 'status'=>false
             ], 200);
         }
-
         if($request->hasFile('img'))
         {
             //validate income img
