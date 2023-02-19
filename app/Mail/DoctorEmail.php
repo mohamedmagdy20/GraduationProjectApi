@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class PatientEmail extends Mailable
+class DoctorEmail extends Mailable
 {
     use Queueable, SerializesModels;
     public $email;
@@ -17,11 +17,12 @@ class PatientEmail extends Mailable
      *
      * @return void
      */
-    public function __construct($email,$code)
+    public function __construct($email, $code)
     {
-        $this->email = $email;
+        $this->email =$email;
         $this->code = $code;
     }
+
     /**
      * Build the message.
      *
@@ -30,6 +31,6 @@ class PatientEmail extends Mailable
     public function build()
     {
         return $this->subject('Verifiying Code')
-        ->markdown('emails.verfication',['email'=>$this->email,'code'=>$this->code]);
+        ->markdown('emails.doctorPasswordReset',['email'=>$this->email,'code'=>$this->code]);
     }
 }

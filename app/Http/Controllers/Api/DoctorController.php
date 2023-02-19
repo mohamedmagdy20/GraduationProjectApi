@@ -8,13 +8,15 @@ use App\Models\Doctor;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\DoctorEmail;
+use App\Utils\CheckCode;
 class DoctorController extends Controller
 {
     //
-    public function profile()
+    public function profile(Request $request)
     {
-        app()->setLocale($requ);
+        app()->setLocale($request->header('lang'));
         $doctor = Doctor::find(Auth::user()->id);
         if($doctor)
         {
@@ -95,6 +97,70 @@ class DoctorController extends Controller
         
     }
 
+    public function sendEmail(Request $request)
+    {
+        $rule = [
+            'email'=>'required|email'
+        ];
 
-    public function changePassword()
+        $validation = Validator::make($request->all(),$rule);
+
+        if($validation->fails())
+        {
+            return response()->json([
+                'error'=>$validation->errors(),
+                'status'=>false
+            ], 200);
+        }
+
+        //check email //
+        $email = Doctor::where('email',$request->email)->first();
+        if($email)
+        {
+            //send Email 
+            $code = $this->genetrateCode();
+            Mail::to($request->email)->send(new DoctorEmail($email->email,$code));
+            $email->update(['code'=>$code]);
+            return response()->json([
+                'msg'=>'Check your Email For Verification',
+                'status'=>true
+            ], 200);
+
+        }else{
+            return response()->json([
+                'error'=>'Invaild Email',
+                'status'=>false
+            ], 200);
+        }
+        
+    }
+
+    public function CheckVerification(Request $request)
+    {
+        $doctor = Doctor::where('code',$request->code)->first();
+        if($doctor != null)
+        {
+            return response()->json([
+                'msg'=>'Success',
+                'data'=>$doctor,
+                'status'=>true
+            ], 200);
+        }else{
+            return response()->json([
+                'error'=>'Invaild Code',
+                'status'=>false
+            ], 200);
+        }
+    }
+
+    public function resend(){
+        
+    }
+
+
+    public function genetrateCode()
+    {
+        $code =  rand(10000,99999);
+        return $code;
+    }
 }
