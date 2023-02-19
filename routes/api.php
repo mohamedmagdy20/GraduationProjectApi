@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApiAuth\PatientAuthController;
 use App\Http\Controllers\Api\PatientController;
+use App\Http\Controllers\ApiAuth\DoctorAuthController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -35,3 +36,7 @@ Route::middleware('auth:api-patient')->prefix('patient')->group(function(){
     Route::post('edit',[PatientController::class,'editProfile']);
 
 });
+
+Route::post('doctor/login',[DoctorAuthController::class,'login']);
+// Route::middleware('auth:api-doctor')->prefix('doctor')->group(function(){
+// });

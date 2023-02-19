@@ -49,6 +49,16 @@ return [
         'api-patient'=>[
             'driver' => 'sanctum',
             'provider' => 'patients',
+        ],
+
+        'doctor' => [
+            'driver' => 'session',
+            'provider' => 'doctors',
+        ],
+        
+        'api-doctor'=>[
+            'driver' => 'sanctum',
+            'provider' => 'doctors',
         ]
     ],
 
@@ -80,7 +90,11 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Patient::class,
         ],
-
+        
+        'doctors' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Doctor::class,
+        ]
         
     ],
 
@@ -109,6 +123,13 @@ return [
         
         'patients' => [
             'provider' => 'patients',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+
+        'doctors' => [
+            'provider' => 'doctors',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
