@@ -46,6 +46,11 @@ return [
             'root' => public_path('files/profile'),
         ],
         
+        'doctor' => [
+            'driver' => 'local',
+            'root' => public_path('files/doctor'),
+        ],
+        
 
         
 
