@@ -119,7 +119,7 @@ class DoctorController extends Controller
         {
             //send Email 
             $code = $this->genetrateCode();
-            Mail::to($request->email)->send(new DoctorEmail($email->email,$code));
+            Mail::to($email->email)->send(new DoctorEmail($email->email,$code));
             $email->update(['code'=>$code]);
             return response()->json([
                 'msg'=>'Check your Email For Verification',
@@ -154,7 +154,14 @@ class DoctorController extends Controller
     }
 
     public function resend(){
-        
+        $doctor =  Doctor::find(Auth::user()->id);
+        $code = $this->genetrateCode();
+        $doctor->update(['code'=>$code]);
+        Mail::to($doctor->email)->send(new DoctorEmail($doctor->email,$code));
+        return response()->json([
+            'msg'=>'Check your Email',
+            'status'=>true
+        ], 200);
     }
 
 
