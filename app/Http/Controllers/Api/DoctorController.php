@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\DoctorEmail;
 use App\Utils\CheckCode;
+use Illuminate\Support\Facades\Hash;
+
+
 class DoctorController extends Controller
 {
     //
@@ -29,6 +32,7 @@ class DoctorController extends Controller
 
     public function editProfile(Request $request)
     {
+        // return $request->all();
         $rule = [
             'name_en'=>'required',
             'name_ar'=>'required',
@@ -61,8 +65,8 @@ class DoctorController extends Controller
                     return response()->json(['error'=>$validate_img->errors()],401);
                 }
 
-                $imgName = time().$request->file('img')->getClientOriginalName();
-                Storage::disk('doctor')->put($imgName, file_get_contents($request->file('img')));
+                $imgName = time().$request->file('image')->getClientOriginalName();
+                Storage::disk('doctor')->put($imgName, file_get_contents($request->file('image')));
                 $image = 'public/files/doctor/'.$imgName;
 
                 $data = array_merge($request->all(),['en'=>$data_en],['ar'=>$data_ar],['image'=>$image]);
@@ -164,7 +168,45 @@ class DoctorController extends Controller
         ], 200);
     }
 
+    public function changePassword(Request $request)
+    {
+        // return $request->all();
+        $rule = [
+            'old_password'=>'required',
+            'new_password'=>'required|confirmed'
+        ];
 
+        $validator = Validator::make($request->all(),$rule);
+
+        if($validator->fails())
+        {
+            return response()->json([
+                'error'=>$validator->errors(),
+                'status'=>false
+            ], 200);
+        }
+
+        $doctor = Doctor::find(Auth::user()->id);
+        if($doctor)
+        {
+            if(Hash::check($request->old_password, $doctor->password))
+            {
+                $doctor->update(['password'=>Hash::make($request->new_password)]);
+                return response()->json(['msg'=>'Password Changed','status'=>true], 200);
+          
+            }else{
+                return response()->json([
+                    'error'=>'Old Password Not Match',
+                    'status'=>false
+                ], 200);
+            }
+        }else{
+            return response()->json([
+                'error'=>'Error Accure',
+                'status'=>false
+            ], 404);
+        }
+    }
     public function genetrateCode()
     {
         $code =  rand(10000,99999);

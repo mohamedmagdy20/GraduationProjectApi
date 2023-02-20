@@ -1,12 +1,8 @@
 @component('mail::message')
-# Introduction
-
-The body of your message.
-
-@component('mail::button', ['url' => ''])
-Button Text
+Your Verification Code is.
+@component('mail::button', ['url' => 'https://laraveltuts.com'])
+{{$code}}
 @endcomponent
-
 Thanks,<br>
 {{ config('app.name') }}
 @endcomponent

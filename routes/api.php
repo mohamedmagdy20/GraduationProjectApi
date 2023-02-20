@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApiAuth\PatientAuthController;
 use App\Http\Controllers\Api\PatientController;
 use App\Http\Controllers\ApiAuth\DoctorAuthController;
+use App\Http\Controllers\Api\DoctorController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -38,5 +40,14 @@ Route::middleware('auth:api-patient')->prefix('patient')->group(function(){
 });
 
 Route::post('doctor/login',[DoctorAuthController::class,'login']);
-// Route::middleware('auth:api-doctor')->prefix('doctor')->group(function(){
-// });
+
+Route::middleware('auth:api-doctor')->prefix('doctor')->group(function(){
+    Route::get('/profile',[DoctorController::class,'profile']);
+    Route::post('/edit/profile',[DoctorController::class,'editProfile']);
+    Route::get('/logout',[DoctorAuthController::class,'logout']);
+    Route::post('/profile/send-email',[DoctorController::class,'sendEmail']);
+    Route::get('profile/resend-email',[DoctorController::class,'resend']);
+    Route::post('profile/check-code',[DoctorController::class,'CheckVerification']);
+    Route::post('profile/change-password',[DoctorController::class,'changePassword']);
+
+});

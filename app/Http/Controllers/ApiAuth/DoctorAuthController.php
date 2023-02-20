@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Doctor;
+use Laravel\Sanctum\PersonalAccessToken;
+
 class DoctorAuthController extends Controller
 {
     //
@@ -49,6 +51,19 @@ class DoctorAuthController extends Controller
                 'status'=>true
             ], 200);
         }
+
+    }
+    public function logout(Request $request)
+    {
+        $accessToken = $request->bearerToken();
+        // Get access token from database
+        $token = PersonalAccessToken::findToken($accessToken);
+        // Revoke token
+        $token->delete();
+        return response()->json([
+            'msg'=>'Logout Successfuly',
+            'status'=>true
+        ], 200);
 
     }
 }
