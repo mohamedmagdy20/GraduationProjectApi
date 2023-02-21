@@ -6,6 +6,7 @@ use App\Http\Controllers\ApiAuth\PatientAuthController;
 use App\Http\Controllers\Api\PatientController;
 use App\Http\Controllers\ApiAuth\DoctorAuthController;
 use App\Http\Controllers\Api\DoctorController;
+use App\Http\Controllers\Api\LocationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,10 +27,10 @@ Route::post('patient/login',[PatientAuthController::class,'login']);
 Route::post('patient/register',[PatientAuthController::class,'Register']);
 Route::post('patient/verfiy',[PatientAuthController::class,'verifyUser']);
 Route::post('patient/resend',[PatientAuthController::class,'resendCode']);
-
 Route::post('patient/send-email',[PatientController::class,'sendEmail']);
 Route::post('patient/check/code',[PatientController::class,'checkCode']);
 Route::put('patient/reset-password', [PatientController::class,'resetPassword']);
+Route::get('location',[LocationController::class,'index']);
 
 Route::middleware('auth:api-patient')->prefix('patient')->group(function(){
     Route::get('logout',[PatientAuthController::class,'logout']);
