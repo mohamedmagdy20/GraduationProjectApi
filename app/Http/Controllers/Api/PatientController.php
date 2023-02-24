@@ -48,7 +48,7 @@ class PatientController extends Controller
             return response()->json([
                 'msg'=>'Not Found',
                 'status'=>false,
-            ], 404);
+            ], 200);
         }
     }
 
@@ -57,11 +57,11 @@ class PatientController extends Controller
         $patient = Patient::where('remember_token',$request->code)->first();
         if($patient)
         {
-            return response()->json(['patient'=>$patient,'msg'=>'Success','status'=>true], 200);
+            return response()->json(['data'=>$patient,'msg'=>'Success','status'=>true], 200);
         }else{
             return response()->json([
                 'error'=>'Invaild Code'
-            ],401 );
+            ],200 );
         }
     }
 
@@ -87,7 +87,7 @@ class PatientController extends Controller
             return response()->json([
                 'error'=>'Password Not Same',
                 'status'=>false
-            ], 400);
+            ], 200);
         }else{
 
             $patient = Patient::find($request->id);
@@ -99,7 +99,7 @@ class PatientController extends Controller
                 return response()->json([
                     'error'=>'Error Accure',
                     'status'=>false
-                ], 404);
+                ], 200);
             }
         }
 
@@ -159,7 +159,7 @@ class PatientController extends Controller
         if($patient)
         {
             return response()->json([
-                'patient'=>$patient,
+                'data'=>$patient,
                 'status'=>true
             ], 200);
         }else{

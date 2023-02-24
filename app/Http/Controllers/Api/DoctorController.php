@@ -80,7 +80,7 @@ class DoctorController extends Controller
                     return response()->json([
                         'msg'=>'Error',
                         'status'=>false
-                    ], 404);
+                    ], 200);
                 }
             }else{
                 $data = array_merge($request->all(),['en'=>$data_en],['ar'=>$data_ar]);
@@ -94,7 +94,7 @@ class DoctorController extends Controller
                     return response()->json([
                         'msg'=>'Error',
                         'status'=>false
-                    ], 404);
+                    ], 200);
                 }
             }
         }
@@ -204,7 +204,7 @@ class DoctorController extends Controller
             return response()->json([
                 'error'=>'Error Accure',
                 'status'=>false
-            ], 404);
+            ], 200);
         }
     }
     public function genetrateCode()

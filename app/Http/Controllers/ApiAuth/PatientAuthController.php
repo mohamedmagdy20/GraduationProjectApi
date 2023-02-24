@@ -30,7 +30,7 @@ class PatientAuthController extends Controller
             return response()->json([
                 'error'=>$validate->errors(),
                 'status'=>false
-            ], 400);
+            ], 200);
         }
 
         // check if Auth
@@ -39,14 +39,14 @@ class PatientAuthController extends Controller
             return response()->json([
                 'error'=>"Invaild Email and Password",
                 'status'=>false
-            ],401);
+            ],200);
         }
 
         $patient = Patient::where('email',$request->email)->first();
         $token = $patient->createToken('myapptoken')->plainTextToken;
         $patient->token = $token;
         return response()->json([
-            'pateint'=>$patient,
+            'data'=>$patient,
             'status'=>true
         ], 200);
 
@@ -55,14 +55,12 @@ class PatientAuthController extends Controller
     public function Register(Request $request)
     {
         $rule = [
-            'name_en'=>'required',
-            'name_ar'=>'required',
-            'address_en'=>'required',
+            'name'=>'required',
+            'address'=>'required',
             'email'=>'email|required',
             'password'=>'required|confirmed',
             'phone'=>'required',
             'date_of_birth'=>'required',
-            'address_ar'=>'required',
             'gender'=>'required'
         ];
         // return $request->all();
@@ -72,7 +70,7 @@ class PatientAuthController extends Controller
             return response()->json([
                 'error'=>$validator->errors(),
                 'status'=>false
-            ], 401);
+            ], 200);
         }
         $code = $this->genetrateCode();
 
@@ -94,13 +92,13 @@ class PatientAuthController extends Controller
             Storage::disk('profile')->put($imgName, file_get_contents($request->file('img')));
             $image = 'public/files/profile/'.$imgName;
             $data_en = [
-                'name'=>$request->name_en,
-                'address'=>$request->address_en
+                'name'=>$request->name,
+                'address'=>$request->address
             ];
 
             $data_ar = [
-                'name'=>$request->name_ar,
-                'address'=>$request->address_ar
+                'name'=>$request->name,
+                'address'=>$request->address
             ];
           
           
@@ -118,7 +116,7 @@ class PatientAuthController extends Controller
                 return response()->json([
                     'msg'=>'Error Accure',
                     'status'=>false,
-                ], 401);
+                ], 200);
             }
         }else{
             $data_en = [
@@ -148,7 +146,7 @@ class PatientAuthController extends Controller
                 return response()->json([
                     'msg'=>'Error Accure',
                     'status'=>false,
-                ], 401);
+                ], 200);
             }
         }
 
@@ -165,7 +163,7 @@ class PatientAuthController extends Controller
         }else{
             return response()->json([
                 'error'=>'Invaild Code'
-            ],401 );
+            ],200 );
         }
     }
 
@@ -181,7 +179,7 @@ class PatientAuthController extends Controller
             return response()->json([
                 'error'=>$validator->errors(),
                 'status'=>false
-            ], 401);
+            ], 200);
         }
 
         $patient = Patient::where('email',$request->email)->first();
@@ -202,7 +200,7 @@ class PatientAuthController extends Controller
             return response()->json([
                 'msg'=>'Error Accure',
                 'status'=>false,
-            ], 401);
+            ], 200);
         }
     }
 

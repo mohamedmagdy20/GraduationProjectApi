@@ -39,7 +39,7 @@ class DoctorAuthController extends Controller
             return response()->json([
                 'msg'=>'Email or Password is Not Invaild',
                 'status'=>false
-            ], 401);
+            ], 200);
         }
         else{
             $doctor = Doctor::where('email',$request->email)->first();
