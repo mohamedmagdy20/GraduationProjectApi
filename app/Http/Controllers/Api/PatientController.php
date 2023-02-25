@@ -141,7 +141,7 @@ class PatientController extends Controller
             return response()->json([
                 'error'=>'Error Accure',
                 'status'=>false
-            ], 404);
+            ], 200);
         }
     }
 
@@ -166,7 +166,7 @@ class PatientController extends Controller
             return response()->json([
                 'error'=>'Not FOUND',
                 'status'=>false
-            ], 401);
+            ], 200);
         }
 
     }
@@ -211,7 +211,7 @@ class PatientController extends Controller
                  return response()->json([
                     'error'=>'Pateint not Found',
                     'status'=>false
-                 ], 404);
+                 ], 200);
             }else{
                 $imagePath = $patient->img;
                 if($imagePath == null)

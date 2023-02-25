@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApiAuth\PatientAuthController;
 use App\Http\Controllers\Api\PatientController;
 use App\Http\Controllers\ApiAuth\DoctorAuthController;
+use App\Http\Controllers\ApiAuth\UserAuthController;
+
 use App\Http\Controllers\Api\DoctorController;
 use App\Http\Controllers\Api\LocationController;
 
@@ -51,4 +53,10 @@ Route::middleware('auth:api-doctor')->prefix('doctor')->group(function(){
     Route::post('profile/check-code',[DoctorController::class,'CheckVerification']);
     Route::post('profile/change-password',[DoctorController::class,'changePassword']);
 
+});
+
+Route::post('admin/login',[UserAuthController::class,'login']);
+
+Route::middleware('auth:admin-api')->prefix('admin')->group(function(){
+    Route::get('/logout',[UserAuthController::class,'logout']);
 });

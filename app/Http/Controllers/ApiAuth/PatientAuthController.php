@@ -120,13 +120,13 @@ class PatientAuthController extends Controller
             }
         }else{
             $data_en = [
-                'name'=>$request->name_en,
-                'address'=>$request->address_en
+                'name'=>$request->name,
+                'address'=>$request->address
             ];
 
             $data_ar = [
-                'name'=>$request->name_ar,
-                'address'=>$request->address_ar
+                'name'=>$request->name,
+                'address'=>$request->address
             ];
             $data = array_merge($validator->validated(),[
                 'password'=>Hash::make($request->password),
