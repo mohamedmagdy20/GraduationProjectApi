@@ -31,7 +31,7 @@ class LocationController extends Controller
     public function store(Request $request){
         
         $rule = [
-            'lang'=>'required',
+            'long'=>'required',
             'lat'=>'required'
         ];
 
@@ -45,12 +45,17 @@ class LocationController extends Controller
             ], 200);
         }
 
-        if(Location::creata($request->all())){
+        $location = Location::first();
+
+
+        if($location->update($request->all())){
             return response()->json([
                 'status'=>true,
-                'msg'=>'Location Created'
+                'msg'=>'Location Updated'
             ], 200);
-        }else{
+        }
+        else
+        {
             return response()->json([
                 'error'=>'Error Accure',
                 'status'=>false

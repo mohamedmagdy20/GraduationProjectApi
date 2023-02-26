@@ -58,5 +58,6 @@ Route::middleware('auth:api-doctor')->prefix('doctor')->group(function(){
 Route::post('admin/login',[UserAuthController::class,'login']);
 
 Route::middleware('auth:admin-api')->prefix('admin')->group(function(){
+    Route::post('set-location',[LocationController::class,'store']);
     Route::get('/logout',[UserAuthController::class,'logout']);
 });
