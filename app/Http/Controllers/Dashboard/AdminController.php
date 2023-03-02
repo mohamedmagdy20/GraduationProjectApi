@@ -27,4 +27,13 @@ class AdminController extends Controller
         }
     }
 
+    // public functi
+    public function index()
+    {
+        $data = User::paginate(10);
+        return response()->json([
+            'data'=>$data,
+            'status'=>true
+        ], 200);
+    }
 }

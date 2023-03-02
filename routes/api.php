@@ -6,10 +6,10 @@ use App\Http\Controllers\ApiAuth\PatientAuthController;
 use App\Http\Controllers\Api\PatientController;
 use App\Http\Controllers\ApiAuth\DoctorAuthController;
 use App\Http\Controllers\ApiAuth\UserAuthController;
-
+use App\Http\Controllers\Dashboard\PatientController as PatientDasboard;
 use App\Http\Controllers\Api\DoctorController;
 use App\Http\Controllers\Api\LocationController;
-
+use App\Http\Controllers\Dashboard\AdminController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -59,5 +59,7 @@ Route::post('admin/login',[UserAuthController::class,'login']);
 
 Route::middleware('auth:admin-api')->prefix('admin')->group(function(){
     Route::post('set-location',[LocationController::class,'store']);
+    Route::get('patient/index',[PatientDasboard::class,'index']);
+    Route::get('index',[AdminController::class,'index'])->middleware('role:super_admin');
     Route::get('/logout',[UserAuthController::class,'logout']);
 });
