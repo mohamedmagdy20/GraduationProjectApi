@@ -67,7 +67,7 @@ class DoctorController extends Controller
 
                 $imgName = time().$request->file('image')->getClientOriginalName();
                 Storage::disk('doctor')->put($imgName, file_get_contents($request->file('image')));
-                $image = 'public/files/doctor/'.$imgName;
+                $image = asset('files/doctor' . $imgName );
 
                 $data = array_merge($request->all(),['en'=>$data_en],['ar'=>$data_ar],['image'=>$image]);
                 if($doctor->update($data))

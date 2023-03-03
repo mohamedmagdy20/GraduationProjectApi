@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApiAuth\PatientAuthController;
 use App\Http\Controllers\Api\PatientController;
+use App\Http\Controllers\Api\TipsController;
+
 use App\Http\Controllers\ApiAuth\DoctorAuthController;
 use App\Http\Controllers\ApiAuth\UserAuthController;
 use App\Http\Controllers\Dashboard\PatientController as PatientDasboard;
@@ -25,6 +27,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('health-tips',[TipsController::class,'index']);
+Route::get('health-tips/show/{id}',[TipsController::class,'show']);
+
 Route::post('patient/login',[PatientAuthController::class,'login']);
 Route::post('patient/register',[PatientAuthController::class,'Register']);
 Route::post('patient/verfiy',[PatientAuthController::class,'verifyUser']);
@@ -43,6 +48,7 @@ Route::middleware('auth:api-patient')->prefix('patient')->group(function(){
 });
 
 Route::post('doctor/login',[DoctorAuthController::class,'login']);
+Route::post('tips/create',[TipsController::class,'store']);
 
 Route::middleware('auth:api-doctor')->prefix('doctor')->group(function(){
     Route::get('/profile',[DoctorController::class,'profile']);
@@ -53,6 +59,7 @@ Route::middleware('auth:api-doctor')->prefix('doctor')->group(function(){
     Route::post('profile/check-code',[DoctorController::class,'CheckVerification']);
     Route::post('profile/change-password',[DoctorController::class,'changePassword']);
 
+    // Helath Tips //
 });
 
 Route::post('admin/login',[UserAuthController::class,'login']);

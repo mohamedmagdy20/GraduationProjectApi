@@ -226,7 +226,8 @@ class PatientController extends Controller
 
                     $imgName = time().$request->file('img')->getClientOriginalName();
                     Storage::disk('profile')->put($imgName, file_get_contents($request->file('img')));
-                    $image = 'public/files/profile/'.$imgName;
+                    // $image = 'public/files/profile/'.$imgName;
+                    $image = asset('files/profile' . $imgName);
                     
                     // Update DB
                     $data =array_merge($validator->validated(),['img'=>$image]);

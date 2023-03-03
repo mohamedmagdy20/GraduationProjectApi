@@ -43,6 +43,15 @@ class PatientAuthController extends Controller
         }
 
         $patient = Patient::where('email',$request->email)->first();
+
+        //check if this account is verified 
+        if($patient->email_verified_at == null)
+        {
+            return response()->json([
+                'error'=>'your Account is not Verified',
+                'status'=>false
+            ], 200); 
+        }
         $token = $patient->createToken('myapptoken')->plainTextToken;
         $patient->token = $token;
         return response()->json([
@@ -90,7 +99,8 @@ class PatientAuthController extends Controller
 
             // $request->file('img')->move(public_path('files/profile'),$imgName);
             Storage::disk('profile')->put($imgName, file_get_contents($request->file('img')));
-            $image = 'public/files/profile/'.$imgName;
+            // $image = 'public/files/profile/'.$imgName;
+            $image = asset('files/profile/' . $imgName);
             $data_en = [
                 'name'=>$request->name,
                 'address'=>$request->address

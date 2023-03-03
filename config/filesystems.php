@@ -50,7 +50,11 @@ return [
             'driver' => 'local',
             'root' => public_path('files/doctor'),
         ],
-        
+
+        'tips'=>[
+            'driver'=>'local',
+            'root'=> public_path('files/tips'),
+        ],
 
         
 
