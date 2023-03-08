@@ -12,6 +12,7 @@ use App\Http\Controllers\Dashboard\PatientController as PatientDasboard;
 use App\Http\Controllers\Api\DoctorController;
 use App\Http\Controllers\Api\LocationController;
 use App\Http\Controllers\Dashboard\AdminController;
+use App\Http\Controllers\Dashboard\DoctorController as DoctorDashboard;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -36,7 +37,7 @@ Route::post('patient/verfiy',[PatientAuthController::class,'verifyUser']);
 Route::post('patient/resend',[PatientAuthController::class,'resendCode']);
 Route::post('patient/send-email',[PatientController::class,'sendEmail']);
 Route::post('patient/check/code',[PatientController::class,'checkCode']);
-Route::put('patient/reset-password', [PatientController::class,'resetPassword']);
+Route::post('patient/reset-password', [PatientController::class,'resetPassword']);
 Route::get('location',[LocationController::class,'index']);
 
 Route::middleware('auth:api-patient')->prefix('patient')->group(function(){
@@ -69,4 +70,11 @@ Route::middleware('auth:admin-api')->prefix('admin')->group(function(){
     Route::get('patient/index',[PatientDasboard::class,'index']);
     Route::get('index',[AdminController::class,'index'])->middleware('role:super_admin');
     Route::get('/logout',[UserAuthController::class,'logout']);
+
+    // Doctor Crud 
+    Route::get('/doctor',[DoctorDashboard::class,'index']);
+    Route::post('/doctor/store',[DoctorDashboard::class,'store']);
+    Route::post('/doctor/edit',[DoctorDashboard::class,'edit']);
+    Route::get('/doctor/delete/{id}',[DoctorDashboard::class,'delete']);
+
 });

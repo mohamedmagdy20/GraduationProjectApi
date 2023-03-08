@@ -18,9 +18,9 @@ class TipsController extends Controller
         return  response()->json(['data'=>$data,'status'=>true], 200);
     }
 
-    public function show($id)
+    public function show(Request $request)
     {
-        $data = Tips::with('tip_image')->with('doctor')->find($id);
+        $data = Tips::with('tip_image')->with('doctor')->find($request->id);
         if($data)
         {
             return response()->json([

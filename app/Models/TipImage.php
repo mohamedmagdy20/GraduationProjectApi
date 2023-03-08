@@ -14,7 +14,7 @@ class TipImage extends Model
         'tip_id'
     ];
 
-    public function tip()
+    public function tips()
     {
         return $this->belongsTo(Tips::class,'tip_id');
     }

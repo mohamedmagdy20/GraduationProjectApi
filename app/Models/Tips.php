@@ -22,13 +22,13 @@ class Tips extends Model implements TranslatableContract
 
     // one to Many RelationShip
 
-    protected function doctor(){
+    public function doctor(){
         return $this->belongsTo(Doctor::class,'doctor_id');
     }
 
-    protected function tip_image()
+    public function tip_image()
     {
-        return $this->hasMany(TipImage::class);
+        return $this->hasMany(TipImage::class,'tip_id');
     }
 
     
