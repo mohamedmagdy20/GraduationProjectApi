@@ -27,7 +27,7 @@ class Doctor extends Authenticatable implements TranslatableContract
         'password',
         'image',
         'phone',
-        'email_verified_at',
+        'verifiyed_at',
         'remember_token',
         'code'
     ];

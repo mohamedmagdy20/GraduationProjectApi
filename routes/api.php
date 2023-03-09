@@ -59,8 +59,7 @@ Route::middleware('auth:api-doctor')->prefix('doctor')->group(function(){
     Route::get('profile/resend-email',[DoctorController::class,'resend']);
     Route::post('profile/check-code',[DoctorController::class,'CheckVerification']);
     Route::post('profile/change-password',[DoctorController::class,'changePassword']);
-
-    // Helath Tips //
+    Route::post('reset-setting',[DoctorAuthController::class,'resetSetting']);
 });
 
 Route::post('admin/login',[UserAuthController::class,'login']);
@@ -70,11 +69,11 @@ Route::middleware('auth:admin-api')->prefix('admin')->group(function(){
     Route::get('patient/index',[PatientDasboard::class,'index']);
     Route::get('index',[AdminController::class,'index'])->middleware('role:super_admin');
     Route::get('/logout',[UserAuthController::class,'logout']);
-
     // Doctor Crud 
     Route::get('/doctor',[DoctorDashboard::class,'index']);
     Route::post('/doctor/store',[DoctorDashboard::class,'store']);
     Route::post('/doctor/edit',[DoctorDashboard::class,'edit']);
     Route::get('/doctor/delete/{id}',[DoctorDashboard::class,'delete']);
+    Route::get('/doctor/show/{id}',[DoctorDashboard::class,'show']);
 
 });
