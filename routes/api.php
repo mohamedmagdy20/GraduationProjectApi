@@ -67,7 +67,6 @@ Route::post('admin/login',[UserAuthController::class,'login']);
 Route::middleware('auth:admin-api')->prefix('admin')->group(function(){
     Route::post('set-location',[LocationController::class,'store']);
     Route::get('patient/index',[PatientDasboard::class,'index']);
-    Route::get('index',[AdminController::class,'index'])->middleware('role:super_admin');
     Route::get('/logout',[UserAuthController::class,'logout']);
     // Doctor Crud 
     Route::get('/doctor',[DoctorDashboard::class,'index']);
@@ -75,5 +74,12 @@ Route::middleware('auth:admin-api')->prefix('admin')->group(function(){
     Route::post('/doctor/edit',[DoctorDashboard::class,'edit']);
     Route::get('/doctor/delete/{id}',[DoctorDashboard::class,'delete']);
     Route::get('/doctor/show/{id}',[DoctorDashboard::class,'show']);
+
+    // Admin Crud
+    Route::get('index',[AdminController::class,'index']);
+    Route::get('show/{id}',[AdminController::class,'show']);
+    Route::post('store',[AdminController::class,'store']);
+    Route::get('delete/{id}',[AdminController::class,'delete']);
+    Route::post('edit/{id}',[AdminController::class,'edit']);
 
 });

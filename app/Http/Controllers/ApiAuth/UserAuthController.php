@@ -40,7 +40,7 @@ class UserAuthController extends Controller
         
         // create Token //
         
-        $admin = User::where('email',$request->email)->first();
+        $admin = User::with('roles')->where('email',$request->email)->first();
 
         $token = $admin->createToken('admin token')->plainTextToken;
 
