@@ -262,6 +262,42 @@ class PatientController extends Controller
         
     }
 
+    public function changeImage(Request $request)
+    {
+        if($request->hasFile('img'))
+        {
+             //validate income i    
+             $validate_img = Validator::make($request->all(),[
+                'img'=>['image']
+            ]); 
+
+            if($validate_img->fails())
+            {
+                return response()->json(['error'=>$validate_img->errors()],401);
+            }
+            //delete current img
+            $patient = Patient::find(auth()->user()->id);
+            if(!$patient)
+            {
+                 return response()->json([
+                    'error'=>'Pateint not Found',
+                    'status'=>false
+                 ], 200);
+            }else{
+            
+                $imgName = time().$request->file('img')->getClientOriginalName();
+                Storage::disk('profile')->put($imgName, file_get_contents($request->file('img')));
+                // $image = 'public/files/profile/'.$imgName;
+                $image = asset('files/profile/' . $imgName);
+                return response()->json(
+                    ['msg'=>'Pateint Updated Sucessfuly','status'=>true]
+                    , 200);
+ 
+            }
+                            
+        
+        }
+    }
     public function genetrateCode()
     {
         $code =  rand(10000,99999);

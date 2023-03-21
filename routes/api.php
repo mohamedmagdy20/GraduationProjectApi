@@ -45,7 +45,7 @@ Route::middleware('auth:api-patient')->prefix('patient')->group(function(){
     Route::put('change-password',[PatientController::class,'changePassword']);
     Route::get('profile',[PatientController::class,'profile']);
     Route::post('edit',[PatientController::class,'editProfile']);
-
+    Route::post('edit-image',[PatientController::class,'changeImage']);
 });
 
 Route::post('doctor/login',[DoctorAuthController::class,'login']);
@@ -81,5 +81,7 @@ Route::middleware('auth:admin-api')->prefix('admin')->group(function(){
     Route::post('store',[AdminController::class,'store']);
     Route::get('delete/{id}',[AdminController::class,'delete']);
     Route::post('edit/{id}',[AdminController::class,'edit']);
+
+    Route::post('update/profile',[AdminController::class,'editProfile']);
 
 });

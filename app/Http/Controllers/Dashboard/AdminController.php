@@ -8,12 +8,14 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
     //
     public function profile()
     {
+
         $admin = User::findOrFail(Auth::user()->id);
         if($admin)
         {
@@ -28,6 +30,58 @@ class AdminController extends Controller
                 'status'=>true
             ], 200);
         }
+    }
+
+    public function editProfile(Request $request)
+    {
+        $rule = [
+            'email'=>'required|email',
+            'name'=>'required|string'
+        ];
+
+        $validator = Validator::make($request->all(),$rule);
+
+        if($validator->fails())
+        {
+            return response()->json([
+                'error'=>$validator->errors(),
+                'status'=>false
+            ], 200);
+        }
+
+        if($request->hasFile('img'))
+        {
+            //validate income img
+
+            $validate_img = Validator::make($request->all(),[
+                'img'=>['image']
+            ]);
+
+            
+            if($validate_img->fails())
+            {
+                return response()->json(['error'=>$validate_img->errors()],401);
+            }
+        }
+
+        $admin = User::find(auth()->user()->id);
+
+        $imgName = time().$request->file('img')->getClientOriginalName();
+        Storage::disk('admin')->put($imgName, file_get_contents($request->file('img')));
+        // $image = 'public/files/profile/'.$imgName;
+        $image = asset('files/admin/' . $imgName);
+
+
+        $data = array_merge($request->all(),['img'=>$image]);
+
+        if($admin->update($data))
+        {
+            return response()->json([
+                'status'=>true,
+                'msg'=>'Profile Updated Succefully'
+            ], 200);
+        }
+    
     }
 
     // public function

@@ -55,6 +55,10 @@ return [
             'driver'=>'local',
             'root'=> public_path('files/tips'),
         ],
+        'admin'=>[
+            'driver'=>'local',
+            'root'=> public_path('files/admin'),   
+        ],
 
         
 
