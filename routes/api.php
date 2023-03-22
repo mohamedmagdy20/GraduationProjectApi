@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\DoctorController;
 use App\Http\Controllers\Api\LocationController;
 use App\Http\Controllers\Dashboard\AdminController;
 use App\Http\Controllers\Dashboard\DoctorController as DoctorDashboard;
+use  App\Http\Controllers\Dashboard\ModelController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -83,5 +84,9 @@ Route::middleware('auth:admin-api')->prefix('admin')->group(function(){
     Route::post('edit/{id}',[AdminController::class,'edit']);
 
     Route::post('update/profile',[AdminController::class,'editProfile']);
+
+
+    // Model Api Test 
+    Route::post('model',[ModelController::class,'approveZhimer']);
 
 });
