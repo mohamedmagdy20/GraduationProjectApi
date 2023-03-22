@@ -89,4 +89,6 @@ Route::middleware('auth:admin-api')->prefix('admin')->group(function(){
     // Model Api Test 
     Route::post('model',[ModelController::class,'approveZhimer']);
 
+    Route::get('test-notification',[PatientDasboard::class,'sendReport']);
+
 });
