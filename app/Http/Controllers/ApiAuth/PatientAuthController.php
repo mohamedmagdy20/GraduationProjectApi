@@ -168,7 +168,7 @@ class PatientAuthController extends Controller
         if($patient)
         {
             $time = time();
-            $patient->update(['email_verified_at'=>$time]);
+            $patient->update(['email_verified_at'=>$time,'notification_token'=>$request->notification_token]);
             return response()->json(['patient'=>$patient,'msg'=>'Account Verfied','status'=>true], 200);
         }else{
             return response()->json([

@@ -13,7 +13,7 @@ class SendNotification
 
     public static function Send($token,$name)
     {
-        $SERVER_API_KEY = env('FCM_Key');
+        $SERVER_API_KEY = 'AAAABywFUoI:APA91bEoYnK-wdOBBFTShkvfnQQRTHgyg7mIsGTv2i6EvN-TSu1QLtlPE6RZ0LMePIpmXW75Vdx1oiqzPrhUT2ffH3zInfUyQ4PZG1rmWnpY2-1Lch5SVtrNqf_ZJM8uQGNVjuJ6QaRo';
 
         $data = [
     
@@ -25,8 +25,8 @@ class SendNotification
     
                 "title" => 'Medical Center',
     
-                "body" => 'Dear Mr'.$name.
-                'Hope To have Nice Day
+                "body" => 'Dear Mr '.$name.
+                ' Hope To have Nice Day
                 your Report Number 1 Has Been Added To your Profile With Our Best :)',
     
                 "sound"=> "default" // required for sound on ios

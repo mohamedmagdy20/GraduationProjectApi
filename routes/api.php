@@ -47,6 +47,11 @@ Route::middleware('auth:api-patient')->prefix('patient')->group(function(){
     Route::get('profile',[PatientController::class,'profile']);
     Route::post('edit',[PatientController::class,'editProfile']);
     Route::post('edit-image',[PatientController::class,'changeImage']);
+    
+    Route::get('notification',[PatientDasboard::class,'getAllNotification']);
+    Route::get('notification/make-seen',[PatientDasboard::class,'Makeseen']);
+    Route::get('notification/count',[PatientDasboard::class,'unseenNotificationCount']);
+
 });
 
 Route::post('doctor/login',[DoctorAuthController::class,'login']);
@@ -89,6 +94,6 @@ Route::middleware('auth:admin-api')->prefix('admin')->group(function(){
     // Model Api Test 
     Route::post('model',[ModelController::class,'approveZhimer']);
 
-    Route::get('test-notification',[PatientDasboard::class,'sendReport']);
+    Route::get('send-notification-patient',[PatientDasboard::class,'sendReport']);
 
 });

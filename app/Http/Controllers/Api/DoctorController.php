@@ -207,7 +207,8 @@ class DoctorController extends Controller
             ], 200);
         }
     }
-    
+
+    // public function send
     public function genetrateCode()
     {
         $code =  rand(10000,99999);
