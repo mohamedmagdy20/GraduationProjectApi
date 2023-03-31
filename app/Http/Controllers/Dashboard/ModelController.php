@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Http;
-
+use GuzzleHttp\Client;
 class ModelController extends Controller
 {
 
@@ -38,14 +38,38 @@ class ModelController extends Controller
 
             // Call Api From Django //
 
-            $responce = Http::withHeaders([
-                'Content-Type'=> 'application/json'   
-            ])->post('http://127.0.0.1:8000/alzhimer',[
-                'image'=>$request->file('image')
-            ]);
+            // $responce = Http::withHeaders([
+            //     'Content-Type'=> 'application/json'   
+            // ])->post('http://127.0.0.1:8000/alzhimer',[
 
+            //     'image'=>$request->file('image')
+            // ]);
+            // return $request->image;
+            // return $request->image->getPath();
+            $imageName = $request->image->getClientOriginalName();
+            $client = new \GuzzleHttp\Client();
+
+            $responce =  $client->request('POST','http://127.0.0.1:8000/alzhimer',[
+                'multipart' => [
+                    [
+                        'name' => 'image',
+                        'contents' =>  fopen($request->file('image')->getPathname(), 'r'),
+                        'filename' =>$imageName
+                    ],
+                ],
+                'headers' => [
+                    'Content-Type' => 'multipart/form-data; boundary=' . uniqid()
+                ]
+            ]);
             return $responce;
-    
+            // $responce =  Http::attach([
+            //     'name' =>'image',
+            //     'contents'=>file_get_contents($request->file('image')),
+            // ]
+            // )->withHeaders([
+            //     'Content-Type'=> 'application/json'   
+            // ])
+            // ->post('http://127.0.0.1:8000/alzhimer');
 
         
     }

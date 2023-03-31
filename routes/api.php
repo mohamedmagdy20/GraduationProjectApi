@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AppointmentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApiAuth\PatientAuthController;
@@ -89,11 +90,17 @@ Route::middleware('auth:admin-api')->prefix('admin')->group(function(){
     Route::post('edit/{id}',[AdminController::class,'edit']);
 
     Route::post('update/profile',[AdminController::class,'editProfile']);
-
+    Route::get('profile',[AdminController::class,'profile']);
 
     // Model Api Test 
-    Route::post('model',[ModelController::class,'approveZhimer']);
 
     Route::get('send-notification-patient',[PatientDasboard::class,'sendReport']);
 
 });
+
+Route::post('model',[ModelController::class,'approveZhimer']);
+
+Route::post('get-avalable-time',[AppointmentController::class,'getAvalableTime']);
+Route::post('reservation',[AppointmentController::class,'reservation']);
+
+
