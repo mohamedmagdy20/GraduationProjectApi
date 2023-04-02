@@ -66,15 +66,15 @@ class AdminController extends Controller
 
         $admin = User::find(auth()->user()->id);
 
-        $imgName = time().$request->file('img')->getClientOriginalName();
-        Storage::disk('admin')->put($imgName, file_get_contents($request->file('img')));
-        // $image = 'public/files/profile/'.$imgName;
-        $image = asset('files/admin/' . $imgName);
+        // $imgName = time().$request->file('img')->getClientOriginalName();
+        // Storage::disk('admin')->put($imgName, file_get_contents($request->file('img')));
+        // // $image = 'public/files/profile/'.$imgName;
+        // $image = asset('files/admin/' . $imgName);
 
 
-        $data = array_merge($request->all(),['img'=>$image]);
+        // $data = array_merge($request->all(),['img'=>$image]);
 
-        if($admin->update($data))
+        if($admin->update($request->all()))
         {
             return response()->json([
                 'status'=>true,

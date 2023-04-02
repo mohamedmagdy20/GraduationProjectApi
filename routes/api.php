@@ -53,6 +53,11 @@ Route::middleware('auth:api-patient')->prefix('patient')->group(function(){
     Route::get('notification/make-seen',[PatientDasboard::class,'Makeseen']);
     Route::get('notification/count',[PatientDasboard::class,'unseenNotificationCount']);
 
+    Route::post('get-avalable-time',[AppointmentController::class,'getAvalableTime']);
+    Route::post('reservation',[AppointmentController::class,'reservation']);
+
+    Route::get('get-all-category',[AppointmentController::class,'chooseScan']);
+
 });
 
 Route::post('doctor/login',[DoctorAuthController::class,'login']);
@@ -100,7 +105,5 @@ Route::middleware('auth:admin-api')->prefix('admin')->group(function(){
 
 Route::post('model',[ModelController::class,'approveZhimer']);
 
-Route::post('get-avalable-time',[AppointmentController::class,'getAvalableTime']);
-Route::post('reservation',[AppointmentController::class,'reservation']);
 
 

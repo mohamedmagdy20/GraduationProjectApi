@@ -16,12 +16,17 @@ class Result extends Model
         'img',
         'alzhimer_rate',
         'brain_rate',
-        'create_at'
+        'category_id'
     ];
 
     public function patient()
     {
         return $this->belongsTo(Patient::class,'patient_id');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class,'category_id');
     }
 
     

@@ -12,7 +12,8 @@ class Appointment extends Model
     protected $fillable = [
         'register_date',
         'appointment_times_id',
-        'patient_id'
+        'patient_id',
+        'category_id'
     ];
 
     public function patient()
@@ -23,6 +24,11 @@ class Appointment extends Model
     public function appointmentTimes()
     {
         return $this->belongsTo(AppointmentTime::class,'appointment_times_id');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class,'category_id');
     }
 
 }

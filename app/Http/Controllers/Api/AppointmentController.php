@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
 use App\Models\AppointmentTime;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -19,12 +20,18 @@ class AppointmentController extends Controller
         $this->model = $model;
     }
 
+    public function chooseScan()
+    {
+        return response()->json(Category::all(), 200);
+    }
+
     public function getAvalableTime(Request $request) 
     {
         $registerdTime = [];
         // Validataion //
         $rule = [
             'appointment_date'=>'required|date',
+            'category_id'=>'required'
         ];
 
         $validator = Validator::make($request->all(),$rule);
