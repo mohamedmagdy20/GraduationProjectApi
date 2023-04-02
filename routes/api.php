@@ -59,7 +59,7 @@ Route::middleware('auth:api-patient')->prefix('patient')->group(function(){
     Route::get('get-all-category',[AppointmentController::class,'chooseScan']);
 
 });
-
+// Test Comment //
 Route::post('doctor/login',[DoctorAuthController::class,'login']);
 Route::post('tips/create',[TipsController::class,'store']);
 
