@@ -12,6 +12,7 @@ use App\Http\Controllers\ApiAuth\UserAuthController;
 use App\Http\Controllers\Dashboard\PatientController as PatientDasboard;
 use App\Http\Controllers\Api\DoctorController;
 use App\Http\Controllers\Api\LocationController;
+use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Dashboard\AdminController;
 use App\Http\Controllers\Dashboard\DoctorController as DoctorDashboard;
 use  App\Http\Controllers\Dashboard\ModelController;
@@ -58,6 +59,11 @@ Route::middleware('auth:api-patient')->prefix('patient')->group(function(){
 
     Route::get('get-all-category',[AppointmentController::class,'chooseScan']);
 
+     Route::get('paymod/auth',[PaymentController::class,'getToken']);
+   
+    Route::get('get-reservation-result',[AppointmentController::class,'getReservationResult']);
+    
+    
 });
 // Test Comment //
 Route::post('doctor/login',[DoctorAuthController::class,'login']);

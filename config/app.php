@@ -28,6 +28,8 @@ return [
 
     'env' => env('APP_ENV', 'production'),
 
+    'paymodKey'=>env('PAYMODE_KEY'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Debug Mode

@@ -25,6 +25,8 @@ class AppointmentController extends Controller
         return response()->json(Category::all(), 200);
     }
 
+
+    // public function
     public function getAvalableTime(Request $request) 
     {
         $registerdTime = [];
@@ -84,5 +86,10 @@ class AppointmentController extends Controller
                 'status'=>false
             ], 400);
         }
+    }
+
+    public function getReservationResult(Request $request)
+    {
+        return $request->all();
     }
 }
