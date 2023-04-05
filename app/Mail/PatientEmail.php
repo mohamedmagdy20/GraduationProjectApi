@@ -21,6 +21,7 @@ class PatientEmail extends Mailable
     {
         $this->email = $email;
         $this->code = $code;
+        
     }
     /**
      * Build the message.
