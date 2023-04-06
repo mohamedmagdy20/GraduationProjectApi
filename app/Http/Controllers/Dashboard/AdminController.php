@@ -9,7 +9,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
-// use DataTables;
+use Yajra\DataTables\Facades\DataTables;
+
 class AdminController extends Controller
 {
     //
@@ -176,10 +177,10 @@ class AdminController extends Controller
     {
         $data = User::query();
 
-        // $result = DataTables()->eloquent($data)
-        // ->addColumn('action',function($data){
-        //     return view('dashboard.admins.action',['type'=>'action','data'=>$data]);
-        // })->toJson();
+        $result = DataTables()->eloquent($data)
+        ->addColumn('action',function($data){
+            return view('dashboard.admins.action',['type'=>'action','data'=>$data]);
+        })->toJson();
 
     
     }
