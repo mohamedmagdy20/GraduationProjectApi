@@ -188,6 +188,8 @@ class PatientController extends Controller
                 'status'=>false
             ], 200);
         }
+        $patient = Patient::find($request->id);
+
         if($request->hasFile('img'))
         {
             //validate income img
@@ -205,7 +207,6 @@ class PatientController extends Controller
 
 
             //delete current img
-            $patient = Patient::find($request->id);
             if(!$patient)
             {
                  return response()->json([

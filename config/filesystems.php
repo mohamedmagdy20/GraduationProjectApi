@@ -60,6 +60,11 @@ return [
             'root'=> public_path('files/admin'),   
         ],
 
+        'category'=>[
+            'driver'=>'local',
+            'root'=> public_path('files/category'),   
+        ],
+
         
 
         's3' => [
