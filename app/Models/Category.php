@@ -13,6 +13,8 @@ class Category extends Model
         'name',
         'notes',
         'img',
-        'price'
+        'img_name',
+        'price',
+        'is_active'
     ];
 }

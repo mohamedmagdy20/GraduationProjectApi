@@ -59,11 +59,20 @@
     </div>
 </nav>
 @include('layouts.sidebar')    
+
+
+
 <main class="content">
 
     @include('layouts.navigation')
 
+
+
+
     @yield('content')
+
+
+
 
 <div class="card theme-settings bg-gray-800 theme-settings-expand" id="theme-settings-expand">
     <div class="card-body bg-gray-800 text-white rounded-top p-3 py-2">

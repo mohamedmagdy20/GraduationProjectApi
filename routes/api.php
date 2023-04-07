@@ -82,32 +82,32 @@ Route::middleware('auth:api-doctor')->prefix('doctor')->group(function(){
 
 Route::post('admin/login',[UserAuthController::class,'login']);
 
-Route::middleware('auth:admin-api')->prefix('admin')->group(function(){
-    Route::post('set-location',[LocationController::class,'store']);
-    Route::get('patient/index',[PatientDasboard::class,'index']);
-    Route::get('/logout',[UserAuthController::class,'logout']);
-    // Doctor Crud 
-    Route::get('/doctor',[DoctorDashboard::class,'index']);
-    Route::post('/doctor/store',[DoctorDashboard::class,'store']);
-    Route::post('/doctor/edit',[DoctorDashboard::class,'edit']);
-    Route::get('/doctor/delete/{id}',[DoctorDashboard::class,'delete']);
-    Route::get('/doctor/show/{id}',[DoctorDashboard::class,'show']);
+// Route::middleware('auth:admin-api')->prefix('admin')->group(function(){
+//     Route::post('set-location',[LocationController::class,'store']);
+//     Route::get('patient/index',[PatientDasboard::class,'index']);
+//     Route::get('/logout',[UserAuthController::class,'logout']);
+//     // Doctor Crud 
+//     Route::get('/doctor',[DoctorDashboard::class,'index']);
+//     Route::post('/doctor/store',[DoctorDashboard::class,'store']);
+//     Route::post('/doctor/edit',[DoctorDashboard::class,'edit']);
+//     Route::get('/doctor/delete/{id}',[DoctorDashboard::class,'delete']);
+//     Route::get('/doctor/show/{id}',[DoctorDashboard::class,'show']);
 
-    // Admin Crud
-    Route::get('index',[AdminController::class,'index']);
-    Route::get('show/{id}',[AdminController::class,'show']);
-    Route::post('store',[AdminController::class,'store']);
-    Route::get('delete/{id}',[AdminController::class,'delete']);
-    Route::post('edit/{id}',[AdminController::class,'edit']);
+//     // Admin Crud
+//     Route::get('index',[AdminController::class,'index']);
+//     Route::get('show/{id}',[AdminController::class,'show']);
+//     Route::post('store',[AdminController::class,'store']);
+//     Route::get('delete/{id}',[AdminController::class,'delete']);
+//     Route::post('edit/{id}',[AdminController::class,'edit']);
 
-    Route::post('update/profile',[AdminController::class,'editProfile']);
-    Route::get('profile',[AdminController::class,'profile']);
+//     Route::post('update/profile',[AdminController::class,'editProfile']);
+//     Route::get('profile',[AdminController::class,'profile']);
 
-    // Model Api Test 
+//     // Model Api Test 
 
-    Route::get('send-notification-patient',[PatientDasboard::class,'sendReport']);
+//     Route::get('send-notification-patient',[PatientDasboard::class,'sendReport']);
 
-});
+// });
 
 Route::post('model',[ModelController::class,'approveZhimer']);
 

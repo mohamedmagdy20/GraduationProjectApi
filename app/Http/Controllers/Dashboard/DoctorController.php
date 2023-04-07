@@ -16,9 +16,34 @@ class DoctorController extends Controller
     //
     public function index()
     {
-        return  Doctor::paginate(10);
+        return view('dashboard.doctors.index');
     }
 
+    public function create(){
+        return view('dashboard.doctors.create');
+    }
+
+    public function edit($id)
+    {
+        $data = Doctor::findOrFail($id);
+        return view('dashboard.doctors.edit',compact('data'));
+    }
+
+    public function data()
+    {
+        $data = Doctor::query();
+        $result = DataTables()->eloquent($data)
+        ->addColumn('action',function($data){
+            return view('dashboard.doctors.action',['type'=>'action','data'=>$data]);
+            
+        })
+        ->addColumn('image',function($data){
+            return view('dashboard.doctors.action',['type'=>'image','data'=>$data]);
+            
+        })
+        ->toJson();
+        return $result;
+    }
 
     public function store(Request $request)
     {
@@ -52,18 +77,8 @@ class DoctorController extends Controller
     }
 
 
-    public function show($id)
-    {
-        $data = Doctor::findOrFail($id);
-
-        return response()->json([
-            'data'=>$data,
-            'status'=>true
-        ], 200);
-    }
-    // public function show()
-
-    public function edit(Request $request)
+    
+    public function update(Request $request)
     {
 
         $rule = [

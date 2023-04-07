@@ -1,16 +1,7 @@
 @extends('dashboard')
+
+
 @section('content')
-
-
-{{-- <div class="card border-0 shadow mb-4 mt-5">
-    <div class="card-body">
-        <div class="row">
-            <div class="col-md-6">
-                <a href="{{route('admin.create')}}" class="btn btn-primary"><i class="fa fa-plus"></i> Add Admin</a>
-            </div>
-        </div>
-    </div>
-</div> --}}
 
 
 <div class="card border-0 shadow mb-4 mt-5 p-4">
@@ -36,6 +27,7 @@
     </div>
 </div>
 
+
 <div class="card border-0 shadow mb-4">
     <div class="card-body">
         <div class="table-responsive">
@@ -49,14 +41,20 @@
                     </tr>
                 </thead>
                 <tbody>
-
+                    
+                    
                 </tbody>
             </table>
         </div>
     </div>
     
 </div>
+
 @endsection
+
+
+
+
 @section('js')
 <script>
 

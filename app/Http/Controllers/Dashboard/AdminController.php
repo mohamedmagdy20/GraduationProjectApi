@@ -87,11 +87,15 @@ class AdminController extends Controller
     }
 
 
+
     public function index()
     {
+
+   
         return view('dashboard.admins.index');
     }
 
+    
     public function create()
     {
         $role = Role::all();
@@ -102,6 +106,7 @@ class AdminController extends Controller
     {
         $data = User::query();
 
+   
         $result = DataTables()->eloquent($data)
         ->addColumn('action',function($data){
             return view('dashboard.admins.action',['type'=>'action','data'=>$data]);
@@ -113,6 +118,7 @@ class AdminController extends Controller
         })
         ->toJson();
         return $result;
+
     }
 
 

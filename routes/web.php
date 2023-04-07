@@ -3,7 +3,7 @@
 use App\Http\Controllers\Dashboard\AdminController;
 use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\CategoryController;
-
+use App\Http\Controllers\Dashboard\DoctorController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -40,12 +40,28 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function(){
 
 
     Route::group(['prefix'=>'category'],function(){
+        
         Route::get('index',[CategoryController::class,'index'])->name('category.index');
-        Route::get('create',[CategoryController::class,'create'])->name('cateogry.create');
+        Route::get('create',[CategoryController::class,'create'])->name('category.create');
         Route::post('store',[CategoryController::class,'store'])->name('cateogry.store');
-        Route::get('edit/{id}',[AdminController::class,'edit'])->name('category.edit');
+        Route::get('edit/{id}',[CategoryController::class,'edit'])->name('category.edit');
+        Route::post('update',[CategoryController::class,'update'])->name('category.update');
+
         Route::get('get_data',[CategoryController::class,'data'])->name('category.get-data'); 
         Route::post('delete',[CategoryController::class,'delete'])->name('category.delete');
+    });
+
+
+    Route::group(['prefix'=>'doctors'],function(){
+        
+        Route::get('index',[DoctorController::class,'index'])->name('doctors.index');
+        Route::get('create',[DoctorController::class,'create'])->name('doctors.create');
+        Route::post('store',[DoctorController::class,'store'])->name('doctors.store');
+        Route::get('edit/{id}',[DoctorController::class,'edit'])->name('doctors.edit');
+        Route::post('update',[DoctorController::class,'update'])->name('doctors.update');
+
+        Route::get('get_data',[DoctorController::class,'data'])->name('doctors.get-data'); 
+        Route::post('delete',[DoctorController::class,'delete'])->name('doctors.delete');
     });
 
 });
