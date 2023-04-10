@@ -120,7 +120,7 @@
                         });
                     }else{
                         $(".submit-button").html('Save').prop('disabled', false);
-
+                        console.log(data.error);
                         notyf.open({
                             type: 'error',
                             message: data.error.password[0]

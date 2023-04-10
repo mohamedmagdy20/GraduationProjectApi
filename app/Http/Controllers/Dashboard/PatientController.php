@@ -9,14 +9,51 @@ use App\Utils\SendNotification;
 use App\Models\Notification;
 class PatientController extends Controller
 {
-    //
-    public function index(){
-        $data = Patient::paginate(10);
-        return response()->json([
-            'data'=>$data,
-            'status'=>true
-        ], 200);
+    // //
+    // public function index(){
+    //     $data = Patient::paginate(10);
+    //     return response()->json([
+    //         'data'=>$data,
+    //         'status'=>true
+    //     ], 200);
+    // }
+    public function index()
+    {
+        return view('dashboard.patients.index');
     }
+
+    public function data()
+    {
+        $data = Patient::withTrashed();
+        $result = DataTables()->eloquent($data)
+        ->addColumn('action',function($data){
+            return view('dashboard.patients.action',['type'=>'action','data'=>$data]);
+            
+        })
+        ->addColumn('img',function($data){
+            return view('dashboard.patients.action',['type'=>'img','data'=>$data]);
+            
+        })
+        ->toJson();
+        return $result;
+    }
+
+    public function delete(Request $request)
+    {
+        $data = Patient::findOrFail($request->id);
+        $data->delete();
+        return response()->json(['status'=>true,'msg'=>'Patient Deactive'], 200);
+    }
+
+    public function restore(Request $request)
+    {
+        $data = Patient::withTrashed()->find($request->id);
+        $data->restore();  
+        return response()->json(['status'=>true,'msg'=>'Patient active'], 200);
+
+    }
+
+
 
     public function sendReport(Request $request)
     {

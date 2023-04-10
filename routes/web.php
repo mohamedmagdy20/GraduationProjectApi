@@ -4,6 +4,7 @@ use App\Http\Controllers\Dashboard\AdminController;
 use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\DoctorController;
+use App\Http\Controllers\Dashboard\PatientController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -62,6 +63,14 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function(){
 
         Route::get('get_data',[DoctorController::class,'data'])->name('doctors.get-data'); 
         Route::post('delete',[DoctorController::class,'delete'])->name('doctors.delete');
+    });
+
+    Route::group(['prefix'=>'patients'],function(){
+        
+        Route::get('index',[PatientController::class,'index'])->name('patients.index');     
+        Route::get('get_data',[PatientController::class,'data'])->name('patients.get-data'); 
+        Route::post('delete',[PatientController::class,'delete'])->name('patients.delete');
+        Route::post('restore',[PatientController::class,'restore'])->name('patients.restore');
     });
 
 });

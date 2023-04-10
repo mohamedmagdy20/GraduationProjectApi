@@ -21,7 +21,7 @@
                                             <a href="#" class="text-center text-primary fw-bold border-bottom border-light py-3">Notifications</a> 
                                             <a href="../../pages/calendar.html" class="list-group-item list-group-item-action border-bottom">
                                                 <div class="row align-items-center"><div class="col-auto"> 
-                                                    <img alt="Image placeholder" src="{{ auth()->user()->img ? asset('files/admin/'.$auth()->user()->img) : asset('files/profile/1677819690366180_0.jpg')  }}" class="avatar-md rounded">
+                                                    <img alt="Image placeholder" src="#" class="avatar-md rounded">
                                                 </div>
                                                 <div class="col ps-0 ms-2">
                                                     <div class="d-flex justify-content-between align-items-center">

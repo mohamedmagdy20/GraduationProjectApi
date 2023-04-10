@@ -69,7 +69,8 @@
                   
                   
                         <div class="col-md-12">
-                            <input type="submit" value="Save" class="btn btn-primary">
+                            {{-- <input type="submit" value="Save" class="btn btn-primary"> --}}
+                            <button class="btn btn-primary submit-button">Save</button>
                         </div>
                 </form>    
          
@@ -85,6 +86,8 @@
        $(document).ready(function(){
 
         $("#admin-form").submit(function(e){
+            $(".submit-button").html('<i class="fa fa-spinner fa-spin"></i> Adding...').prop('disabled', true);
+
             e.preventDefault();
             $.ajax({
                 url:'{{route('cateogry.store')}}',
@@ -98,6 +101,7 @@
                 success:function(data){
                     console.log(data.error);
                     if(data.status === true){
+                        $(".submit-button").html('Save').prop('disabled', false);
                      
                         notyf.open({
                             type: 'success',
@@ -107,6 +111,8 @@
 
                     }else{
                         console.log(data);
+                        $(".submit-button").html('Save').prop('disabled', false);
+
                         notyf.open({
                             type: 'error',
                             message: "Error Accure",
@@ -116,8 +122,8 @@
                 },
                 error:function(data)
                 {
-                    // alert('error')
-                    // notyf.success(data.error);
+                    $(".submit-button").html('Save').prop('disabled', false);
+
                     notyf.open({
                             type: 'error',
                             message: data.error
