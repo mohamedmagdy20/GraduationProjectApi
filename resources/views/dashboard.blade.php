@@ -35,6 +35,10 @@
 <link type="text/css" href="{{asset('assets/lib/notyf/notyf.min.css')}}" rel="stylesheet">
 
 <link rel="stylesheet" href="{{asset('assets/lib/datatables/datatables.min.css')}}">
+
+<link rel="stylesheet" href="{{asset('assets/css/loader.css')}}">
+
+
 <!-- Volt CSS -->
 <link type="text/css" href="{{asset('assets/css/volt.css')}}" rel="stylesheet">
 
@@ -44,7 +48,7 @@
 </head>
 
 <body>
-
+    @include('layouts.loader')
         <!-- NOTICE: You can use the _analytics.html partial to include production code specific code & trackers -->
         
 
@@ -91,6 +95,7 @@
 <script src="{{asset('assets/lib/@popperjs/core/dist/umd/popper.min.js')}}"></script>
 <script src="{{asset('assets/lib/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 
+
 <!-- Vendor JS -->
 <script src="{{asset('assets/lib/onscreen/dist/on-screen.umd.min.js')}}"></script>
 
@@ -134,6 +139,11 @@
 <script src="{{asset('assets/lib/datatables/datatables.min.js')}}"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" integrity="sha512-fD9DI5bZwQxOi7MhYWnnNPlvXdp/2Pj3XSTRrFs5FQa4mizyGLnJcN6tuvUS6LbmgN1ut+XGSABKvjN0H6Aoow==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+{{-- Loader --}}
+<script src="{{asset('assets/js/loader.js')}}"></script>
+
 
 <!-- Volt JS -->
 <script src="{{asset('assets/js/volt.js')}}"></script>

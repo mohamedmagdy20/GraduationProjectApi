@@ -25,9 +25,9 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
     
 // })->middleware(['auth'])->name('dashboard');
-Route::get('/',[HomeController::class,'index'])->middleware(['auth'])->name('dashboard');;
-
+Route::get('/logout',[HomeController::class,'logout'])->middleware(['auth'])->name('admin.logout');
 Route::middleware(['auth'])->prefix('dashboard')->group(function(){
+    Route::get('/',[HomeController::class,'index'])->middleware(['auth'])->name('dashboard');
     Route::group(['prefix'=>'admins'],function(){
         Route::get('index',[AdminController::class,'index'])->name('admin.index');
         Route::get('create',[AdminController::class,'create'])->name('admin.create');
