@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\LoginHistory;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
+use Jenssegers\Agent\Agent;
 use Illuminate\Support\Facades\Auth;
 
 class AuthenticatedSessionController extends Controller
@@ -28,10 +30,19 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {
-        $request->authenticate();
+        $agent = new Agent();
 
+        $request->authenticate();
         $request->session()->regenerate();
 
+        
+        LoginHistory::create([
+            'ip'=>request()->ip(),
+            'device_name'=>$agent->device(),
+            "browser" => $agent->browser(),
+            "name"=>auth()->user()->name,
+            // 'device_name'=>$
+        ]);
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 
