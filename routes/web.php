@@ -5,6 +5,8 @@ use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\DoctorController;
 use App\Http\Controllers\Dashboard\PatientController;
+use App\Http\Controllers\Dashboard\PermissionController;
+use App\Http\Controllers\Dashboard\RoleController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -19,9 +21,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('');
-// });
+Route::get('/', [HomeController::class,'index'])->middleware(['auth']);
 
 // Route::get('/', function () {
     
@@ -71,6 +71,21 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function(){
         Route::get('get_data',[PatientController::class,'data'])->name('patients.get-data'); 
         Route::post('delete',[PatientController::class,'delete'])->name('patients.delete');
         Route::post('restore',[PatientController::class,'restore'])->name('patients.restore');
+    });
+
+
+    Route::group(['prefix'=>'roles'],function(){     
+        Route::get('index',[RoleController::class,'index'])->name('roles.index');  
+        Route::get('edit/{id}',[RoleController::class,'edit'])->name('role.edit');
+        Route::get('update',[RoleController::class,'update'])->name('role.update');
+    });
+
+    
+    Route::group(['prefix'=>'permissions'],function(){     
+        
+        Route::get('edit/{id}',[PermissionController::class,'edit'])->name('permissions.edit');  
+        Route::post('update',[PermissionController::class,'update'])->name('permissions.update');
+
     });
 
 });

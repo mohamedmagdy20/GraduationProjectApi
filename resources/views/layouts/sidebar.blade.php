@@ -56,10 +56,15 @@
                   <span class="sidebar-text">All Admins</span>
                 </a>
               </li>
-              
               <li class="nav-item ">
                 <a class="nav-link" href="{{route('admin.create')}}">
                   <span class="sidebar-text">Add Admins</span>
+                </a>
+              </li>
+
+              <li class="nav-item ">
+                <a class="nav-link" href="{{route('roles.index')}}">
+                  <span class="sidebar-text">Roles</span>
                 </a>
               </li>
              

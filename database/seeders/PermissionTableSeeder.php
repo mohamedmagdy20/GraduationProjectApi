@@ -14,17 +14,29 @@ class PermissionTableSeeder extends Seeder
     public function run()
     {
         //
-        $permission = Permission::create([
-            'name'=>'add_admin',
-            'display_name'=>'Add Admins',   
+      //
+      $data =[
+        [
+           'name'=>'show_admins',
+           'display_name'=>'Show Admins'
         ],
         [
-            'name'=>'edit_admin',
-            'display_name'=>'Edit Admin',    
+           'name'=>'add_admins',
+           'display_name'=>'Add Admins'
         ],
         [
-            'name'=>'delete_admin',
-            'display_name'=>'Delete Admin'
-        ]);
+           'name'=>'edit_admins',
+           'display_name'=>'Edit Admins'
+        ],
+        [
+           'name'=>'delete_admins',
+           'display_name'=>'Delete Admins'
+        ]
+        ];
+        
+        foreach($data as $d)
+        {
+            Permission::create($d);
+        }
     }
 }
