@@ -10,12 +10,14 @@ use Laravel\Sanctum\HasApiTokens;
 use App\Models\Result;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 class Doctor extends Authenticatable implements TranslatableContract
 {
-    use HasApiTokens, HasFactory, Notifiable ,Translatable;
+    use HasApiTokens, HasFactory, Notifiable ,Translatable,SoftDeletes;
 
     public $translatedAttributes = ['name'];
-    protected $table = 'Doctors';
+    protected $table = 'doctors';
     protected $gaurded = [];
     /**
      * The attributes that are mass assignable.

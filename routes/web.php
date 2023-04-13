@@ -55,14 +55,18 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function(){
 
     Route::group(['prefix'=>'doctors'],function(){
         
+        // view pages and get data
         Route::get('index',[DoctorController::class,'index'])->name('doctors.index');
         Route::get('create',[DoctorController::class,'create'])->name('doctors.create');
-        Route::post('store',[DoctorController::class,'store'])->name('doctors.store');
         Route::get('edit/{id}',[DoctorController::class,'edit'])->name('doctors.edit');
-        Route::post('update',[DoctorController::class,'update'])->name('doctors.update');
-
         Route::get('get_data',[DoctorController::class,'data'])->name('doctors.get-data'); 
+
+        // act with db 
+        Route::post('store',[DoctorController::class,'store'])->name('doctors.store');
+        Route::post('update',[DoctorController::class,'update'])->name('doctors.update');
         Route::post('delete',[DoctorController::class,'delete'])->name('doctors.delete');
+
+
     });
 
     Route::group(['prefix'=>'patients'],function(){
