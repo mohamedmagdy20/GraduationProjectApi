@@ -55,7 +55,7 @@
                             <!-- input -->
                             <div class="mb-4">
                                 <label for="img">image <span class="text-danger">*</span></label>
-                                <input type="file" class="form-control" id="image-input" aria-describedby="" name="img">
+                                <input type="file" class="form-control" id="image-input" aria-describedby="" value="{{$data->img_name}}" name="img">
                             </div>
                             <!-- End of input -->
                             <img src="{{asset('files/category/'.$data->img_name)}}" class="w-25" alt="" srcset="">

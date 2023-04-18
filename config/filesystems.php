@@ -64,6 +64,11 @@ return [
             'driver'=>'local',
             'root'=> public_path('files/category'),   
         ],
+        
+        'results'=>[
+            'driver'=>'local',
+            'root'=>public_path('files/results')
+        ],
 
         
 

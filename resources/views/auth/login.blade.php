@@ -23,6 +23,7 @@
 <!-- Volt CSS -->
 <link type="text/css" href="{{asset('assets/css/volt.css')}}" rel="stylesheet">
 
+<script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 
 <body>
@@ -46,8 +47,11 @@
                                         <span class="input-group-text" id="basic-addon1">
                                             <svg class="icon icon-xs text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
                                         </span>
-                                        <input type="email" class="form-control" placeholder="example@company.com" id="email" name="email" autofocus required>
+                                        <input type="email" class="form-control" placeholder="example@company.com" id="email" name="email" autofocus >
                                     </div>  
+                                    @error('email')
+                                    <span class="text-danger"> {{ $message }} </span>
+                                    @enderror
                                 </div>
                                 <!-- End of Form -->
                                 <div class="form-group">
@@ -58,9 +62,16 @@
                                             <span class="input-group-text" id="basic-addon2">
                                                 <svg class="icon icon-xs text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg>
                                             </span>
-                                            <input type="password" placeholder="Password" class="form-control" id="password" name="password" required>
+                                            <input type="password" placeholder="Password" class="form-control" id="password" name="password" >
                                         </div>  
+                                        @error('password')
+                                        <span class="text-danger"> {{ $message }} </span>
+                                        @enderror
                                     </div>
+
+                                    {{-- Rechaptcha --}}
+                                    <div class="g-recaptcha" data-sitekey="{{ config('app.recaptcha_sitekey') }}"></div>
+                                
                                     <!-- End of Form -->
                                     <div class="d-flex justify-content-between align-items-top mb-4">
                                         <div class="form-check">
@@ -139,6 +150,7 @@
 
 <!-- Volt JS -->
 <script src="{{asset('assets/js/volt.js')}}"></script>
+
 
     
 </body>

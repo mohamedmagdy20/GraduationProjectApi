@@ -13,7 +13,9 @@ class Appointment extends Model
         'register_date',
         'appointment_times_id',
         'patient_id',
-        'category_id'
+        'category_id',
+        'is_done',
+        'invoice_id'
     ];
 
     public function patient()

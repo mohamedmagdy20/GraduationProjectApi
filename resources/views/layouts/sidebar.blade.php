@@ -182,6 +182,17 @@
             </ul>
           </div>
         </li>
+
+
+        {{-- Classificatieon Request --}}
+        <li class="nav-item">
+          <a href="{{route('classification-request.index')}}" class="nav-link d-flex align-items-center">
+            <span class="sidebar-icon">
+              <i class="fa fa-code-pull-request"></i>
+            </span>
+            <span class="mt-1 ms-1 sidebar-text">Classficiation Requests</span>
+          </a>
+        </li>
         {{-- end of side bar --}}
 
         <li role="separator" class="dropdown-divider mt-4 mb-3 border-gray-700"></li>

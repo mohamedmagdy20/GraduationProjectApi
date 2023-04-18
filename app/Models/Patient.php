@@ -17,7 +17,12 @@ class Patient extends Authenticatable implements TranslatableContract
     use HasApiTokens, HasFactory, Notifiable ,Translatable, SoftDeletes;
 
     public $translatedAttributes = ['name', 'address'];
+
+    
     protected $table = 'patients';
+    
+    
+    
     protected $gaurded = [];
     /**
      * The attributes that are mass assignable.
@@ -25,6 +30,7 @@ class Patient extends Authenticatable implements TranslatableContract
      * @var array<int, string>
      */
     protected $fillable = [
+        'id',
         'email',
         'password',
         'gender',
@@ -41,6 +47,11 @@ class Patient extends Authenticatable implements TranslatableContract
     public function result()
     {
         return $this->hasMany(Result::class);
+    }
+
+    public function appointment()
+    {
+        return $this->hasMany(Appointment::class);
     }
 
     /**

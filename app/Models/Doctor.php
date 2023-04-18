@@ -31,6 +31,7 @@ class Doctor extends Authenticatable implements TranslatableContract
         'phone',
         'verifiyed_at',
         'remember_token',
+        'notification_token',
         'code'
     ];
 

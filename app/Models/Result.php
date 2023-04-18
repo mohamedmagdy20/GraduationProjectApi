@@ -11,22 +11,33 @@ class Result extends Model
     protected $table = 'results';
     protected $fillable = [
         'patient_id',
-        'alzhimer_result',
-        'brain_result',
+        'result',
         'img',
-        'alzhimer_rate',
-        'brain_rate',
-        'category_id'
+        'rate', 
+        'category_id',
+        'notes',
+        'doctor_id'
     ];
 
+
+
+
+    // 1 patient to many result
     public function patient()
     {
         return $this->belongsTo(Patient::class,'patient_id');
     }
 
+    // 1 category to many result
     public function category()
     {
         return $this->belongsTo(Category::class,'category_id');
+    }
+
+    // 1 doctor to many result //
+    public function doctor()
+    {
+        return $this->belongsTo(Doctor::class,'doctor_id');
     }
 
     
