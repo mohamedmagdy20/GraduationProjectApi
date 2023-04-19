@@ -193,8 +193,39 @@
             <span class="mt-1 ms-1 sidebar-text">Classficiation Requests</span>
           </a>
         </li>
-        {{-- end of side bar --}}
 
+        {{-- Results --}}
+        <li class="nav-item">
+          <a href="{{route('results.index')}}" class="nav-link d-flex align-items-center">
+            <span class="sidebar-icon">
+              <i class="fa fa-square-poll-vertical"></i>
+            </span>
+            <span class="mt-1 ms-1 sidebar-text">Results</span>
+          </a>
+        </li>
+
+           {{-- Invoices --}}
+           <li class="nav-item">
+            <a href="{{route('invoices.index')}}" class="nav-link d-flex align-items-center">
+              <span class="sidebar-icon">
+                <i class="fa-solid fa-file-invoice"></i>
+              </span>
+              <span class="mt-1 ms-1 sidebar-text">Invoices</span>
+            </a>
+          </li>
+
+          
+           {{-- Invoices --}}
+           <li class="nav-item">
+            <a href="{{route('invoices.index')}}" class="nav-link d-flex align-items-center">
+              <span class="sidebar-icon">
+                <i class="fa fa-bell"></i>
+              </span>
+              <span class="mt-1 ms-1 sidebar-text">Invoices</span>
+            </a>
+          </li>
+         
+        {{-- end of side bar --}}
         <li role="separator" class="dropdown-divider mt-4 mb-3 border-gray-700"></li>
        
 

@@ -176,6 +176,37 @@
 
         var $disabledResults = $(".select");
         $disabledResults.select2();
+
+
+        var input = document.getElementById('image-input');
+        input.addEventListener('change', handleFileSelect, false);
+
+        function handleFileSelect(event) {
+         var file = event.target.files[0];
+               
+         // Check if the selected file is an image
+         if (!file.type.match('image.*')) {
+           alert('Please select an image file.');
+           return;
+         }
+         
+         // Create a FileReader object to read the file
+         var reader = new FileReader();
+         
+         // Set the onload event handler of the FileReader object
+         reader.onload = function(event) {
+           // Create an image element with the selected image
+           var img = document.createElement('img');
+           img.setAttribute('src', event.target.result);
+           
+           // Add the image element to the image container div
+           var container = document.getElementById('image-container');
+           container.appendChild(img);
+         };
+         
+         // Read the selected file as a data URL
+         reader.readAsDataURL(file);
+        }
 </script>
 </body>
 

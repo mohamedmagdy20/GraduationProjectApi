@@ -11,10 +11,12 @@ use App\Models\Result;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 class Doctor extends Authenticatable implements TranslatableContract
 {
     use HasApiTokens, HasFactory, Notifiable ,Translatable,SoftDeletes;
+    use LogsActivity;
 
     public $translatedAttributes = ['name'];
     protected $table = 'doctors';
@@ -35,6 +37,15 @@ class Doctor extends Authenticatable implements TranslatableContract
         'code'
     ];
 
+    protected static $logEvents = ['created', 'deleted'];
+    public function getActivitylogOptions(): LogOptions
+    {
+        $admin =  auth()->user()->name ?? "system" ;
+        return LogOptions::defaults()
+            ->logAll()
+            ->useLogName('Partner')
+            ->setDescriptionForEvent(fn(string $eventName) => "Doctor has been {$eventName} by ($admin)");
+    }
 
 
     /**

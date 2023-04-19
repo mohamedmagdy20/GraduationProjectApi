@@ -151,7 +151,9 @@ class PatientController extends Controller
         app()->setLocale($request->header('lang'));
         // return Auth::user()->id;
         // return $request->header('lang');
-        $patient = Patient::with('result')->find(Auth::user()->id);
+        $patient = Patient::with('result')->with('appointment'=>function($q){
+            $q->with('test');
+        })->with('invoice')->find(Auth::user()->id);
         // $patient = $data->translate('ar');
 
         // return $data;

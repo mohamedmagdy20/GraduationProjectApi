@@ -10,11 +10,15 @@ use Illuminate\Support\Str;
 use Laravel\Sanctum\NewAccessToken;
 use Laravel\Sanctum\HasApiTokens;
 use Laratrust\Traits\LaratrustUserTrait;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Models\Activity;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class User extends Authenticatable
 {
     use LaratrustUserTrait;
     use HasApiTokens, HasFactory, Notifiable;
+    use LogsActivity;
 
     /**
      * The attributes that are mass assignable.
@@ -58,5 +62,29 @@ class User extends Authenticatable
         ]);
 
         return new NewAccessToken($token, $token->getKey().'|'.$plainTextToken);
+    }
+
+    public function tapActivity(Activity $activity, string $eventName)
+    {
+        $this->setActivityCauser($activity);
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        $user =  auth()->user() ?? "system" ;
+        return LogOptions::defaults()
+        ->logAll()
+        ->useLogName('Partner')
+        ->setDescriptionForEvent(fn(string $eventName) => "Admin has been {$eventName} by ($user->email)");
+    }
+
+    function setActivityCauser($resource)
+    {
+        try {
+            $resource->causer_id = auth()->user()->id;
+            $resource->causer_type = "App\Models\User";
+        } catch (\Exception $th) {
+            //throw $th;
+        }
     }
 }

@@ -5,9 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Patient;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 class Result extends Model
 {
     use HasFactory;
+    use LogsActivity;
     protected $table = 'results';
     protected $fillable = [
         'patient_id',
@@ -40,5 +43,14 @@ class Result extends Model
         return $this->belongsTo(Doctor::class,'doctor_id');
     }
 
+    protected static $logEvents = ['created', 'updated', 'deleted'];
+    public function getActivitylogOptions(): LogOptions
+    {
+        $admin =  auth()->user()->name ?? "system" ;
+        return LogOptions::defaults()
+            ->logAll()
+            ->useLogName('Partner')
+            ->setDescriptionForEvent(fn(string $eventName) => "Result has been {$eventName} by ($admin)");
+    }
     
 }

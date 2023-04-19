@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 class Category extends Model
 {
     use HasFactory;
+    use LogsActivity;
+
     protected $table = 'category';
     protected $fillable = [
         'name',
@@ -17,4 +20,14 @@ class Category extends Model
         'price',
         'is_active'
     ];
+
+    protected static $logEvents = ['created', 'updated', 'deleted'];
+    public function getActivitylogOptions(): LogOptions
+    {
+        $admin =  auth()->user()->name ?? "system" ;
+        return LogOptions::defaults()
+            ->logAll()
+            ->useLogName('Partner')
+            ->setDescriptionForEvent(fn(string $eventName) => "Category has been {$eventName} by ($admin)");
+    }
 }

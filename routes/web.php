@@ -5,10 +5,12 @@ use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\ClassificationRequestController;
 use App\Http\Controllers\Dashboard\DoctorController;
+use App\Http\Controllers\Dashboard\InvoiceController;
 use App\Http\Controllers\Dashboard\PatientController;
 use App\Http\Controllers\Dashboard\PermissionController;
 use App\Http\Controllers\Dashboard\RoleController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Dashboard\ResultController;
 
 
 /*
@@ -39,6 +41,13 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function(){
         Route::post('update/{id}',[AdminController::class,'update'])->name('admin.update')->middleware('permission:edit_admins');
         Route::get('get_data',[AdminController::class,'data'])->name('admin.get-data')->middleware('permission:show_admins'); 
         Route::post('delete',[AdminController::class,'delete'])->name('admin.delete')->middleware('permission:delete_admins');
+
+        Route::get('profile',[AdminController::class,'profile'])->name('admin.profile');
+        Route::get('change-password',[AdminController::class,'changePasswordView'])->name('change-password');
+        Route::post('edit-profile',[AdminController::class,'editProfile'])->name('admin.edit.profile');
+        Route::post('change-password',[AdminController::class,'changePassword'])->name('admin.change-password');
+        
+
     });
 
 
@@ -105,6 +114,16 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function(){
         Route::get('create/{id}',[ClassificationRequestController::class,'create'])->name('classification-request.create');
         Route::post('make-classification',[ClassificationRequestController::class,'makeClassification'])->name('classification-request.make');
    
+    });
+    Route::group(['prefix'=>'results'],function(){
+        Route::get('index',[ResultController::class,'index'])->name('results.index');    
+        Route::get('data',[ResultController::class,'data'])->name('results.get-data');
+    });
+
+    
+    Route::group(['prefix'=>'invoices'],function(){
+        Route::get('index',[InvoiceController::class,'index'])->name('invoices.index');    
+        Route::get('data',[InvoiceController::class,'data'])->name('invoices.get-data');
     });
 
 });

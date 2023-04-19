@@ -17,5 +17,11 @@ class Invoice extends Model
         'date',
         'data_message',
     ];
+
+
+    public function patient()
+    {
+        return $this->belongsToMany(Patient::class,'appointments');
+    }
 }
 
