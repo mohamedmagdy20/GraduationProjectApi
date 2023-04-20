@@ -40,6 +40,10 @@
 
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css" integrity="sha512-O03ntXoVqaGUTAeAmvQ2YSzkCvclZEcPQu1eqloPaHfJ5RuNGiS4l+3duaidD801P50J28EHyonCV06CUlTSag==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.min.css" integrity="sha512-zdX1vpRJc7+VHCUJcExqoI7yuYbSFAbSWxscAoLF0KoUPvMSAK09BaOZ47UFdP4ABSXpevKfcD0MTVxvh0jLHQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 <!-- Volt CSS -->
 <link type="text/css" href="{{asset('assets/css/volt.css')}}" rel="stylesheet">
 
@@ -148,10 +152,33 @@
 <script src="{{asset('assets/js/loader.js')}}"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js" integrity="sha512-Zq9o+E00xhhR/7vJ49mxFNJ0KQw1E1TMWkPTxrWcnpfEFDEXgUiwJHIKit93EW/XxE31HSI5GEOW06G6BF1AtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.1/viewer.min.js"></script>
+<script type="text/javascript" src="https://cdn.rawgit.com/igorlino/elevatezoom-plus/1.1.6/src/jquery.ez-plus.js"></script>
+
+
 <!-- Volt JS -->
 <script src="{{asset('assets/js/volt.js')}}"></script>
 
 @yield('js')
+
+<script>
+    $(document).ready(function() {
+        const imageElements = document.querySelectorAll('.image-viewer');
+        imageElements.forEach((element) => {
+            new Viewer(element);
+            $('.image-viewer').ezPlus({
+                zoomType: 'inner',
+                cursor: 'crosshair'
+            });
+        });
+    });
+
+   
+
+</script>
+
 
 <script>
         const notyf = new Notyf({
@@ -172,6 +199,16 @@
             }
         ]
         });
+
+        function viewImg(img)
+        {
+            new Viewer(img);
+            $(img).ezPlus({
+                zoomType: 'inner',
+                cursor: 'crosshair'
+            });
+        }
+
         
 
         var $disabledResults = $(".select");

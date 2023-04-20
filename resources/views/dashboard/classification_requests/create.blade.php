@@ -142,7 +142,7 @@
                                 
                                     <tr>
                                         <td>image  : </td>
-                                        <td><img src="" class="result-img" id="result-img" name="result-img" alt=""> </td>
+                                        <td><img src="" class="result-img image-viewer" id="result-img" name="result-img" alt=""> </td>
                                     </tr>
                                 </tbody>
                             </table>

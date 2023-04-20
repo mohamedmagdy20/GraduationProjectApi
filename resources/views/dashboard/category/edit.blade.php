@@ -54,6 +54,15 @@
                         <div class="col-lg-12 col-sm-12">
                             <!-- input -->
                             <div class="mb-4">
+                                <label for="url">Url <span class="text-danger">*</span></label>
+                                <input type="url" class="form-control" id="url" aria-describedby="" name="url" value="{{$data->url}}">
+                            </div>
+                            <!-- End of input -->
+                        </div>
+
+                        <div class="col-lg-12 col-sm-12">
+                            <!-- input -->
+                            <div class="mb-4">
                                 <label for="img">image <span class="text-danger">*</span></label>
                                 <input type="file" class="form-control" id="image-input" aria-describedby="" value="{{$data->img_name}}" name="img">
                             </div>

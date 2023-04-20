@@ -15,7 +15,7 @@
                                 <div class="d-flex align-items-center">
                                     <div class="me-3">
                                         <!-- Avatar -->
-                                        <img class="rounded avatar-xl" src="{{auth()->user()->img ? asset('files/admin/'.auth()->user()->img) : asset('assets/image/team/profile-picture-1.jpg')}}" alt="change avatar">
+                                        <img class="rounded avatar-xl image-viewer" src="{{auth()->user()->img ? asset('files/admin/'.auth()->user()->img) : asset('assets/image/team/profile-picture-1.jpg')}}" data-viewer="{{auth()->user()->img}}" alt="change avatar">
                                     </div>
                                     <div class="file-field">
                                         <div class="d-flex justify-content-xl-center ms-xl-3">

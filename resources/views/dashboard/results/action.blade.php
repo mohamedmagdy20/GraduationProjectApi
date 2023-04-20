@@ -4,9 +4,10 @@
 
         $data->img ? $data->img : asset('assets/image/team/profile-picture-2.jpg')
         
-        }}" alt="{{$data->img}}">
+        }}"  onclick="viewImg(this)"  alt="{{$data->img}}">
         @break
 
     @default
         
 @endswitch
+

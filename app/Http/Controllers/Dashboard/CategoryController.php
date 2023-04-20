@@ -22,7 +22,7 @@ class CategoryController extends Controller
     public function data()
     {
         // Select * from Category 
-        $data = Category::query();
+        $data = Category::withTrashed();
 
         $result = DataTables()->eloquent($data)
         ->addColumn('action',function($data){
@@ -56,7 +56,8 @@ class CategoryController extends Controller
         $request->validate([
             'name'=>'required',
             'price'=>'required',
-            'img'=>'file|required'
+            'img'=>'file|required',
+            'url'=>'required|url'
         ]);
 
         // $request->name;
@@ -106,6 +107,7 @@ class CategoryController extends Controller
         $request->validate([
             'name'=>'required',
             'price'=>'required',
+            'url'=>'required|url'
             
         ]);
 
@@ -154,7 +156,14 @@ class CategoryController extends Controller
         // DELETE FROM CATEGORY WHERE ID = ID
         $data = Category::findOrFail($request->id);
         $data->delete();
-        return response()->json(['status'=>true], 200);
+        return response()->json(['msg'=>'Category Activate','status'=>true], 200);
+    }
+
+    public function restore(Request $request)
+    {
+        $data = Category::withTrashed()->findOrFail($request->id);
+        $data->restore();
+        return response()->json(['status'=>true,'msg'=>'Category active'], 200);
     }
     
     

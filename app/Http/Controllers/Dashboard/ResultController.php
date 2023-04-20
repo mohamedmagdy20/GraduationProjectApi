@@ -33,6 +33,7 @@ class ResultController extends Controller
         ->addColumn('img',function($query){
             return view('dashboard.results.action',['type'=>'img','data'=>$query]);
         })
-        ->toJson();
+        ->rawColumns(['img'])
+        ->make(true);
     }
 }

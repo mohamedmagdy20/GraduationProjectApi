@@ -55,7 +55,6 @@ class AdminController extends Controller
         $rule = [
             'email'=>'required|email',
             'name'=>'required|string',
-            'img'=>'required|image'
         ];
 
         $validator = Validator::make($request->all(),$rule);
@@ -67,6 +66,7 @@ class AdminController extends Controller
                 'status'=>false
             ], 200);
         }
+        $admin = User::find(auth()->user()->id);
 
         if($request->hasFile('img'))
         {
@@ -81,7 +81,6 @@ class AdminController extends Controller
             {
                 return response()->json(['error'=>$validate_img->errors()],200);
             }
-            $admin = User::find(auth()->user()->id);
 
             if($admin->img)
             {
@@ -90,9 +89,17 @@ class AdminController extends Controller
 
             $imgName = time().$request->file('img')->getClientOriginalName();
             Storage::disk('admin')->put($imgName, file_get_contents($request->file('img')));
+
+            if($admin->update(array_merge($request->all(),['img'=>$imgName])))
+            {
+                return response()->json([
+                    'status'=>true,
+                    'msg'=>'Profile Updated Succefully'
+                ], 200);
+            }
         }
 
-        if($admin->update(array_merge($request->all(),['img'=>$imgName])))
+        if($admin->update($request->all()))
         {
             return response()->json([
                 'status'=>true,
@@ -120,7 +127,7 @@ class AdminController extends Controller
 
     public function data(Request $request)
     {
-        $data = User::query();
+        $data = User::withTrashed();
 
    
         $result = DataTables()->eloquent($data)
@@ -178,6 +185,13 @@ class AdminController extends Controller
         $admin = User::findOrFail($request->id);
         $admin->delete();
         // return back();
-         return response()->json(['success'=>true], 200);
+         return response()->json(['msg'=>'Admin DeActivate','status'=>true], 200);
+    }
+
+    public function restore(Request $request)
+    {
+        $admin = User::withTrashed()->findOrFail($request->id);
+        $admin->restore();
+        return response()->json(['msg'=>'Admin Activate','status'=>true], 200);
     }
 }

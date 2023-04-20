@@ -24,6 +24,6 @@ class Notification extends Model
 
     public function doctor()
     {
-        return $this->belongسTo(Doctor::class,'doctor_id');
+        return $this->belongsTo(Doctor::class,'doctor_id');
     }
 }

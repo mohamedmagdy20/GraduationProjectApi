@@ -102,45 +102,109 @@ $(function() {
 });
 
 
-// Delete 
-function deleteConfirmation(id) {
-        swal({
-            title: "Delete?",
-            text: "Please ensure and then confirm!",
-            type: "warning",
-            showCancelButton: !0,
-            confirmButtonText: "Yes, delete it!",
-            cancelButtonText: "No, cancel!",
-            reverseButtons: !0
-        }).then(function (e) {
+// // Delete 
+// function deleteConfirmation(id) {
+//         swal({
+//             title: "Delete?",
+//             text: "Please ensure and then confirm!",
+//             type: "warning",
+//             showCancelButton: !0,
+//             confirmButtonText: "Yes, delete it!",
+//             cancelButtonText: "No, cancel!",
+//             reverseButtons: !0
+//         }).then(function (e) {
 
-            if (e.value === true) {
-                var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+//             if (e.value === true) {
+//                 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
-                $.ajax({
-                    type: 'POST',
-                    url: "{{route('admin.delete')}}",
-                    data: {_token: CSRF_TOKEN,id:id},
-                    dataType: 'JSON',
-                    success: function (results) {
+//                 $.ajax({
+//                     type: 'POST',
+//                     url: "{{route('admin.delete')}}",
+//                     data: {_token: CSRF_TOKEN,id:id},
+//                     dataType: 'JSON',
+//                     success: function (results) {
 
-                        if (results.success === true) {
-                            swal("Done!", results.message, "success");
-                            AdminTable.ajax.reload()
-                        } else {
-                            swal("Error!", results.message, "error");
-                        }
-                    }
+//                         if (results.success === true) {
+//                             swal("Done!", results.message, "success");
+//                             AdminTable.ajax.reload()
+//                         } else {
+//                             swal("Error!", results.message, "error");
+//                         }
+//                     }
+//                 });
+
+//             } else {
+//                 e.dismiss;
+//             }
+
+//         }, function (dismiss) {
+//             return false;
+//         })
+
+// }
+
+function deleteAdmin(id)
+{
+    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+    $.ajax({
+        type: 'POST',
+        url: "{{route('admin.delete')}}",
+        data: {_token: CSRF_TOKEN,id:id},
+        dataType: 'JSON',
+        success: function (results) {
+            if (results.status === true) {
+                AdminTable.ajax.reload()
+                notyf.open({
+                    type: 'success',
+                    message: results.msg
                 });
-
             } else {
-                e.dismiss;
+                notyf.open({
+                    type: 'error',
+                    message: "Error Accure"
+                });
             }
+        },
+        error:function(result){
+            notyf.open({
+                    type: 'error',
+                    message: "Error Accure"
+                });
+        }
+    });
 
-        }, function (dismiss) {
-            return false;
-        })
+}
+function restoreAdmin(id)
+{
+    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
+    $.ajax({
+        type: 'POST',
+        url: "{{route('admin.restore')}}",
+        data: {_token: CSRF_TOKEN,id:id},
+        dataType: 'JSON',
+        success: function (results) {
+            if (results.status === true) {
+                AdminTable.ajax.reload()
+                notyf.open({
+                    type: 'success',
+                    message: results.msg
+                });
+            } else {
+                notyf.open({
+                    type: 'error',
+                    message: "Error Accure"
+                });
+            }
+        },
+        error:function(result){
+            notyf.open({
+                    type: 'error',
+                    message: "Error Accure"
+                });
+        }
+    });
 }
 
 

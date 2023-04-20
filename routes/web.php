@@ -11,7 +11,7 @@ use App\Http\Controllers\Dashboard\PermissionController;
 use App\Http\Controllers\Dashboard\RoleController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\ResultController;
-
+use App\Http\Controllers\NotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +41,7 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function(){
         Route::post('update/{id}',[AdminController::class,'update'])->name('admin.update')->middleware('permission:edit_admins');
         Route::get('get_data',[AdminController::class,'data'])->name('admin.get-data')->middleware('permission:show_admins'); 
         Route::post('delete',[AdminController::class,'delete'])->name('admin.delete')->middleware('permission:delete_admins');
+        Route::post('restore',[AdminController::class,'restore'])->name('admin.restore')->middleware('permission:delete_admins');
 
         Route::get('profile',[AdminController::class,'profile'])->name('admin.profile');
         Route::get('change-password',[AdminController::class,'changePasswordView'])->name('change-password');
@@ -61,6 +62,8 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function(){
 
         Route::get('get_data',[CategoryController::class,'data'])->name('category.get-data')->middleware('permission:show_categories'); 
         Route::post('delete',[CategoryController::class,'delete'])->name('category.delete')->middleware('permission:show_categories');
+        Route::post('restore',[CategoryController::class,'restore'])->name('category.restore')->middleware('permission:show_categories');
+    
     });
 
 
@@ -76,7 +79,7 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function(){
         Route::post('store',[DoctorController::class,'store'])->name('doctors.store')->middleware('permission:add_doctors');
         Route::post('update',[DoctorController::class,'update'])->name('doctors.update')->middleware('permission:edit_doctors');
         Route::post('delete',[DoctorController::class,'delete'])->name('doctors.delete')->middleware('permission:delete_doctors');
-
+        Route::post('restore',[DoctorController::class,'restore'])->name('doctors.restore')->middleware('permission:delete_doctors');
 
     });
 
@@ -124,6 +127,13 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function(){
     Route::group(['prefix'=>'invoices'],function(){
         Route::get('index',[InvoiceController::class,'index'])->name('invoices.index');    
         Route::get('data',[InvoiceController::class,'data'])->name('invoices.get-data');
+    });
+
+    Route::group(['prefix'=>'notifications'],function(){
+       
+        Route::get('index',[NotificationController::class,'index'])->name('notifications.index');    
+        Route::get('data',[NotificationController::class,'data'])->name('notifications.get-data');
+   
     });
 
 });
