@@ -10,6 +10,8 @@ use App\Models\Patient;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ResetPassword;
+use App\Models\Appointment;
+// use App\Models\Invoice;
 use App\Models\Result;
 use Illuminate\Support\Facades\Storage;
 
@@ -151,9 +153,7 @@ class PatientController extends Controller
         app()->setLocale($request->header('lang'));
         // return Auth::user()->id;
         // return $request->header('lang');
-        $patient = Patient::with('result')->with(['appointment'=>function($q){
-            $q->with('appointmentTimes');
-        }])->with('invoice')->find(Auth::user()->id);
+        $patient = Patient::find(Auth::user()->id);
         // $patient = $data->translate('ar');
 
         // return $data;
@@ -172,6 +172,30 @@ class PatientController extends Controller
         }
 
     }
+
+    public function classifications()
+    {
+        $result = Result::with('category')->with('doctor')->where('patient_id',auth()->user()->id)->get();
+        return response()->json([
+            'data'=>$result,
+            'status'=>true
+        ], 200);
+    }
+
+    public function appointments()
+    {
+        $data = Appointment::with('appointmentTimes')->with('category')->where('patient_id',auth()->user()->id)->get();
+        return response()->json([
+            'data'=>$data,
+            'status'=>true
+        ], 200);   
+    }
+
+    // public function invoice()
+    // {
+    //     $data = Invoice::
+
+    // }
 
     public function editProfile(Request $request)
     {

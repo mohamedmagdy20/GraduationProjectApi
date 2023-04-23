@@ -1,16 +1,19 @@
 <?php
 
 use App\Http\Controllers\Dashboard\AdminController;
+use App\Http\Controllers\Dashboard\AppointmentTimeController;
 use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\ClassificationRequestController;
 use App\Http\Controllers\Dashboard\DoctorController;
 use App\Http\Controllers\Dashboard\InvoiceController;
+use App\Http\Controllers\Dashboard\LogController;
 use App\Http\Controllers\Dashboard\PatientController;
 use App\Http\Controllers\Dashboard\PermissionController;
 use App\Http\Controllers\Dashboard\RoleController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\ResultController;
+use App\Http\Controllers\Dashboard\SettingsController;
 use App\Http\Controllers\NotificationController;
 
 /*
@@ -134,6 +137,38 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function(){
         Route::get('index',[NotificationController::class,'index'])->name('notifications.index');    
         Route::get('data',[NotificationController::class,'data'])->name('notifications.get-data');
    
+    });
+
+    Route::group(['prefix'=>'activity'],function(){
+       
+        Route::get('index',[LogController::class,'index'])->name('activity.index');    
+        Route::get('data',[LogController::class,'data'])->name('activity.get-data');
+   
+    });
+
+    
+    Route::group(['prefix'=>'appointment-times'],function(){
+       
+        Route::get('index',[AppointmentTimeController::class,'index'])->name('appointment_times.index');    
+        Route::get('data',[AppointmentTimeController::class,'data'])->name('appointment_times.get-data');
+   
+        Route::get('create',[AppointmentTimeController::class,'create'])->name('appointment_times.create');
+        Route::get('edit/{id}',[AppointmentTimeController::class,'edit'])->name('appointment_times.edit');
+      
+        // act with db 
+        Route::post('store',[AppointmentTimeController::class,'store'])->name('appointment_times.store');
+        Route::post('update',[AppointmentTimeController::class,'update'])->name('appointment_times.update');
+        Route::post('delete',[AppointmentTimeController::class,'delete'])->name('appointment_times.delete');
+        Route::post('restore',[AppointmentTimeController::class,'restore'])->name('appointment_times.restore');
+
+    });
+
+
+    Route::group(['prefix'=>'settings'],function(){
+       
+        Route::get('index',[SettingsController::class,'index'])->name('settings.index');    
+        Route::post('toggle-recaptcha',[SettingsController::class,'toggleRecaptcha'])->name('settings.toggle-activate');
+
     });
 
 });

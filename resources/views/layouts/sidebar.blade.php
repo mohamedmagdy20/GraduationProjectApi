@@ -234,10 +234,10 @@
             <span>
               <span class="sidebar-icon">
                
-                <i class="fa fa-gear"></i>
+                <i class="fa-solid fa-shield-halved"></i>
               
               </span> 
-              <span class="sidebar-text">Settings</span>
+              <span class="sidebar-text">Security</span>
             </span>
             <span class="link-arrow">
               <svg class="icon icon-sm" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
@@ -248,24 +248,34 @@
             <ul class="flex-column nav">
               <li class="nav-item">
                 <a class="nav-link" 
-                  href="{{route('doctors.index')}}">
-                  <span class="sidebar-text">All Doctors</span>
+                  href="{{route('activity.index')}}">
+                  <span class="sidebar-text">Activity</span>
                 </a>
               </li> 
               
               
-              <li class="nav-item">
+              {{-- <li class="nav-item">
                 <a class="nav-link" 
                   href="{{route('doctors.create')}}">
                   <span class="sidebar-text">Add Doctors</span>
                 </a>
-              </li> 
+              </li>  --}}
 
 
             </ul>
           </div>
         </li>
 
+
+           {{-- Appointment Times --}}
+           <li class="nav-item">
+            <a href="{{route('appointment_times.index')}}" class="nav-link d-flex align-items-center">
+              <span class="sidebar-icon">
+                <i class="fa-solid fa-calendar-days"></i>
+              </span>
+              <span class="mt-1 ms-1 sidebar-text">Appointment Times</span>
+            </a>
+          </li>
         {{-- end of side bar --}}
         <li role="separator" class="dropdown-divider mt-4 mb-3 border-gray-700"></li>
        
