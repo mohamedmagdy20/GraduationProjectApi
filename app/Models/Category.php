@@ -20,6 +20,7 @@ class Category extends Model
         'img',
         'img_name',
         'price',
+        'url',
         'is_active'
     ];
 

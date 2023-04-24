@@ -188,6 +188,7 @@
                     <input type="hidden" id="category_id" value="{{$data->category_id}}">
                     <input type="hidden" id="patinet_id" value="{{$data->patient_id}}">
                     <input type="hidden" id="appointment_id" value="{{$data->id}}">
+                    <input type="hidden" id="url" value="{{$data->category->url}}">
                 
                 </div>
 
@@ -216,8 +217,10 @@
             $(".submit-button").html('<i class="fa fa-spinner fa-spin"></i> Process...').prop('disabled', true);
 
             e.preventDefault();
+
+            url = $("#url").val()
             $.ajax({
-                url:'http://127.0.0.1:8000/brain',
+                url:`${url}`,
                 header:{
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                 },

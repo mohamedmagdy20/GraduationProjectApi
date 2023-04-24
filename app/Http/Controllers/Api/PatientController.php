@@ -11,8 +11,10 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ResetPassword;
 use App\Models\Appointment;
+use App\Models\Invoice;
 // use App\Models\Invoice;
 use App\Models\Result;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class PatientController extends Controller
@@ -191,11 +193,18 @@ class PatientController extends Controller
         ], 200);   
     }
 
-    // public function invoice()
-    // {
-    //     $data = Invoice::
+    public function invoice()
+    {
+        $data = Appointment::whereHas('patient',function($q){
+            $q->whereId(auth()->user()->id);
+        })->get();
+        
+        return response()->json([
+            'data'=>$data,
+            'status'=>true
+        ], 200);   
 
-    // }
+    }
 
     public function editProfile(Request $request)
     {

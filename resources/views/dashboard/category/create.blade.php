@@ -114,7 +114,7 @@
                 success:function(data){
                     console.log(data.error);
                     if(data.status === true){
-                        $(".submit-button").html('Save').prop('disabled', false);
+                        $(".submit-button").html('Save').prop('disabled', true);
                      
                         notyf.open({
                             type: 'success',
@@ -124,7 +124,7 @@
 
                     }else{
                         console.log(data);
-                        $(".submit-button").html('Save').prop('disabled', false);
+                        $(".submit-button").html('Save').prop('disabled', true);
 
                         notyf.open({
                             type: 'error',
