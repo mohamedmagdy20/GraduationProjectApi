@@ -6,6 +6,7 @@ use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\ClassificationRequestController;
 use App\Http\Controllers\Dashboard\DoctorController;
+use App\Http\Controllers\Dashboard\LoginHistoryController;
 use App\Http\Controllers\Dashboard\InvoiceController;
 use App\Http\Controllers\Dashboard\LogController;
 use App\Http\Controllers\Dashboard\PatientController;
@@ -31,7 +32,7 @@ use App\Http\Controllers\NotificationController;
 Route::get('/', [HomeController::class,'index'])->middleware(['auth']);
 
 // Route::get('/', function () {
-    
+
 // })->middleware(['auth'])->name('dashboard');
 Route::get('/logout',[HomeController::class,'logout'])->middleware(['auth'])->name('admin.logout');
 Route::middleware(['auth'])->prefix('dashboard')->group(function(){
@@ -43,7 +44,7 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function(){
         Route::post('store',[AdminController::class,'store'])->name('admin.store')->middleware('permission:add_admins');
         Route::get('edit/{id}',[AdminController::class,'edit'])->name('admin.edit')->middleware('permission:edit_admins');
         Route::post('update/{id}',[AdminController::class,'update'])->name('admin.update')->middleware('permission:edit_admins');
-        Route::get('get_data',[AdminController::class,'data'])->name('admin.get-data')->middleware('permission:show_admins'); 
+        Route::get('get_data',[AdminController::class,'data'])->name('admin.get-data')->middleware('permission:show_admins');
         Route::post('delete',[AdminController::class,'delete'])->name('admin.delete')->middleware('permission:delete_admins');
         Route::post('restore',[AdminController::class,'restore'])->name('admin.restore')->middleware('permission:delete_admins');
 
@@ -51,35 +52,35 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function(){
         Route::get('change-password',[AdminController::class,'changePasswordView'])->name('change-password');
         Route::post('edit-profile',[AdminController::class,'editProfile'])->name('admin.edit.profile');
         Route::post('change-password',[AdminController::class,'changePassword'])->name('admin.change-password');
-        
+
 
     });
 
 
     Route::group(['prefix'=>'category'],function(){
-        
+
         Route::get('index',[CategoryController::class,'index'])->name('category.index')->middleware('permission:show_categories');
         Route::get('create',[CategoryController::class,'create'])->name('category.create')->middleware('permission:add_categories');
         Route::post('store',[CategoryController::class,'store'])->name('cateogry.store')->middleware('permission:add_categories');
         Route::get('edit/{id}',[CategoryController::class,'edit'])->name('category.edit')->middleware('permission:edit_categories');
         Route::post('update',[CategoryController::class,'update'])->name('category.update')->middleware('permission:edit_categories');
 
-        Route::get('get_data',[CategoryController::class,'data'])->name('category.get-data')->middleware('permission:show_categories'); 
+        Route::get('get_data',[CategoryController::class,'data'])->name('category.get-data')->middleware('permission:show_categories');
         Route::post('delete',[CategoryController::class,'delete'])->name('category.delete')->middleware('permission:show_categories');
         Route::post('restore',[CategoryController::class,'restore'])->name('category.restore')->middleware('permission:show_categories');
-    
+
     });
 
 
     Route::group(['prefix'=>'doctors'],function(){
-        
+
         // view pages and get data
         Route::get('index',[DoctorController::class,'index'])->name('doctors.index')->middleware('permission:show_doctors');
         Route::get('create',[DoctorController::class,'create'])->name('doctors.create')->middleware('permission:add_doctors');
         Route::get('edit/{id}',[DoctorController::class,'edit'])->name('doctors.edit')->middleware('permission:edit_doctors');
-        Route::get('get_data',[DoctorController::class,'data'])->name('doctors.get-data')->middleware('permission:show_doctors'); 
+        Route::get('get_data',[DoctorController::class,'data'])->name('doctors.get-data')->middleware('permission:show_doctors');
 
-        // act with db 
+        // act with db
         Route::post('store',[DoctorController::class,'store'])->name('doctors.store')->middleware('permission:add_doctors');
         Route::post('update',[DoctorController::class,'update'])->name('doctors.update')->middleware('permission:edit_doctors');
         Route::post('delete',[DoctorController::class,'delete'])->name('doctors.delete')->middleware('permission:delete_doctors');
@@ -88,75 +89,75 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function(){
     });
 
     Route::group(['prefix'=>'patients'],function(){
-        
-        Route::get('index',[PatientController::class,'index'])->name('patients.index')->middleware('permission:show_patients');     
-        Route::get('get_data',[PatientController::class,'data'])->name('patients.get-data')->middleware('permission:show_patients'); 
+
+        Route::get('index',[PatientController::class,'index'])->name('patients.index')->middleware('permission:show_patients');
+        Route::get('get_data',[PatientController::class,'data'])->name('patients.get-data')->middleware('permission:show_patients');
         Route::post('delete',[PatientController::class,'delete'])->name('patients.delete')->middleware('permission:deactive_patients');
         Route::post('restore',[PatientController::class,'restore'])->name('patients.restore')->middleware('permissions:active_patients');
     });
 
 
-    Route::group(['prefix'=>'roles'],function(){     
-        Route::get('index',[RoleController::class,'index'])->name('roles.index')->middleware('permission:show_permissions');  
+    Route::group(['prefix'=>'roles'],function(){
+        Route::get('index',[RoleController::class,'index'])->name('roles.index')->middleware('permission:show_permissions');
         Route::get('edit/{id}',[RoleController::class,'edit'])->name('role.edit')->middleware('permission:edit_permissions');
         Route::get('update',[RoleController::class,'update'])->name('role.update')->middleware('permsissions:edit_permissions');
     });
 
-    
-    Route::group(['prefix'=>'permissions'],function(){     
-        
-        Route::get('edit/{id}',[PermissionController::class,'edit'])->name('permissions.edit')->middleware('permission:show_permissions');  
+
+    Route::group(['prefix'=>'permissions'],function(){
+
+        Route::get('edit/{id}',[PermissionController::class,'edit'])->name('permissions.edit')->middleware('permission:show_permissions');
         Route::post('update',[PermissionController::class,'update'])->name('permissions.update')->middleware('permission:edit_permissions');
 
     });
 
 
-    // noor.com/classificastaion-request/cre 
+    // noor.com/classificastaion-request/cre
 
     Route::group(['prefix'=>'classification-request'],function(){
 
-        Route::get('index',[ClassificationRequestController::class,'index'])->name('classification-request.index');    
+        Route::get('index',[ClassificationRequestController::class,'index'])->name('classification-request.index');
         Route::get('data',[ClassificationRequestController::class,'data'])->name('classification-request.get-data');
 
         Route::get('create/{id}',[ClassificationRequestController::class,'create'])->name('classification-request.create');
         Route::post('make-classification',[ClassificationRequestController::class,'makeClassification'])->name('classification-request.make');
-   
+
     });
     Route::group(['prefix'=>'results'],function(){
-        Route::get('index',[ResultController::class,'index'])->name('results.index');    
+        Route::get('index',[ResultController::class,'index'])->name('results.index');
         Route::get('data',[ResultController::class,'data'])->name('results.get-data');
     });
 
-    
+
     Route::group(['prefix'=>'invoices'],function(){
-        Route::get('index',[InvoiceController::class,'index'])->name('invoices.index');    
+        Route::get('index',[InvoiceController::class,'index'])->name('invoices.index');
         Route::get('data',[InvoiceController::class,'data'])->name('invoices.get-data');
     });
 
     Route::group(['prefix'=>'notifications'],function(){
-       
-        Route::get('index',[NotificationController::class,'index'])->name('notifications.index');    
+
+        Route::get('index',[NotificationController::class,'index'])->name('notifications.index');
         Route::get('data',[NotificationController::class,'data'])->name('notifications.get-data');
-   
+
     });
 
     Route::group(['prefix'=>'activity'],function(){
-       
-        Route::get('index',[LogController::class,'index'])->name('activity.index');    
+
+        Route::get('index',[LogController::class,'index'])->name('activity.index');
         Route::get('data',[LogController::class,'data'])->name('activity.get-data');
-   
+
     });
 
-    
+
     Route::group(['prefix'=>'appointment-times'],function(){
-       
-        Route::get('index',[AppointmentTimeController::class,'index'])->name('appointment_times.index');    
+
+        Route::get('index',[AppointmentTimeController::class,'index'])->name('appointment_times.index');
         Route::get('data',[AppointmentTimeController::class,'data'])->name('appointment_times.get-data');
-   
+
         Route::get('create',[AppointmentTimeController::class,'create'])->name('appointment_times.create');
         Route::get('edit/{id}',[AppointmentTimeController::class,'edit'])->name('appointment_times.edit');
-      
-        // act with db 
+
+        // act with db
         Route::post('store',[AppointmentTimeController::class,'store'])->name('appointment_times.store');
         Route::post('update',[AppointmentTimeController::class,'update'])->name('appointment_times.update');
         Route::post('delete',[AppointmentTimeController::class,'delete'])->name('appointment_times.delete');
@@ -166,8 +167,8 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function(){
 
 
     Route::group(['prefix'=>'settings'],function(){
-       
-        Route::get('index',[SettingsController::class,'index'])->name('settings.index');    
+
+        Route::get('index',[SettingsController::class,'index'])->name('settings.index');
         Route::post('toggle-recaptcha',[SettingsController::class,'toggleRecaptcha'])->name('settings.toggle-activate');
 
     });
@@ -175,9 +176,16 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function(){
 
 
     Route::group(['prefix'=>'tips'],function(){
-       
-        Route::get('index',[TipsController::class,'index'])->name('tips.index');    
+
+        Route::get('index',[TipsController::class,'index'])->name('tips.index');
         Route::get('data',[TipsController::class,'data'])->name('tips.data');
+
+    });
+
+    Route::group(['prefix'=>'loginHistory'],function(){
+
+        Route::get('index',[LoginHistoryController::class,'index'])->name('loginHisory.index');
+        Route::get('get_data',[LoginHistoryController::class,'data'])->name('loginHisory.get-data');
 
     });
 

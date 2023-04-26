@@ -9,6 +9,20 @@ use App\Models\LoginHistory;
 
 class LoginHistoryController extends Controller
 {
-        
+
+    public function index()
+    {
+        return view('dashboard.loginHistory.index');
+    }
+
+    public function data()
+    {
+
+        $data = LoginHistory::query();
+
+        $result = DataTables()->eloquent($data)
+        ->toJson();
+        return $result;
+    }
 
 }
