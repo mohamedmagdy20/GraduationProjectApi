@@ -8,12 +8,15 @@ use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
 use App\Models\Doctor;
 use App\Models\TipImage;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 class Tips extends Model implements TranslatableContract
 {
-    use HasFactory , Translatable;
+    use HasFactory , Translatable , SoftDeletes;
     protected $table ='tips';
     protected $fillable = [
         'doctor_id'
+        ,'is_show'
     ];
 
     public $translatedAttributes = ['title', 'body'];

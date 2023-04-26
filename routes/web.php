@@ -14,6 +14,7 @@ use App\Http\Controllers\Dashboard\RoleController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\ResultController;
 use App\Http\Controllers\Dashboard\SettingsController;
+use App\Http\Controllers\Dashboard\TipsController;
 use App\Http\Controllers\NotificationController;
 
 /*
@@ -168,6 +169,15 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function(){
        
         Route::get('index',[SettingsController::class,'index'])->name('settings.index');    
         Route::post('toggle-recaptcha',[SettingsController::class,'toggleRecaptcha'])->name('settings.toggle-activate');
+
+    });
+
+
+
+    Route::group(['prefix'=>'tips'],function(){
+       
+        Route::get('index',[TipsController::class,'index'])->name('tips.index');    
+        Route::get('data',[TipsController::class,'data'])->name('tips.data');
 
     });
 
