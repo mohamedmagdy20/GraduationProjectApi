@@ -6,8 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Appointment;
 use App\Models\AppointmentTime;
 use App\Models\Category;
+use App\Models\Invoice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+
+use function PHPUnit\Framework\returnSelf;
 
 class AppointmentController extends Controller
 {
@@ -65,6 +68,7 @@ class AppointmentController extends Controller
             'patient_id'=>'required',
             'appointment_times_id'=>'required',
             'register_date'=>'required',
+            'url'=>'required'
         ];
 
         $validator = Validator::make($request->all(),$rules);
@@ -72,8 +76,14 @@ class AppointmentController extends Controller
         {
             return response()->json(['error'=>$validator->errors()],400);
         }
+        // Create new  Invoice // 
         
-        if(Appointment::create($request->all()))
+        $InvoiceData = $this->getReservationResult($request->url);
+       
+        ////
+        $invoice = Invoice::create($InvoiceData);
+        ////
+        if(Appointment::create(array_merge($request->all(),['invoice_id'=>$invoice->id])))
         {
             return response()->json([
                 'msg'=>'Success',
@@ -88,8 +98,26 @@ class AppointmentController extends Controller
         }
     }
 
-    public function getReservationResult(Request $request)
+    public function getReservationResult($Requesturl)
     {
-        return $request->all();
+        $url = $Requesturl;
+        $queryString =  parse_url($url, PHP_URL_QUERY);
+
+        parse_str($queryString, $params);
+
+        $string = json_encode($params);
+
+        $json = json_decode($string);
+
+        $data = [
+            'currency'=>$json->currency,
+            'amount'=>$json->amount_cents,
+            'status'=>$json->success,
+            'date'=>$json->created_at,
+            'data_message'=>$json->data_message
+        ];
+
+        return $data;
+    
     }
 }

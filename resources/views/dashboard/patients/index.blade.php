@@ -106,45 +106,6 @@ setPatientDatatable();
 
 
 
-// // Delete 
-function deleteConfirmation(id) {
-    
-        swal({
-            title: "Delete?",
-            text: "Please ensure and then confirm!",
-            type: "warning",
-            showCancelButton: !0,
-            confirmButtonText: "Yes, delete it!",
-            cancelButtonText: "No, cancel!",
-            reverseButtons: !0
-        }).then(function (e) {
-
-            if (e.value === true) {
-                var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-
-                $.ajax({
-                    type: 'POST',
-                    url: "{{route('patients.restore')}}",
-                    data: {_token: CSRF_TOKEN,id:id},
-                    dataType: 'JSON',
-                    success: function (results) {
-                        if (results.status === true) {
-                            swal("Done!", results.message, "success");
-                            CategoryTable.ajax.reload()
-                        } else {
-                            swal("Error!", results.message, "error");
-                        }
-                    }
-                });
-
-            } else {
-                e.dismiss;
-            }
-
-        })
-
-}
-
 function deletePatient(id)
 {
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');

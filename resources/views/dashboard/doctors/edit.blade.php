@@ -53,9 +53,16 @@
 
                         <!-- <div class="col-lg-12 col-sm-12">
                             <!-- input -->
-                            <div class="mb-4">
-                                <label for="img">image <span class="text-danger">*</span></label>
-                                <input type="file" class="form-control" id="image" aria-describedby="" name="image">
+                            <div class="col-lg-12 col-sm-12">
+                                <div class="mb-4">
+                                    <label for="image">image <span class="text-danger">*</span></label>
+                                    <input type="file" class="form-control" id="image-input" aria-describedby="" name="image">
+                                    <span class="text-danger m-1 image_err"></span>
+                               
+                                </div>
+                            </div> 
+                            <div class="col-md-12 col-sm-12">
+                                <div id="image-container"></div>
                             </div>
                             <!-- End of input -->
                             <img src="{{asset($data->image)}}" class="w-25" alt="" srcset="">

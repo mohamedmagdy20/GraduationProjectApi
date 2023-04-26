@@ -17,20 +17,36 @@ class AdminController extends Controller
     //
     public function profile()
     {
+        return view('dashboard.profile.profile');
+    }
 
-        $admin = User::findOrFail(Auth::user()->id);
-        if($admin)
+    public function changePasswordView()
+    {
+        return view('dashboard.profile.change-password');
+    }
+
+
+    public function changePassword(Request $request)
+    {
+        $request->validate([
+            'password'=>'required',
+            'password_confirmation'=>'required',
+            'old_password'=>'required'
+        ]);
+        if($request->password != $request->password_confirmation)
         {
-            return response()->json([
-                'data'=>$admin,
-                'status'=>true
-            ], 200);
-        }else{
-
-            return response()->json([
-                'data'=>$admin,
-                'status'=>true
-            ], 200);
+            return response()->json(['error'=>'New Password Not Same ... Try Again','status'=>false], 200);
+        }
+        if(Hash::check($request->old_password,auth()->user()->password))
+        {
+            $admin = User::find(auth()->user()->id);
+            $admin->update([
+                'password'=>Hash::make($request->password)
+            ]);
+            return response()->json(['msg'=>'Password Changed','status'=>true], 200);
+        }else
+        {
+            return response()->json(['error'=>'old Password Not Same','status'=>false], 200);
         }
     }
 
@@ -38,7 +54,7 @@ class AdminController extends Controller
     {
         $rule = [
             'email'=>'required|email',
-            'name'=>'required|string'
+            'name'=>'required|string',
         ];
 
         $validator = Validator::make($request->all(),$rule);
@@ -50,6 +66,7 @@ class AdminController extends Controller
                 'status'=>false
             ], 200);
         }
+        $admin = User::find(auth()->user()->id);
 
         if($request->hasFile('img'))
         {
@@ -62,19 +79,25 @@ class AdminController extends Controller
             
             if($validate_img->fails())
             {
-                return response()->json(['error'=>$validate_img->errors()],401);
+                return response()->json(['error'=>$validate_img->errors()],200);
+            }
+
+            if($admin->img)
+            {
+                unlink(asset('files/admin/'.$admin->img));
+            }
+
+            $imgName = time().$request->file('img')->getClientOriginalName();
+            Storage::disk('admin')->put($imgName, file_get_contents($request->file('img')));
+
+            if($admin->update(array_merge($request->all(),['img'=>$imgName])))
+            {
+                return response()->json([
+                    'status'=>true,
+                    'msg'=>'Profile Updated Succefully'
+                ], 200);
             }
         }
-
-        $admin = User::find(auth()->user()->id);
-
-        // $imgName = time().$request->file('img')->getClientOriginalName();
-        // Storage::disk('admin')->put($imgName, file_get_contents($request->file('img')));
-        // // $image = 'public/files/profile/'.$imgName;
-        // $image = asset('files/admin/' . $imgName);
-
-
-        // $data = array_merge($request->all(),['img'=>$image]);
 
         if($admin->update($request->all()))
         {
@@ -104,7 +127,7 @@ class AdminController extends Controller
 
     public function data(Request $request)
     {
-        $data = User::query();
+        $data = User::withTrashed();
 
    
         $result = DataTables()->eloquent($data)
@@ -162,6 +185,13 @@ class AdminController extends Controller
         $admin = User::findOrFail($request->id);
         $admin->delete();
         // return back();
-         return response()->json(['success'=>true], 200);
+         return response()->json(['msg'=>'Admin DeActivate','status'=>true], 200);
+    }
+
+    public function restore(Request $request)
+    {
+        $admin = User::withTrashed()->findOrFail($request->id);
+        $admin->restore();
+        return response()->json(['msg'=>'Admin Activate','status'=>true], 200);
     }
 }

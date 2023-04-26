@@ -22,7 +22,7 @@ class CategoryController extends Controller
     public function data()
     {
         // Select * from Category 
-        $data = Category::query();
+        $data = Category::withTrashed();
 
         $result = DataTables()->eloquent($data)
         ->addColumn('action',function($data){
@@ -56,7 +56,8 @@ class CategoryController extends Controller
         $request->validate([
             'name'=>'required',
             'price'=>'required',
-            'img'=>'image|required'
+            'img'=>'file|required',
+            'url'=>'required|url'
         ]);
 
         // $request->name;
@@ -91,7 +92,13 @@ class CategoryController extends Controller
             }else{
                 return response()->json(['error'=>'Error Accure','status'=>false], 200);
             }
+        }else
+        {
+            return response()->json(['error'=>'Error Accure','status'=>false], 200);
+
         }
+
+
     }
 
     public function update(Request $request)
@@ -100,36 +107,38 @@ class CategoryController extends Controller
         $request->validate([
             'name'=>'required',
             'price'=>'required',
-            'img'=>'image|required'
+            'url'=>'required|url'
+            
         ]);
 
         // update category set name="mohamed" where id=2; 
 
         $data = Category::findOrFail($request->id);
-        
 
-        // delete img if exsit 
-        if($data->img_name)
+        if($request->file('img'))
         {
-            $imgPath = public_path('files/category/'.$data->img_name);
+             // delete img if exsit 
+            if($data->img_name)
+            {
+                $imgPath = public_path('files/category/'.$data->img_name);
 
-            // return graduationProject / public / files /category / image name 
-            unlink($imgPath);
+                // return graduationProject / public / files /category / image name 
+                unlink($imgPath);
+                // store image //
+                // upload new img with new path 
+                $imgName = time().$request->file('img')->getClientOriginalName();
+                Storage::disk('category')->put($imgName, file_get_contents($request->file('img')));
+                $image = asset('files/category/' . $imgName);
+
+            }
+            $newdata = array_merge($request->all(),['img'=>$image,'img_name'=>$imgName]);
+
         }
-
-         // store image //
-        // upload new img with new path 
-         $imgName = time().$request->file('img')->getClientOriginalName();
-         Storage::disk('category')->put($imgName, file_get_contents($request->file('img')));
-
-         $image = asset('files/category/' . $imgName);
-
-
-         $newdata = array_merge($request->all(),['img'=>$image,'img_name'=>$imgName]);
+        
 
         //  update 
         // update category set name="mohamed" where id=2; 
-        $data->update($newdata);
+        $data->update($request->all());
         
         return response()->json(['msg'=>'Category Updated','status'=>true], 200);
 
@@ -147,7 +156,14 @@ class CategoryController extends Controller
         // DELETE FROM CATEGORY WHERE ID = ID
         $data = Category::findOrFail($request->id);
         $data->delete();
-        return response()->json(['status'=>true], 200);
+        return response()->json(['msg'=>'Category Activate','status'=>true], 200);
+    }
+
+    public function restore(Request $request)
+    {
+        $data = Category::withTrashed()->findOrFail($request->id);
+        $data->restore();
+        return response()->json(['status'=>true,'msg'=>'Category active'], 200);
     }
     
     

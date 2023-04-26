@@ -58,6 +58,11 @@ return [
 
     'asset_url' => env('ASSET_URL', null),
 
+    'recaptcha_sitekey'=>env('RECAPTCHA_SITEKEY'),
+    'recaptcha_secretkey'=>env('RECAPTCHA_SECRETEKEY'),
+
+    'FCM_KEY'=>env('FCM_Key'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone

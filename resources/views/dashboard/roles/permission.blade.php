@@ -15,7 +15,7 @@
     </nav>
     <div class="d-flex justify-content-between w-100 flex-wrap">
         <div class="mb-3 mb-lg-0">
-            <h1 class="h4">Edit Permissions</h1>
+            <h1 class="h4">Edit Permissions For {{$role->display_name}}</h1>
             {{-- <p class="mb-0">Dozens of reusable components built to provide buttons, alerts, popovers, and more.</p> --}}
         </div>
         <div>

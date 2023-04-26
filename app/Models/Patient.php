@@ -11,13 +11,19 @@ use App\Models\Result;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 class Patient extends Authenticatable implements TranslatableContract
 {
-    use HasApiTokens, HasFactory, Notifiable ,Translatable, SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable ,Translatable, SoftDeletes,LogsActivity;
 
     public $translatedAttributes = ['name', 'address'];
+
+    
     protected $table = 'patients';
+    
+    
+    
     protected $gaurded = [];
     /**
      * The attributes that are mass assignable.
@@ -25,6 +31,7 @@ class Patient extends Authenticatable implements TranslatableContract
      * @var array<int, string>
      */
     protected $fillable = [
+        'id',
         'email',
         'password',
         'gender',
@@ -41,6 +48,11 @@ class Patient extends Authenticatable implements TranslatableContract
     public function result()
     {
         return $this->hasMany(Result::class);
+    }
+
+    public function appointment()
+    {
+        return $this->hasMany(Appointment::class);
     }
 
     /**
@@ -61,4 +73,16 @@ class Patient extends Authenticatable implements TranslatableContract
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected static $logEvents = ['deleted'];
+    public function getActivitylogOptions(): LogOptions
+    {
+        $admin =  auth()->user()->name ?? "system" ;
+        return LogOptions::defaults()
+            ->logAll()
+            ->useLogName('Partner')
+            ->setDescriptionForEvent(fn(string $eventName) => "Doctor has been {$eventName} by ($admin)");
+    }
+
+    
 }

@@ -213,6 +213,100 @@
           </li>
         {{-- end of side bar --}}
 
+
+        {{-- Classificatieon Request --}}
+        <li class="nav-item">
+          <a href="{{route('classification-request.index')}}" class="nav-link d-flex align-items-center">
+            <span class="sidebar-icon">
+              <i class="fa fa-code-pull-request"></i>
+            </span>
+            <span class="mt-1 ms-1 sidebar-text">Classficiation Requests</span>
+          </a>
+        </li>
+
+        {{-- Results --}}
+        <li class="nav-item">
+          <a href="{{route('results.index')}}" class="nav-link d-flex align-items-center">
+            <span class="sidebar-icon">
+              <i class="fa fa-square-poll-vertical"></i>
+            </span>
+            <span class="mt-1 ms-1 sidebar-text">Results</span>
+          </a>
+        </li>
+
+           {{-- Invoices --}}
+           <li class="nav-item">
+            <a href="{{route('invoices.index')}}" class="nav-link d-flex align-items-center">
+              <span class="sidebar-icon">
+                <i class="fa-solid fa-file-invoice"></i>
+              </span>
+              <span class="mt-1 ms-1 sidebar-text">Invoices</span>
+            </a>
+          </li>
+
+
+           {{-- Invoices --}}
+           <li class="nav-item">
+            <a href="{{route('notifications.index')}}" class="nav-link d-flex align-items-center">
+              <span class="sidebar-icon">
+                <i class="fa fa-bell"></i>
+              </span>
+              <span class="mt-1 ms-1 sidebar-text">Notifications</span>
+            </a>
+          </li>
+
+
+
+        <li class="nav-item">
+          <span
+            class="nav-link  collapsed  d-flex justify-content-between align-items-center"
+            data-bs-toggle="collapse" data-bs-target="#submenu-settings">
+            <span>
+              <span class="sidebar-icon">
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+              </span>
+              <span class="sidebar-text">Security</span>
+            </span>
+            <span class="link-arrow">
+              <svg class="icon icon-sm" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+            </span>
+          </span>
+          <div class="multi-level collapse " role="list"
+            id="submenu-settings" aria-expanded="false">
+            <ul class="flex-column nav">
+              <li class="nav-item">
+                <a class="nav-link"
+                  href="{{route('activity.index')}}">
+                  <span class="sidebar-text">Activity</span>
+                </a>
+              </li>
+
+
+              {{-- <li class="nav-item">
+                <a class="nav-link"
+                  href="{{route('doctors.create')}}">
+                  <span class="sidebar-text">Add Doctors</span>
+                </a>
+              </li>  --}}
+
+
+            </ul>
+          </div>
+        </li>
+
+
+           {{-- Appointment Times --}}
+           <li class="nav-item">
+            <a href="{{route('appointment_times.index')}}" class="nav-link d-flex align-items-center">
+              <span class="sidebar-icon">
+                <i class="fa-solid fa-calendar-days"></i>
+              </span>
+              <span class="mt-1 ms-1 sidebar-text">Appointment Times</span>
+            </a>
+          </li>
+        {{-- end of side bar --}}
         <li role="separator" class="dropdown-divider mt-4 mb-3 border-gray-700"></li>
 
 

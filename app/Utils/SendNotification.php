@@ -13,7 +13,7 @@ class SendNotification
 
     public static function Send($token,$name)
     {
-        $SERVER_API_KEY = 'AAAABywFUoI:APA91bEoYnK-wdOBBFTShkvfnQQRTHgyg7mIsGTv2i6EvN-TSu1QLtlPE6RZ0LMePIpmXW75Vdx1oiqzPrhUT2ffH3zInfUyQ4PZG1rmWnpY2-1Lch5SVtrNqf_ZJM8uQGNVjuJ6QaRo';
+        $SERVER_API_KEY = config('app.FCM_KEY');
 
         $data = [
     
@@ -23,11 +23,9 @@ class SendNotification
     
             "notification" => [
     
-                "title" => 'Medical Center',
+                "title" => 'Medical Brain Center',
     
-                "body" => 'Dear Mr '.$name.
-                ' Hope To have Nice Day
-                your Report Number 1 Has Been Added To your Profile With Our Best :)',
+                "body" => 'Dear Dr'. $name .'there are new Result added in your queue would like to perform us your Notes',
     
                 "sound"=> "default" // required for sound on ios
     

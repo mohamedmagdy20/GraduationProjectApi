@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Tips;
 use App\Models\TipImage;
+use Exception;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 
@@ -91,7 +92,7 @@ class TipsController extends Controller
                 {
                     $imgName = time().$img->getClientOriginalName();
                     // return $imgName;
-                    Storage::disk('tips')->putFile($imgName, $img);
+                    Storage::disk('tips')->put($imgName, $img);
                     $imgPath = asset('files/tips' . $imgName);
                     $tipsImage =  TipImage::create(['image'=>$imgPath,'tip_id'=>$tips->id]);
                 }

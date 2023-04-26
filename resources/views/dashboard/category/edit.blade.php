@@ -54,8 +54,17 @@
                         <div class="col-lg-12 col-sm-12">
                             <!-- input -->
                             <div class="mb-4">
+                                <label for="url">Url <span class="text-danger">*</span></label>
+                                <input type="url" class="form-control" id="url" aria-describedby="" name="url" value="{{$data->url}}">
+                            </div>
+                            <!-- End of input -->
+                        </div>
+
+                        <div class="col-lg-12 col-sm-12">
+                            <!-- input -->
+                            <div class="mb-4">
                                 <label for="img">image <span class="text-danger">*</span></label>
-                                <input type="file" class="form-control" id="image-input" aria-describedby="" name="img">
+                                <input type="file" class="form-control" id="image-input" aria-describedby="" value="{{$data->img_name}}" name="img">
                             </div>
                             <!-- End of input -->
                             <img src="{{asset('files/category/'.$data->img_name)}}" class="w-25" alt="" srcset="">
@@ -133,34 +142,5 @@
                 
         });
 
-        var input = document.getElementById('image-input');
-        input.addEventListener('change', handleFileSelect, false);
-
-        function handleFileSelect(event) {
-         var file = event.target.files[0];
-               
-         // Check if the selected file is an image
-         if (!file.type.match('image.*')) {
-           alert('Please select an image file.');
-           return;
-         }
-         
-         // Create a FileReader object to read the file
-         var reader = new FileReader();
-         
-         // Set the onload event handler of the FileReader object
-         reader.onload = function(event) {
-           // Create an image element with the selected image
-           var img = document.createElement('img');
-           img.setAttribute('src', event.target.result);
-           
-           // Add the image element to the image container div
-           var container = document.getElementById('image-container');
-           container.appendChild(img);
-         };
-         
-         // Read the selected file as a data URL
-         reader.readAsDataURL(file);
-        }
 </script>
 @endsection

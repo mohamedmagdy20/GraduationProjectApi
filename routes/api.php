@@ -47,6 +47,11 @@ Route::middleware('auth:api-patient')->prefix('patient')->group(function(){
     Route::get('logout',[PatientAuthController::class,'logout']);
     Route::put('change-password',[PatientController::class,'changePassword']);
     Route::get('profile',[PatientController::class,'profile']);
+    
+    Route::get('profile/results',[PatientController::class,'classifications']);
+    Route::get('profile/appointments',[PatientController::class,'appointments']);
+    Route::get('profile/invoices',[PatientController::class,'invoice']);
+
     Route::post('edit',[PatientController::class,'editProfile']);
     Route::post('edit-image',[PatientController::class,'changeImage']);
     

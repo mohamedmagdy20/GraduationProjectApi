@@ -34,7 +34,7 @@ class DoctorController extends Controller
     public function data()
     {
         // 
-        $data = Doctor::query();
+        $data = Doctor::withTrashed();
 
         $result = DataTables()->eloquent($data)
 
@@ -150,6 +150,14 @@ class DoctorController extends Controller
                 ], 200);
         }
         
+    }
+
+    public function restore(Request $request)
+    {
+        $doctor = Doctor::withTrashed()->findOrFail($request->id);
+
+        $doctor->restore();
+        return response()->json(['msg'=>'Doctor Activate','status'=>true], 200);
     }
 
   

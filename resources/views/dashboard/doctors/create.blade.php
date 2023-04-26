@@ -32,38 +32,48 @@
                     @csrf
 
                     <div class="row mb-4">
-                        <div class="col-lg-6 col-sm-12">
+                        <div class="col-lg-12 col-sm-12">
                             <!-- input -->
                             <div class="mb-4">
                                 <label for="email">Name <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="name"  aria-describedby="" name="name">
+                                <span class="text-danger m-1 name_err"></span>
                             </div>
                             <!-- End of input -->
                         </div>
                         
-                        <div class="col-lg-12 col-sm-12">
-                            <div class="mb-4">
-                                <label for="image">image <span class="text-danger">*</span></label>
-                                <input type="file" class="form-control" id="image" aria-describedby="" name="image">
-                            </div>
-                        </div> 
-
                         <div class="col-lg-6 col-sm-6">
                             <!-- input -->
                             <div class="mb-4">
                                 <label for="phone">Phone <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="phone" aria-describedby="" name="phone">
+                                <span class="text-danger m-1 phone_err"></span>
+                          
                             </div>
                             <!-- End of input -->
                         </div>
 
-                        <div class="col-lg-12 col-sm-6">
+                        <div class="col-lg-6 col-sm-6">
                             <!-- input -->
                             <div class="mb-4">
                                 <label for="email">Email </label>
                                 <input name="email" id="email" cols="30" rows="10" class="form-control">
+                                <span class="text-danger m-1 email_err"></span>
+                           
                             </div>
                             <!-- End of input -->
+                        </div>
+
+                        <div class="col-lg-12 col-sm-12">
+                            <div class="mb-4">
+                                <label for="image">image <span class="text-danger">*</span></label>
+                                <input type="file" class="form-control" id="image-input" aria-describedby="" name="image">
+                                <span class="text-danger m-1 image_err"></span>
+                           
+                            </div>
+                        </div> 
+                        <div class="col-md-12 col-sm-12">
+                            <div id="image-container"></div>
                         </div>
                   
                   
@@ -89,8 +99,9 @@
        $(document).ready(function(){
 
         $("#admin-form").submit(function(e){
-            e.preventDefault();
             $('.submit-form').html('<i class="fa fa-spinner fa-spin"></i> Adding...').css('disable',false);
+         
+            e.preventDefault();
 
             $.ajax({
                 url:'{{route('doctors.store')}}',
@@ -127,9 +138,13 @@
                 {
                     // alert('error')
                     // notyf.success(data.error);
+                    if(data.status == 422){
+                        printErrorMsg(data.responseJSON.errors)
+                    }
                     notyf.open({
                             type: 'error',
-                            message: data.error
+                            message: "Error Accure",
+
                         });
                     $('.submit-form').html('Save').css('disable',true);
 
@@ -137,7 +152,13 @@
 
             });
         });
-                
+        function printErrorMsg(msg){
+            $("span").html('');
+
+            $.each(msg,function(key,value){
+                $(`.${key}_err`).text(value)
+            })
+        }     
         });
   
 </script>

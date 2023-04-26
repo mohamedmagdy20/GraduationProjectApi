@@ -18,6 +18,21 @@
 
      $data->img ? $data->img : asset('assets/image/team/profile-picture-2.jpg')
      
-     }}" alt="{{$data->img}}">
+     }}" class="image-viewer" alt="{{$data->img}}">
 
 @endif
+
+
+<script>
+    $(document).ready(function() {
+         const imageElements = document.querySelectorAll('.image-viewer');
+         imageElements.forEach((element) => {
+             new Viewer(element);
+             $('.image-viewer').ezPlus({
+                 zoomType: 'inner',
+                 cursor: 'crosshair'
+             });
+         });
+     
+     })
+    </script>

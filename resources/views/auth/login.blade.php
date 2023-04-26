@@ -23,6 +23,7 @@
 <!-- Volt CSS -->
 <link type="text/css" href="{{asset('assets/css/volt.css')}}" rel="stylesheet">
 
+<script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 
 <body>
@@ -37,7 +38,7 @@
                             <div class="text-center text-md-center mb-4 mt-md-0">
                                 <h1 class="mb-0 h3">Admin Panel</h1>
                             </div>
-                            <form action="{{route('login')}}" method="POST" class="mt-4">
+                            <form id="submit-login" class="mt-4">
                                 @csrf
                                 <!-- Form -->
                                 <div class="form-group mb-4">
@@ -46,8 +47,9 @@
                                         <span class="input-group-text" id="basic-addon1">
                                             <svg class="icon icon-xs text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
                                         </span>
-                                        <input type="email" class="form-control" placeholder="example@company.com" id="email" name="email" autofocus required>
+                                        <input type="email" class="form-control" placeholder="example@company.com" id="email" name="email" autofocus >
                                     </div>  
+                                    <span class="text-danger m-2 email_err"></span>
                                 </div>
                                 <!-- End of Form -->
                                 <div class="form-group">
@@ -58,21 +60,29 @@
                                             <span class="input-group-text" id="basic-addon2">
                                                 <svg class="icon icon-xs text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg>
                                             </span>
-                                            <input type="password" placeholder="Password" class="form-control" id="password" name="password" required>
+                                            <input type="password" placeholder="Password" class="form-control" id="password" name="password" >
                                         </div>  
+                                        <span class="text-danger m-2 password_err"></span>
                                     </div>
+
+                                    {{-- Rechaptcha --}}
+                                    <div class="form-group mb-4">
+                                        <div class="g-recaptcha" data-sitekey="{{ config('app.recaptcha_sitekey') }}"></div>
+                                        <span class="text-danger m-2 g-recaptcha-response_err"></span>
+                                    </div>
+                                
                                     <!-- End of Form -->
-                                    <div class="d-flex justify-content-between align-items-top mb-4">
+                                    {{-- <div class="d-flex justify-content-between align-items-top mb-4">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="" id="remember">
                                             <label class="form-check-label mb-0" for="remember">
                                               Remember me
                                             </label>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <div class="d-grid">
-                                    <button type="submit" class="btn btn-gray-800">Login</button>
+                                    <button type="submit " class="btn btn-gray-800 btn-submit">Login</button>
                                 </div>
                             </form>
                             {{-- <div class="mt-3 mb-4 text-center">
@@ -105,6 +115,9 @@
     <!-- Core -->
 <script src="{{asset('assets/lib/@popperjs/core/dist/umd/popper.min.js')}}"></script>
 <script src="{{asset('assets/lib/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+
+{{-- jquery --}}
+<script src="{{asset('assets/js/jquery-3.6.0.min.js')}}"></script>
 
 <!-- Vendor JS -->
 <script src="{{asset('assets/lib/onscreen/dist/on-screen.umd.min.js')}}"></script>
@@ -140,6 +153,88 @@
 <!-- Volt JS -->
 <script src="{{asset('assets/js/volt.js')}}"></script>
 
+
+<script>
+    const notyf = new Notyf({
+        position: {
+            x: 'right',
+            y: 'top',
+        },
+        types: [
+            {
+                type: 'error',
+                background: '#FA5252',
+                icon: {
+                    className: 'fas fa-times',
+                    tagName: 'span',
+                    color: '#fff'
+                },
+                dismissible: false
+            }
+        ]
+    });
+        
+    $(document).ready(function(){
+        $('#submit-login').submit(function(e){
+            $(".btn-submit").html('<i class="fa fa-spinner fa-spin"></i> Process...').prop('disabled', true);
+            e.preventDefault();
+
+            $.ajax({
+                url:'{{route('login')}}',
+                header:{
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                type:'POST',
+                data: new FormData(this),
+                processData:false,
+                contentType:false,
+                success:function(data){
+                    console.log(data.error);
+                    // if(data.status === true){
+                        $(".btn-submit").html('Login').prop('disabled', false);
+                     
+                        // notyf.open({
+                        //     type: 'success',
+                        //     message: "Welcome ...."
+                        // });
+                        window.location.replace('{{route('dashboard')}}')
+
+
+                    // }else{
+                        // console.log(data);
+                        // $(".btn-submit").html('Login').prop('disabled', false);
+
+                        // notyf.open({
+                        //     type: 'error',
+                        //     message: data.error,
+                        // });
+                    // }
+                        
+                },
+                error:function(data)
+                {
+                    $(".btn-submit").html('Login').prop('disabled', false);
+                    if(data.status == 422){
+                        printErrorMsg(data.responseJSON.errors)
+                    }
+                    notyf.open({
+                            type: 'error',
+                            message: data.error
+                    });
+                }
+
+            })
+        })
+
+        function printErrorMsg(msg){
+            $("span").html('');
+
+            $.each(msg,function(key,value){
+                $(`.${key}_err`).text(value)
+            })
+        }
+    })
+</script>
     
 </body>
 
