@@ -92,8 +92,9 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function(){
 
         Route::get('index',[PatientController::class,'index'])->name('patients.index')->middleware('permission:show_patients');
         Route::get('get_data',[PatientController::class,'data'])->name('patients.get-data')->middleware('permission:show_patients');
-        Route::post('delete',[PatientController::class,'delete'])->name('patients.delete')->middleware('permission:deactive_patients');
-        Route::post('restore',[PatientController::class,'restore'])->name('patients.restore')->middleware('permissions:active_patients');
+        Route::get('show/{id}',[PatientController::class,'show'])->name('patients.show');
+        Route::post('delete',[PatientController::class,'delete'])->name('patients.delete');
+        Route::post('restore',[PatientController::class,'restore'])->name('patients.restore');
     });
 
 

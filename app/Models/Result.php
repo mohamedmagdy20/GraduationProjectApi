@@ -5,12 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Patient;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 class Result extends Model
 {
     use HasFactory;
     use LogsActivity;
+    use SoftDeletes;
+
     protected $table = 'results';
     protected $fillable = [
         'patient_id',

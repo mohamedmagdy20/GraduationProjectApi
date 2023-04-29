@@ -38,6 +38,17 @@ class PatientController extends Controller
         return $result;
     }
 
+    public function show($id)
+    {
+        $data = Patient::with(['result'=>function($q){
+            $q->with('category');
+        }])->with(['appointment'=>function($q){
+            $q->with('appointmentTimes');
+        }])->with('invoice')->findOrFail($id);
+        return $data;
+        return view('dashboard.patients.show',['data'=>$data]);
+    }
+
     public function delete(Request $request)
     {
         $data = Patient::findOrFail($request->id);
@@ -68,7 +79,7 @@ class PatientController extends Controller
             your Phone Number '. $patient->phone . 'Has Been Added To your Profile With Our Best :)'
         ])){
             return response()->json([
-                'msg'=>'Notiifcation Pushed'
+                'msg'=>'Notification Pushed'
             ], 200);
         }
         else

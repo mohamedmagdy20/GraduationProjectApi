@@ -47,12 +47,17 @@ class Patient extends Authenticatable implements TranslatableContract
 
     public function result()
     {
-        return $this->hasMany(Result::class);
+        return $this->hasMany(Result::class,'patient_id');
     }
 
     public function appointment()
     {
-        return $this->hasMany(Appointment::class);
+        return $this->hasMany(Appointment::class,'patient_id');
+    }
+
+    public function invoice()
+    {
+        return $this->belongsToMany(Invoice::class,'appointments');
     }
 
     /**
@@ -84,5 +89,24 @@ class Patient extends Authenticatable implements TranslatableContract
             ->setDescriptionForEvent(fn(string $eventName) => "Doctor has been {$eventName} by ($admin)");
     }
 
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function($patient) { 
+            
+             $patient->result()->delete();
+             $patient->appointment()->delete();
+             $patient->invoice()->delete();
+
+        });
+
+        static::restoring(function($patient){
+            $patient->result()->restore();
+            $patient->appointment()->restore();
+            $patient->invoice()->restore();  
+        });
+    }
     
 }
