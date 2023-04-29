@@ -35,7 +35,10 @@
                             <!-- input -->
                             <div class="mb-4">
                                 <label for="email">Name <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="name" aria-describedby="" name="name">
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name">
+                                <span class="text-danger name_err"></span>
+
+                         
                             </div>
                             <!-- End of input -->
                         </div>
@@ -43,7 +46,9 @@
                             <!-- input -->
                             <div class="mb-4">
                                 <label for="email">Email <span class="text-danger">*</span></label>
-                                <input type="email" class="form-control" id="email" aria-describedby="" name="email">
+                                <input type="email" class="form-control" id="email" aria-describedby="" placeholder="Ex@email.com" name="email">
+                                <span class="text-danger  email_err"></span>
+
                             </div>
                             <!-- End of input -->
                         </div>
@@ -53,6 +58,8 @@
                             <div class="mb-4">
                                 <label for="email">Password <span class="text-danger">*</span></label>
                                 <input type="password" class="form-control" id="password" aria-describedby="" name="password">
+                                <span class="text-danger  password_err"></span>
+                        
                             </div>
                             <!-- End of input -->
                         </div>
@@ -61,6 +68,8 @@
                             <div class="mb-4">
                                 <label for="email">Confirm Password <span class="text-danger">*</span></label>
                                 <input type="password" class="form-control" id="password_confirmation" aria-describedby="emailHelp" name="password_confirmation">
+                                <span class="text-danger  password_confirmation_err"></span>
+                          
                             </div>
                             <!-- End of input -->
                         </div>
@@ -77,6 +86,8 @@
                                 </div>
                          
                             @endforeach
+                            <span class="text-danger  role_id_err"></span>
+
                         </div>
                         <div class="col-md-12">
                             {{-- <input type="submit" value="Save" class="btn btn-primary "> --}}
@@ -131,16 +142,40 @@
                 },
                 error:function(data)
                 {
+                    $(".submit-button").html('Save').prop('disabled', false);
+                      
                     // alert('error')
                     // notyf.success(data.error);
-                    notyf.open({
-                            type: 'error',
-                            message: data.error
-                        });
+                    if(data.status == 400){
+                        // printErrorMsg(data.responseJSON.error)
+                        msg = data.responseJSON.error
+                        $.each(msg,function(key,value){
+                            $(`.${key}_err`).text(value)
+                            notyf.open({
+                                    type: 'error',
+                                    message: value
+                            
+                                });
+                        })
+                    }
+                    
                 }
 
             });
         });
+
+        // function printErrorMsg(msg){
+        //         $("span").html('');
+
+        //         $.each(msg,function(key,value){
+        //             $(`.${key}_err`).text(value)
+        //             notyf.open({
+        //                     type: 'error',
+        //                     message: value
+
+        //                 });
+        //         })
+        // }
                 
         });
   

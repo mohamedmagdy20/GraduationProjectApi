@@ -133,14 +133,30 @@
                 {
                     // alert('error')
                     // notyf.success(data.error);
-                    notyf.open({
-                            type: 'error',
-                            message: data.error
-                        });
+                    $(".submit-button").html('Save').prop('disabled', false);
+                      
+                      // alert('error')
+                      // notyf.success(data.error);
+                      if(data.status == 400){
+                          printErrorMsg(data.responseJSON.error)
+                      }
+                
                 }
 
             });
         });
+        function printErrorMsg(msg){
+                $("span").html('');
+
+                $.each(msg,function(key,value){
+                    $(`.${key}_err`).text(value)
+                    notyf.open({
+                            type: 'error',
+                            message: value
+
+                        });
+                })
+        }
                 
         });
   

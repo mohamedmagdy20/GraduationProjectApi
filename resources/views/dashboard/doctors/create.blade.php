@@ -139,7 +139,10 @@
                     // alert('error')
                     // notyf.success(data.error);
                     if(data.status == 422){
-                        printErrorMsg(data.responseJSON.errors)
+                        msg = data.responseJSON.errors
+                        $.each(msg,function(key,value){
+                            $(`.${key}_err`).text(value)
+                        })
                     }
                     notyf.open({
                             type: 'error',
@@ -152,13 +155,7 @@
 
             });
         });
-        function printErrorMsg(msg){
-            $("span").html('');
-
-            $.each(msg,function(key,value){
-                $(`.${key}_err`).text(value)
-            })
-        }     
+      
         });
   
 </script>

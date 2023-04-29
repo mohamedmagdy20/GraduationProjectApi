@@ -37,6 +37,8 @@
                             <div class="mb-4">
                                 <label for="email">Name <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="name"  aria-describedby="" name="name">
+                                <span class="text-danger name_err"></span>
+                            
                             </div>
                             <!-- End of input -->
                         </div>
@@ -45,6 +47,8 @@
                             <div class="mb-4">
                                 <label for="price">Price <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="price" aria-describedby="" name="price">
+                                <span class="text-danger price_err"></span>
+                            
                             </div>
                             <!-- End of input -->
                         </div>
@@ -54,6 +58,8 @@
                             <div class="mb-4">
                                 <label for="url">Url <span class="text-danger">*</span></label>
                                 <input type="url" class="form-control" id="url" aria-describedby="" name="url">
+                                <span class="text-danger url_err"></span>
+                          
                             </div>
                             <!-- End of input -->
                         </div>
@@ -63,6 +69,8 @@
                             <div class="mb-4">
                                 <label for="img">image <span class="text-danger">*</span></label>
                                 <input type="file" class="form-control" id="image-input" aria-describedby="" name="img">
+                                <span class="text-danger img_err"></span>
+                    
                             </div>
                             <!-- End of input -->
                         </div>
@@ -136,17 +144,40 @@
                 error:function(data)
                 {
                     $(".submit-button").html('Save').prop('disabled', false);
+                    
+                    if(data.status == 422){
+                        // printErrorMsg(data.responseJSON.errors)
+                        msg = data.responseJSON.errors
+                        $.each(msg,function(key,value){
+                            $(`.${key}_err`).text(value)
+                            notyf.open({
+                                    type: 'error',
+                                    message: value
+                            
+                                });
+                        })
+                    }
 
-                    notyf.open({
-                            type: 'error',
-                            message: data.error
-                        });
+                    
                 }
 
             });
         });
                 
         });
+
+        // function printErrorMsg(msg){
+        //         $("span").html('');
+
+        //         $.each(msg,function(key,value){
+        //             $(`.${key}_err`).text(value)
+        //             notyf.open({
+        //                     type: 'error',
+        //                     message: value
+
+        //                 });
+        //         })
+        // }
 
        
 </script>

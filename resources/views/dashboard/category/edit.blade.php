@@ -39,6 +39,8 @@
                             <div class="mb-4">
                                 <label for="email">Name <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="name" aria-describedby="" name="name" value="{{$data->name}}">
+                                <span class="text-danger name_err"></span>
+                          
                             </div>
                             <!-- End of input -->
                         </div>
@@ -47,6 +49,8 @@
                             <div class="mb-4">
                                 <label for="price">Price <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="price" aria-describedby="" name="price" value="{{$data->price}}">
+                                <span class="text-danger price_err"></span>
+                   
                             </div>
                             <!-- End of input -->
                         </div>
@@ -56,6 +60,8 @@
                             <div class="mb-4">
                                 <label for="url">Url <span class="text-danger">*</span></label>
                                 <input type="url" class="form-control" id="url" aria-describedby="" name="url" value="{{$data->url}}">
+                                <span class="text-danger url_err"></span>
+                         
                             </div>
                             <!-- End of input -->
                         </div>
@@ -65,6 +71,8 @@
                             <div class="mb-4">
                                 <label for="img">image <span class="text-danger">*</span></label>
                                 <input type="file" class="form-control" id="image-input" aria-describedby="" value="{{$data->img_name}}" name="img">
+                                <span class="text-danger img_err"></span>
+                        
                             </div>
                             <!-- End of input -->
                             <img src="{{asset('files/category/'.$data->img_name)}}" class="w-25" alt="" srcset="">
@@ -129,12 +137,22 @@
                 },
                 error:function(data)
                 {
-                    // alert('error')
-                    // notyf.success(data.error);
-                    notyf.open({
-                            type: 'error',
-                            message: data.error
-                        });
+                    // // alert('error')
+                    // // notyf.success(data.error);
+                    // notyf.open({
+                    //         type: 'error',
+                    //         message: data.error
+                    //     });
+
+                    msg = data.responseJSON.error
+                        $.each(msg,function(key,value){
+                            $(`.${key}_err`).text(value)
+                            notyf.open({
+                                    type: 'error',
+                                    message: value
+                            
+                                });
+                        })
                 }
 
             });
