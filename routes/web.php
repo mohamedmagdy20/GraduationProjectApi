@@ -95,6 +95,11 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function(){
         Route::get('show/{id}',[PatientController::class,'show'])->name('patients.show');
         Route::post('delete',[PatientController::class,'delete'])->name('patients.delete');
         Route::post('restore',[PatientController::class,'restore'])->name('patients.restore');
+
+
+        Route::get('get-result/{id}',[PatientController::class,'getResultData'])->name('patients.get-result');
+        Route::get('get-appointment/{id}',[PatientController::class,'getAppointmentData'])->name('patients.get-appointment');
+
     });
 
 

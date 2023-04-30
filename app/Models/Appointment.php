@@ -34,9 +34,9 @@ class Appointment extends Model
     {
         return $this->belongsTo(Category::class,'category_id');
     }
-
-
-
-    // public function invoice
+    public function invoice()
+    {
+        return $this->belongsTo(Invoice::class,'invoice_id');
+    }
 
 }
