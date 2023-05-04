@@ -183,6 +183,8 @@
                             </table>
                     </div>
                     </div>
+
+                    <input type="file" name="files[]" class="form-contorl" multiple id="files">
                 
                 
                     <input type="hidden" id="category_id" value="{{$data->category_id}}">
@@ -304,16 +306,21 @@
                 doctor_id = $("#doctor_id").val();
                 result = $('#result').val();
                 img = document.getElementById('image');
-
                 category_id = $('#category_id').val();
                 patient_id = $('#patinet_id').val();
                 appointment_id = $("#appointment_id").val()
 
                 console.log(img);
 
+
                 // //////////////////////////
                 var form_data = new FormData()
 
+                
+                var files = $('#files')[0].files;
+                for (var i = 0; i < files.length; i++) {
+                    form_data.append('files[]', files[i]);
+                }
                 form_data.append('doctor_id',doctor_id)
                 form_data.append('patient_id',patient_id)
                 form_data.append('category_id',category_id)
@@ -344,7 +351,7 @@
                         type: 'success',
                             message: data.msg
                         });
-                        window.location.replace("{{route('classification-request.index')}}");
+                        // window.location.replace("{{route('classification-request.index')}}");
                         // window.reload()
                     
 

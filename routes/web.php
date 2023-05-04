@@ -6,12 +6,14 @@ use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\ClassificationRequestController;
 use App\Http\Controllers\Dashboard\DoctorController;
+use App\Http\Controllers\Dashboard\GoogleDriveController;
 use App\Http\Controllers\Dashboard\LoginHistoryController;
 use App\Http\Controllers\Dashboard\InvoiceController;
 use App\Http\Controllers\Dashboard\LogController;
 use App\Http\Controllers\Dashboard\PatientController;
 use App\Http\Controllers\Dashboard\PermissionController;
 use App\Http\Controllers\Dashboard\RoleController;
+use App\Utils\GoogleDrive;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\ResultController;
 use App\Http\Controllers\Dashboard\SettingsController;
@@ -30,6 +32,10 @@ use App\Http\Controllers\NotificationController;
 */
 
 Route::get('/', [HomeController::class,'index'])->middleware(['auth']);
+
+
+Route::get('upload-google-drive',[GoogleDriveController::class,'uploadDrive'])->middleware(['auth']);
+Route::get('google/login',[GoogleDrive::class,'googleLogin'])->name('google.login');
 
 // Route::get('/', function () {
 

@@ -41,7 +41,8 @@ class Patient extends Authenticatable implements TranslatableContract
         'email_verified_at',
         'remember_token',
         'code',
-        'notification_token'
+        'notification_token',
+        'access_token'
     ];
 
 

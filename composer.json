@@ -8,6 +8,7 @@
         "php": "^7.3|^8.0",
         "astrotomic/laravel-translatable": "^11.9",
         "fruitcake/laravel-cors": "^2.0",
+        "google/apiclient": "^2.13",
         "guzzlehttp/guzzle": "^7.5",
         "jenssegers/agent": "^2.6",
         "laravel/breeze": "1.9.2",

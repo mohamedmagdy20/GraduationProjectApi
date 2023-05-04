@@ -22,7 +22,8 @@ class Result extends Model
         'rate', 
         'category_id',
         'notes',
-        'doctor_id'
+        'doctor_id',
+        'files_url',
     ];
 
 
