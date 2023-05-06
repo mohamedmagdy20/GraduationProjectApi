@@ -71,7 +71,7 @@ class ClassificationRequestController extends Controller
         // $files = $request->file('files');
         // // return $files;
         // $url = $drive->googleDriveFilePpload($request->patient_id,$files);
-        // return $url;
+        // // return $url;
 
         // store 
 
@@ -90,9 +90,9 @@ class ClassificationRequestController extends Controller
         $drive = new GoogleDrive;
         $files = $request->file('files');
         $url = $drive->googleDriveFilePpload($request->patient_id,$files);
+
+
         $data =  array_merge($request->all(),['img'=>$image,'files_url'=>$url]);
-
-
 
         $result = Result::create($data);
 
@@ -120,10 +120,10 @@ class ClassificationRequestController extends Controller
                 ], 200);
             }
            
-            // return response()->json([
-            //     'msg'=>'Classficataion Added and Sent to Doctor',
-            //     'status'=>true
-            // ], 200);
+            return response()->json([
+                'msg'=>'Classficataion Added and Sent to Doctor',
+                'status'=>true
+            ], 200);
         }
         else
         {

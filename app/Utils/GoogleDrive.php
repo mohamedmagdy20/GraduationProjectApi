@@ -2,6 +2,7 @@
 
 namespace App\Utils;
 use App\Models\Patient;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class GoogleDrive {
@@ -98,14 +99,14 @@ class GoogleDrive {
         }
         
         $fileMetadata = new \Google_Service_Drive_DriveFile(array(
-            'name' => 'Patient1',  
+            'name' => Carbon::now(),  
             'parents'=>array('18xbE1HV2_CG8G--x4kRxbe77sTB33jvS'),           // ADD YOUR GOOGLE DRIVE FOLDER NAME
             'mimeType' => 'application/vnd.google-apps.folder'));
 
         $folder = $service->files->create($fileMetadata,
          array('fields' => 'id'));
 
-        printf("Folder ID: %s\n", $folder->id);
+        // printf("Folder ID: %s\n", $folder->id);
 
         foreach($filePath as $filep)
         {

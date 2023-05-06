@@ -60,7 +60,9 @@
                         <div class="col-md-12">
                             {{-- <input type="submit" value="Save" class="btn btn-primary"> --}}
                             <button class="btn btn-primary submit-button">Show Result</button>
+                            <a onclick="clearResult()">Clear</a>
                         </div>
+                        
                 </form>    
          
             </div>
@@ -161,7 +163,7 @@
                     
                         <div class="form-classification  py-3 px-5">
                         
-                            <table class="table">
+                            {{-- <table class="table">
                                 <thead>
                                     <tr>
                                         <th></th>
@@ -180,11 +182,17 @@
                                     </tr>
                                 
                                 </tbody>
-                            </table>
+                            </table> --}}
                     </div>
                     </div>
+                    <br>
+                    <br>
+                    <p class="text-warning">Save File to Patient Through Google Drive</p>
+                    <div class="form-group">
+                        <label for="select-files">Files</label>
+                           <input type="file" name="files[]" class="form-control" multiple id="files">
 
-                    <input type="file" name="files[]" class="form-contorl" multiple id="files">
+                    </div>
                 
                 
                     <input type="hidden" id="category_id" value="{{$data->category_id}}">
@@ -233,11 +241,11 @@
                 success:function(data){
                     $("#Report").css('display','block')
                     showResult(data.type)
-                    $(".submit-button").html('Save').prop('disabled', false);      
+                    // $(".submit-button").html('Save').prop('disabled', false);      
                 },
                 error:function(data)
                 {
-                    $(".submit-button").html('Save').prop('disabled', false);
+                    // $(".submit-button").html('Save').prop('disabled', false);
                     console.log(data);
                     notyf.open({
                             type: 'error',
@@ -250,12 +258,19 @@
     });
 
 
-        // show Report and pass data 
-        function  showResult(result)
-        {
-            $("#result").val(result)    
-        }
+    // show Report and pass data 
+    function  showResult(result)
+    {
+        $("#result").val(result)    
+    }
 
+    function clearResult()
+    {   
+        $("#Report").css('display','none')
+        $("#result").val('')
+
+
+    }
 
 
         var input = document.getElementById('image');
@@ -358,6 +373,7 @@
                     },
                     error:function(data)
                     {
+                        console.log(data);
                         $(".save-button").html('Save').prop('disabled', false);
                         notyf.open({
                                 type: 'error',
