@@ -160,7 +160,7 @@ class AdminController extends Controller
             return response()->json([
                 'error'=>$validator->errors(),
                 'status'=>false
-            ], 200);
+            ], 400);
         }
         $data = array_merge($request->all(),['password'=>Hash::make($request->password)]);
         $user = User::create($data);

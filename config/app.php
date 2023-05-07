@@ -63,6 +63,13 @@ return [
 
     'FCM_KEY'=>env('FCM_Key'),
 
+    "App_Name"=>env('GOOGLE_APP_Name'),
+    "Folder_Name"=>env('GOOGLE_DRIVE_FOLDER_NAME'),
+    "Api_Key"=>env('GOOGLE_DRIVE_API_KEY'),
+    "Client_ID"=>env('GOOGLE_DRIVE_CLIENT_ID'),
+    "Client_Secret"=>env('GOOGLE_DRIVE_SECRET_ID'),
+
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone

@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Appointment;
 use Illuminate\Http\Request;
 use App\Models\Patient;
 use App\Utils\SendNotification;
 use App\Models\Notification;
+use App\Models\Result;
+use Yajra\DataTables\Facades\DataTables;
+
 class PatientController extends Controller
 {
     // //
@@ -36,6 +40,66 @@ class PatientController extends Controller
         })
         ->toJson();
         return $result;
+    }
+
+    public function show($id)
+    {
+        $data = Patient::with(['result'=>function($q){
+            $q->with('category');
+        }])->with(['appointment'=>function($q){
+            $q->with('appointmentTimes');
+        }])->with('invoice')->findOrFail($id);
+        return view('dashboard.patients.show',['data'=>$data]);
+    }
+
+
+    // get data from patient //
+    public function getResultData($id)
+    {
+        $data = Result::query()->with('category')->with('doctor')->where('patient_id',$id);
+        return DataTables()->eloquent($data)
+        ->addColumn('img',function($data){
+            return view('dashboard.patients.result-action',['type'=>'img','data'=>$data]);  
+        })
+        ->editColumn('doctor_id',function($data){
+            return $data->doctor->name;            
+        })
+        ->editColumn('category_id',function($data){
+            return $data->category->name;
+        })
+        ->toJson();
+    }
+  
+
+
+    public function getAppointmentData($id)
+    {
+        $data = Appointment::query()->with('appointmentTimes')->with('invoice')->where('patient_id',$id);
+        return DataTables()->
+        eloquent($data)
+        ->addColumn('time',function($data){
+            return $data->appointmentTimes->time_from .' : '.$data->appointmentTimes->time_to;
+        })
+        
+        ->editColumn('category_id',function($data){
+            return optional($data->category)->name;
+        })
+        ->addColumn('currency',function($data)
+        {
+            return $data->invoice->currency;
+        })
+        ->addColumn('amount',function($data){
+            return $data->invoice->amount;
+        })
+        ->addColumn('data_message',function($data){
+            return view('dashboard.patients.appointment-action',['type'=>'data_message','data'=>$data]);
+        })
+        ->addColumn('payment_date',function($data){
+            return $data->invoice->date;
+        })
+        ->toJson();
+
+
     }
 
     public function delete(Request $request)
@@ -68,7 +132,7 @@ class PatientController extends Controller
             your Phone Number '. $patient->phone . 'Has Been Added To your Profile With Our Best :)'
         ])){
             return response()->json([
-                'msg'=>'Notiifcation Pushed'
+                'msg'=>'Notification Pushed'
             ], 200);
         }
         else

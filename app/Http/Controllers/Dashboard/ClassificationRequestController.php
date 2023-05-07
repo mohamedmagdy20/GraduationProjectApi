@@ -7,6 +7,7 @@ use App\Models\Appointment;
 use App\Models\Doctor;
 use App\Models\Patient;
 use App\Models\Result;
+use App\Utils\GoogleDrive;
 use App\Utils\SendNotification;
 use Exception;
 use Illuminate\Http\Request;
@@ -65,6 +66,13 @@ class ClassificationRequestController extends Controller
             'appointment_id'=>'required'
         ]);
 
+
+        // $drive = new GoogleDrive;
+        // $files = $request->file('files');
+        // // return $files;
+        // $url = $drive->googleDriveFilePpload($request->patient_id,$files);
+        // // return $url;
+
         // store 
 
         if($request->file('img'))
@@ -77,7 +85,15 @@ class ClassificationRequestController extends Controller
 
         }
 
-        $data =  array_merge($request->all(),['img'=>$image]);
+
+        // Store Files in google Drive 
+        $drive = new GoogleDrive;
+        $files = $request->file('files');
+        $url = $drive->googleDriveFilePpload($request->patient_id,$files);
+
+
+        $data =  array_merge($request->all(),['img'=>$image,'files_url'=>$url]);
+
         $result = Result::create($data);
 
         if($result)
@@ -93,10 +109,9 @@ class ClassificationRequestController extends Controller
                     'is_done'=>true
                 ]);
 
-
                 $notificataion = new SendNotification;
                 $notificataion->Send($doctor->notification_token,$doctor->name);  
-                // return $r;
+
 
             }catch(Exception $e){
                 return response()->json([

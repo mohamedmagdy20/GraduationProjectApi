@@ -6,12 +6,14 @@ use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\ClassificationRequestController;
 use App\Http\Controllers\Dashboard\DoctorController;
+use App\Http\Controllers\Dashboard\GoogleDriveController;
 use App\Http\Controllers\Dashboard\LoginHistoryController;
 use App\Http\Controllers\Dashboard\InvoiceController;
 use App\Http\Controllers\Dashboard\LogController;
 use App\Http\Controllers\Dashboard\PatientController;
 use App\Http\Controllers\Dashboard\PermissionController;
 use App\Http\Controllers\Dashboard\RoleController;
+use App\Utils\GoogleDrive;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\ResultController;
 use App\Http\Controllers\Dashboard\SettingsController;
@@ -31,12 +33,16 @@ use App\Http\Controllers\NotificationController;
 
 Route::get('/', [HomeController::class,'index'])->middleware(['auth']);
 
+
+Route::get('upload-google-drive',[GoogleDriveController::class,'uploadDrive'])->middleware(['auth']);
+Route::get('google/login',[GoogleDrive::class,'googleLogin'])->name('google.login');
+
 // Route::get('/', function () {
 
 // })->middleware(['auth'])->name('dashboard');
 Route::get('/logout',[HomeController::class,'logout'])->middleware(['auth'])->name('admin.logout');
 Route::middleware(['auth'])->prefix('dashboard')->group(function(){
-
+    Route::get('/get-invoice',[HomeController::class,'amountChart'])->name('invoice.chart');
     Route::get('/',[HomeController::class,'index'])->middleware(['auth'])->name('dashboard');
     Route::group(['prefix'=>'admins'],function(){
         Route::get('index',[AdminController::class,'index'])->name('admin.index')->middleware('permission:show_admins');
@@ -92,8 +98,14 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function(){
 
         Route::get('index',[PatientController::class,'index'])->name('patients.index')->middleware('permission:show_patients');
         Route::get('get_data',[PatientController::class,'data'])->name('patients.get-data')->middleware('permission:show_patients');
-        Route::post('delete',[PatientController::class,'delete'])->name('patients.delete')->middleware('permission:deactive_patients');
-        Route::post('restore',[PatientController::class,'restore'])->name('patients.restore')->middleware('permissions:active_patients');
+        Route::get('show/{id}',[PatientController::class,'show'])->name('patients.show');
+        Route::post('delete',[PatientController::class,'delete'])->name('patients.delete');
+        Route::post('restore',[PatientController::class,'restore'])->name('patients.restore');
+
+
+        Route::get('get-result/{id}',[PatientController::class,'getResultData'])->name('patients.get-result');
+        Route::get('get-appointment/{id}',[PatientController::class,'getAppointmentData'])->name('patients.get-appointment');
+
     });
 
 

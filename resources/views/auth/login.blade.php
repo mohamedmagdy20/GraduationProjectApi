@@ -38,7 +38,7 @@
                             <div class="text-center text-md-center mb-4 mt-md-0">
                                 <h1 class="mb-0 h3">Admin Panel</h1>
                             </div>
-                            <form id="submit-login" class="mt-4">
+                            <form id="submit-login" class="mt-2">
                                 @csrf
                                 <!-- Form -->
                                 <div class="form-group mb-4">
@@ -54,7 +54,7 @@
                                 <!-- End of Form -->
                                 <div class="form-group">
                                     <!-- Form -->
-                                    <div class="form-group mb-4">
+                                    <div class="form-group mb-2">
                                         <label for="password">Your Password</label>
                                         <div class="input-group">
                                             <span class="input-group-text" id="basic-addon2">

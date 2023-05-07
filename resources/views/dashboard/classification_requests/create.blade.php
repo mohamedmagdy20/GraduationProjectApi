@@ -60,7 +60,9 @@
                         <div class="col-md-12">
                             {{-- <input type="submit" value="Save" class="btn btn-primary"> --}}
                             <button class="btn btn-primary submit-button">Show Result</button>
+                            <a onclick="clearResult()">Clear</a>
                         </div>
+                        
                 </form>    
          
             </div>
@@ -161,7 +163,7 @@
                     
                         <div class="form-classification  py-3 px-5">
                         
-                            <table class="table">
+                            {{-- <table class="table">
                                 <thead>
                                     <tr>
                                         <th></th>
@@ -180,8 +182,16 @@
                                     </tr>
                                 
                                 </tbody>
-                            </table>
+                            </table> --}}
                     </div>
+                    </div>
+                    <br>
+                    <br>
+                    <p class="text-warning">Save File to Patient Through Google Drive</p>
+                    <div class="form-group">
+                        <label for="select-files">Files</label>
+                           <input type="file" name="files[]" class="form-control" multiple id="files">
+
                     </div>
                 
                 
@@ -231,11 +241,11 @@
                 success:function(data){
                     $("#Report").css('display','block')
                     showResult(data.type)
-                    $(".submit-button").html('Save').prop('disabled', false);      
+                    // $(".submit-button").html('Save').prop('disabled', false);      
                 },
                 error:function(data)
                 {
-                    $(".submit-button").html('Save').prop('disabled', false);
+                    // $(".submit-button").html('Save').prop('disabled', false);
                     console.log(data);
                     notyf.open({
                             type: 'error',
@@ -248,12 +258,19 @@
     });
 
 
-        // show Report and pass data 
-        function  showResult(result)
-        {
-            $("#result").val(result)    
-        }
+    // show Report and pass data 
+    function  showResult(result)
+    {
+        $("#result").val(result)    
+    }
 
+    function clearResult()
+    {   
+        $("#Report").css('display','none')
+        $("#result").val('')
+
+
+    }
 
 
         var input = document.getElementById('image');
@@ -304,16 +321,21 @@
                 doctor_id = $("#doctor_id").val();
                 result = $('#result').val();
                 img = document.getElementById('image');
-
                 category_id = $('#category_id').val();
                 patient_id = $('#patinet_id').val();
                 appointment_id = $("#appointment_id").val()
 
                 console.log(img);
 
+
                 // //////////////////////////
                 var form_data = new FormData()
 
+                
+                var files = $('#files')[0].files;
+                for (var i = 0; i < files.length; i++) {
+                    form_data.append('files[]', files[i]);
+                }
                 form_data.append('doctor_id',doctor_id)
                 form_data.append('patient_id',patient_id)
                 form_data.append('category_id',category_id)
@@ -344,13 +366,14 @@
                         type: 'success',
                             message: data.msg
                         });
-                        window.location.replace("{{route('classification-request.index')}}");
+                        // window.location.replace("{{route('classification-request.index')}}");
                         // window.reload()
                     
 
                     },
                     error:function(data)
                     {
+                        console.log(data);
                         $(".save-button").html('Save').prop('disabled', false);
                         notyf.open({
                                 type: 'error',
