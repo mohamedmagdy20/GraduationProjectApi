@@ -163,7 +163,7 @@
 
 
 
-       
+
 
 
         {{-- Classificatieon Request --}}
@@ -251,6 +251,13 @@
               </li>  --}}
 
 
+                <li class="nav-item">
+                  <a class="nav-link"
+                    href="{{route('loginHisory.index')}}">
+                    <span class="sidebar-text">login history</span>
+                  </a>
+                </li>
+
             </ul>
           </div>
         </li>
@@ -273,6 +280,16 @@
               <span class="mt-1 ms-1 sidebar-text">Appointment Times</span>
             </a>
           </li>
+
+          <li class="nav-item">
+            <a href="{{route('tips.index')}}" class="nav-link d-flex align-items-center">
+              <span class="sidebar-icon">
+                <i class="fa-solid fa-calendar-days"></i>
+              </span>
+              <span class="mt-1 ms-1 sidebar-text">Tips</span>
+            </a>
+          </li>
+
         {{-- end of side bar --}}
 
         <li role="separator" class="dropdown-divider mt-4 mb-3 border-gray-700"></li>
