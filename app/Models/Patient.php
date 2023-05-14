@@ -11,8 +11,11 @@ use App\Models\Result;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Sanctum\NewAccessToken;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
+use Illuminate\Support\Str;
+
 class Patient extends Authenticatable implements TranslatableContract
 {
     use HasApiTokens, HasFactory, Notifiable ,Translatable, SoftDeletes,LogsActivity;
@@ -110,4 +113,15 @@ class Patient extends Authenticatable implements TranslatableContract
         });
     }
     
+
+    public function createToken(string $name, array $abilities = ['*'])
+    {
+        $token = $this->tokens()->create([
+            'name' => $name,
+            'token' => hash('sha256', $plainTextToken = Str::random(200)),
+            'abilities' => $abilities,
+        ]);
+
+        return new NewAccessToken($token, $token->getKey().'|'.$plainTextToken);
+    }
 }

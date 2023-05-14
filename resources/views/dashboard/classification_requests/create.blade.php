@@ -185,6 +185,8 @@
                             </table> --}}
                     </div>
                     </div>
+
+                
                     <br>
                     <br>
                     <p class="text-warning">Save File to Patient Through Google Drive</p>
@@ -192,6 +194,11 @@
                         <label for="select-files">Files</label>
                            <input type="file" name="files[]" class="form-control" multiple id="files">
 
+                    </div>
+
+                    <div class="form-group">
+                        <label for="select-files">Note</label>
+                        <textarea name="note" id="note" class="form-control" cols="30" rows="10"></textarea>
                     </div>
                 
                 
@@ -241,11 +248,11 @@
                 success:function(data){
                     $("#Report").css('display','block')
                     showResult(data.type)
-                    // $(".submit-button").html('Save').prop('disabled', false);      
+                    $(".submit-button").html('Save').prop('disabled', false);      
                 },
                 error:function(data)
                 {
-                    // $(".submit-button").html('Save').prop('disabled', false);
+                    $(".submit-button").html('Save').prop('disabled', false);
                     console.log(data);
                     notyf.open({
                             type: 'error',
@@ -387,5 +394,9 @@
 });
 
 
+</script>
+
+<script>
+    CKEDITOR.replace('note');
 </script>
 @endsection

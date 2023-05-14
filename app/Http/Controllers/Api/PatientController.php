@@ -12,9 +12,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\ResetPassword;
 use App\Models\Appointment;
 use App\Models\Invoice;
-// use App\Models\Invoice;
 use App\Models\Result;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class PatientController extends Controller
@@ -186,19 +184,20 @@ class PatientController extends Controller
 
     public function appointments()
     {
-        $data = Appointment::with('appointmentTimes')->with('category')->where('patient_id',auth()->user()->id)->get();
+        $data = Appointment::with('appointmentTimes')->with('invoice')->with('category')->where('patient_id',auth()->user()->id)->get();
         return response()->json([
             'data'=>$data,
             'status'=>true
         ], 200);   
     }
-
     public function invoice()
     {
-        $data = Appointment::whereHas('patient',function($q){
-            $q->whereId(auth()->user()->id);
-        })->get();
-        
+        //$data = Invoice::with(['patient',function($q)
+        //{
+          //  $q::find(auth()->user()->id);
+        //}])->get();
+
+        $data =  Invoice::all();
         return response()->json([
             'data'=>$data,
             'status'=>true
@@ -209,7 +208,6 @@ class PatientController extends Controller
     public function editProfile(Request $request)
     {
         $rule = [
-            'id'=>'required',
             'name'=>'required',
             'email'=>'required|email',
             'phone'=>'required',
@@ -223,7 +221,7 @@ class PatientController extends Controller
                 'status'=>false
             ], 200);
         }
-        $patient = Patient::find($request->id);
+        $patient = Patient::find(auth()->user()->id);
 
         if($request->hasFile('img'))
         {
@@ -325,6 +323,7 @@ class PatientController extends Controller
                 Storage::disk('profile')->put($imgName, file_get_contents($request->file('img')));
                 // $image = 'public/files/profile/'.$imgName;
                 $image = asset('files/profile/' . $imgName);
+                $patient->update(['img'=>$image]); 
                 return response()->json(
                     ['msg'=>'Pateint Updated Sucessfuly','status'=>true]
                     , 200);

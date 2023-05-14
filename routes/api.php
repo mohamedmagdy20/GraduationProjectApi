@@ -16,6 +16,8 @@ use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Dashboard\AdminController;
 use App\Http\Controllers\Dashboard\DoctorController as DoctorDashboard;
 use  App\Http\Controllers\Dashboard\ModelController;
+use App\Utils\GoogleDrive;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -33,6 +35,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('health-tips',[TipsController::class,'index']);
 Route::get('health-tips/show/{id}',[TipsController::class,'show']);
+
+// Route::get('google/login',[GoogleDrive::class,'googleLogin'])->name('google.login');
 
 Route::post('patient/login',[PatientAuthController::class,'login']);
 Route::post('patient/register',[PatientAuthController::class,'Register']);

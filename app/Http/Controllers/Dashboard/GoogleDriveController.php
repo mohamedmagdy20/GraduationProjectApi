@@ -15,7 +15,6 @@ class GoogleDriveController extends Controller
         $patient = Patient::findOrFail($id);
         $drive = new GoogleDrive;
         $url = $drive->googleDriveFilePpload($patient->id,$files);
-        return $url;
-       
+        return $url;  
     }
 }

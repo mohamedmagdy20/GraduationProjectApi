@@ -25,7 +25,7 @@ class AppointmentController extends Controller
 
     public function chooseScan()
     {
-        return response()->json(Category::all(), 200);
+        return response()->json(['data'=>Category::all(),'status'=>true], 200);
     }
 
 
@@ -36,7 +36,6 @@ class AppointmentController extends Controller
         // Validataion //
         $rule = [
             'appointment_date'=>'required|date',
-            'category_id'=>'required'
         ];
 
         $validator = Validator::make($request->all(),$rule);

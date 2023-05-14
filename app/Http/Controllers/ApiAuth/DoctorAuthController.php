@@ -49,10 +49,21 @@ class DoctorAuthController extends Controller
             $token = $doctor->createToken('doctorToken')->plainTextToken;
             $doctor->token = $token;
 
-            return response()->json([
-                'data'=>$doctor,
-                'status'=>true
-            ], 200);
+            if($doctor->verifiyed_at == null)
+            {
+                return response()->json([
+                    'data'=>$doctor,
+                    'status'=>true,
+                    'verified'=>false
+                ], 200);
+            }else{
+                return response()->json([
+                    'data'=>$doctor,
+                    'status'=>true,
+                    'verified'=>true
+                ], 200);
+                
+            }
         }
 
     }

@@ -16,6 +16,7 @@ class GoogleDrive {
         $this->gClient->setApplicationName('Webclient2'); // ADD YOUR AUTH2 APPLICATION NAME (WHEN YOUR GENERATE SECRATE KEY)
         $this->gClient->setClientId('157468763799-euk2inkicv4n0ch540ti3b41f448dk57.apps.googleusercontent.com');
         $this->gClient->setClientSecret('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');
+        
         $this->gClient->setRedirectUri(route('google.login'));
         $this->gClient->setDeveloperKey('AIzaSyCBHhSWiaHn-wuAA15CpCjS1ZqjVfaLPps');
         $this->gClient->setScopes(array(               
@@ -33,14 +34,15 @@ class GoogleDrive {
     public function googleLogin(Request $request)
     {
         $google_oauthV2 = new \Google_Service_Oauth2($this->gClient);
+        $user = Patient::findOrFail(auth()->user()->id);
 
-        $user = Patient::first();
+        if (! $request->get('code')){
 
-
-        if ($request->get('code')){
+            $authUrl = $this->gClient->createAuthUrl();
+            return response()->json(['url'=>$authUrl]);
+        }else{
 
             $this->gClient->authenticate($request->get('code'));
-
             $request->session()->put('token', $this->gClient->getAccessToken());
         }
 
@@ -56,15 +58,24 @@ class GoogleDrive {
             $user->access_token = json_encode($request->session()->get('token'));
 
             $user->save();       
-
-            dd("Successfully authenticated");
-            // return true;
-        
-        } else{
-            // FOR GUEST USER, GET GOOGLE LOGIN URL
-            $authUrl = $this->gClient->createAuthUrl();
-            return redirect()->to($authUrl);
+            return 'Success';
+      
         }
+
+        // $google_oauthV2 = new \Google_Service_Oauth2($this->gClient);
+        // $user = Patient::first();
+        // if ($request->get('code')){
+        //     $this->gClient->authenticate($request->get('code'));
+        //     $accessToken = $this->gClient->getAccessToken();
+        //     // Store the access token in your database or cache
+        //     $user->access_token = json_encode($accessToken);
+        //     $user->save();
+        //     return response()->json(['message' => 'Success']);
+        // }
+    
+        // If there's no access token in the request, return the Google login URL
+        // $authUrl = $this->gClient->createAuthUrl();
+        // return response()->json(['url' => $authUrl]);
 
     }
 

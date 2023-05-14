@@ -127,6 +127,8 @@
 {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> --}}
 {{-- <script src="{{asset('assets/js/sweet_alert.js')}}"></script> --}}
 {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script> --}}
+<script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
 
 <!-- Moment JS -->
