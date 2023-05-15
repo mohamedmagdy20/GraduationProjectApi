@@ -24,6 +24,11 @@ class Category extends Model
         'is_active'
     ];
 
+    public function appointment()
+    {
+        return $this->hasMany(Appointment::class,'category_id');
+    }
+    
     protected static $logEvents = ['created', 'updated', 'deleted'];
     public function getActivitylogOptions(): LogOptions
     {

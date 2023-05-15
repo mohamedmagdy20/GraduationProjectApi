@@ -43,6 +43,10 @@ Route::get('google/login',[GoogleDrive::class,'googleLogin'])->name('google.logi
 Route::get('/logout',[HomeController::class,'logout'])->middleware(['auth'])->name('admin.logout');
 Route::middleware(['auth'])->prefix('dashboard')->group(function(){
     Route::get('/get-invoice',[HomeController::class,'amountChart'])->name('invoice.chart');
+    Route::get('/get-gender',[HomeController::class,'genderData'])->name('gender.chart');
+    Route::get('/get-alzhimer',[HomeController::class,'AlzhimerData'])->name('alzhimer.chart');
+    Route::get('/get-brain',[HomeController::class,'BrainData'])->name('brain.chart');
+
     Route::get('/',[HomeController::class,'index'])->middleware(['auth'])->name('dashboard');
     Route::group(['prefix'=>'admins'],function(){
         Route::get('index',[AdminController::class,'index'])->name('admin.index');

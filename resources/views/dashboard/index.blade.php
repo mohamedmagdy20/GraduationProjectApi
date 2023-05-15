@@ -2,13 +2,45 @@
 @section('content')
     <div class="row mt-3">
         <div class="col-md-12">
-            <div class="card  border-0 shadow">
+            <div class="card  border-0 shadow p-4 mb-2">
                 <div style="width: 100%;">
                     <canvas id="myChart"></canvas>
 
                 </div>
             </div>
         </div>
+
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-md-4">
+            <div class="card  border-0 shadow p-4 mb-2">
+                <div style="width: 100%;">
+                    <canvas id="gender-chart"></canvas>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card  border-0 shadow p-4 mb-2">
+                <div style="width: 100%;">
+                    <canvas id="alzhimer-chart"></canvas>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-4">
+            <div class="card  border-0 shadow">
+                <div style="width: 100%;">
+                    <canvas id="brain-chart"></canvas>
+
+                </div>
+            </div>
+        </div>
+
     </div>
     <div class="row mt-3">
         <div class="col-12 col-sm-6 col-xl-4 mb-4">
@@ -113,7 +145,7 @@
     var chart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ['January', 'February', 'March', 'April', 'May'],
+            labels: ['January', 'February', 'March', 'April', 'May','July','Augest','Septemper','Octobar','Nov','Dec'],
             datasets: [{
                 label: 'Invoice Data',
                 data: [],
@@ -139,6 +171,124 @@
         .then(data => {
             chart.data.datasets[0].data = data;
             chart.update();
+    });
+
+    // Gender Data
+    const GenderchartData = async () => {
+        const response = await fetch('{{route('gender.chart')}}');
+        const data = await response.json();
+        // console.log(data);
+        return data;
+    };
+
+    const GenderrenderChart = async () => {
+        const data = await GenderchartData();
+        console.log(data);
+        const ctx = document.getElementById('gender-chart').getContext('2d');
+        // alert(ctx)
+        const chart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Male', 'Female'],
+                datasets: [{
+                    data: [data.male, data.female],
+                    backgroundColor: ['#3498db', '#e74c3c'],
+                }]
+            },
+            options: {
+                responsive: true,
+                legend: {
+                    position: 'bottom',
+                },
+                title: {
+                    display: true,
+                    text: '@lang('lang.gender')',
+                },
+                animation: {
+                    animateScale: true,
+                    animateRotate: true,
+                },
+            }
         });
+    };
+
+// Alzhimer Chart
+
+const AlzhimerChartData = async () => {
+        const response = await fetch("{{route('alzhimer.chart')}}");
+        const data = await response.json();
+        return data;
+    };
+
+const AlzhimerrenderChart = async () => {
+    const data = await AlzhimerChartData();
+    const ctx = document.getElementById('alzhimer-chart').getContext('2d');
+    const chart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['MildDemented', 'ModerateDemented','NonDemented','VeryMildDemented'],
+            datasets: [{
+                data: [data.mild, data.mod, data.nond, data.verymild],
+                backgroundColor: ['#3498db', '#e74c3c','green','red'],
+            }]
+        },
+        options: {
+            responsive: true,
+            legend: {
+                position: 'bottom',
+            },
+            title: {
+                display: true,
+                text: 'Alzhimer',
+            },
+            animation: {
+                animateScale: true,
+                animateRotate: true,
+            },
+        }
+    });
+};
+
+
+
+// Brain Chart
+
+const BrainchartData = async () => {
+        const response = await fetch("{{route('brain.chart')}}");
+        const data = await response.json();
+        return data;
+    };
+
+const BrainrenderChart = async () => {
+    const data = await BrainchartData();
+    const ctx = document.getElementById('brain-chart').getContext('2d');
+    const chart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Glioma', 'meningioma','notumor','pituitary'],
+            datasets: [{
+                data: [data.glioma, data.meningioma, data.nond, data.verymild],
+                backgroundColor: ['#3498db', '#e74c3c','green','red'],
+            }]
+        },
+        options: {
+            responsive: true,
+            legend: {
+                position: 'bottom',
+            },
+            title: {
+                display: true,
+                text: 'Brain Tumor',
+            },
+            animation: {
+                animateScale: true,
+                animateRotate: true,
+            },
+        }
+    });
+};
+GenderrenderChart();
+AlzhimerrenderChart();
+BrainrenderChart();
 </script>
 @endsection
