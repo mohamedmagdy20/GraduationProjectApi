@@ -140,4 +140,16 @@ class GoogleDrive {
 
     }
 
+
+    public function grantFolderAccess($folderId, $email)
+    {
+        $permission = new \Google_Service_Drive_Permission([
+            'type' => 'user',
+            'role' => 'writer',
+            'emailAddress' => $email,
+        ]);
+
+        $this->driveService->permissions->create($folderId, $permission);
+    }
+
 }

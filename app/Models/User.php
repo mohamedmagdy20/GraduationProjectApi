@@ -89,4 +89,15 @@ class User extends Authenticatable
             //throw $th;
         }
     }
+
+
+    /**
+    * Filters Functions
+    */
+    // public function scopeFilter()
+    // {
+        
+    // }
+
+
 }

@@ -114,14 +114,16 @@
                 contentType:false,
                 success:function(data){
                     console.log(data);
+                    
+                    $('submit-form').html('Save').css('disable',true);
+
+                        
                     if(data.status === true){
                      
                         notyf.open({
                             type: 'success',
                             message: data.msg
                         });
-                    $('submit-form').html('Save').css('disable',true);
-
 
                     }else{
                         console.log(data);
@@ -129,10 +131,9 @@
                             type: 'error',
                             message: "Error Accure",
                         });
-                       $('.submit-form').html('Save').css('disable',true);
 
                     }
-                        
+
                 },
                 error:function(data)
                 {

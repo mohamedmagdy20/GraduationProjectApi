@@ -107,9 +107,9 @@ class Patient extends Authenticatable implements TranslatableContract
         });
 
         static::restoring(function($patient){
-            $patient->result()->restore();
-            $patient->appointment()->restore();
-            $patient->invoice()->restore();  
+            $patient->result()->deleted_at = null;
+            $patient->appointment()->deleted_at = null;
+            $patient->invoice()->deleted_at = null;  
         });
     }
     
@@ -124,4 +124,6 @@ class Patient extends Authenticatable implements TranslatableContract
 
         return new NewAccessToken($token, $token->getKey().'|'.$plainTextToken);
     }
+
+    
 }

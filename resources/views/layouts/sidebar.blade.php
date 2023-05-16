@@ -264,7 +264,7 @@
 
 
         <li class="nav-item">
-          <a href="{{route('results.index')}}" class="nav-link d-flex align-items-center">
+          <a href="{{route('appointments.index')}}" class="nav-link d-flex align-items-center">
             <span class="sidebar-icon">
               <i class="fa fa-calendar-check"></i>
             </span>

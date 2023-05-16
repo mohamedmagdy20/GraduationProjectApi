@@ -50,6 +50,13 @@ class Doctor extends Authenticatable implements TranslatableContract
             ->setDescriptionForEvent(fn(string $eventName) => "Doctor has been {$eventName} by ($admin)");
     }
 
+    
+    public function result()
+    {
+        return $this->hasMany(Result::class,'doctor_id');
+    }
+
+
 
     /**
      * The attributes that should be hidden for serialization.

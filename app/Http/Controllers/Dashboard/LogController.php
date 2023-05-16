@@ -13,16 +13,16 @@ class LogController extends Controller
 
     public function index()
     {
-     
+    
         return view('dashboard.logs.index');
     }
 
     public function data()
     {
-        $query = Activity::all();
+        $query = Activity::query();
         return DataTables::of($query)
         ->addColumn('admin', function($query) {
-            return $query->causer->email;
+            return $query->causer['name'];
          })
          ->addColumn('date',function($query)
          {

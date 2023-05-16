@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Dashboard\AdminController;
+use App\Http\Controllers\Dashboard\AppointmentController;
 use App\Http\Controllers\Dashboard\AppointmentTimeController;
 use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\CategoryController;
@@ -204,6 +205,13 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function(){
         Route::get('get_data',[LoginHistoryController::class,'data'])->name('loginHisory.get-data');
 
     });
+
+    Route::group(['prefix'=>'appointments'],function(){
+        Route::get('index',[AppointmentController::class,'index'])->name('appointments.index');
+        Route::get('data',[AppointmentController::class,'data'])->name('appointements.data');
+        Route::post('delete',[AppointmentController::class,'toggleActive'])->name('appointements.delete');
+    });
+
 
 });
 require __DIR__.'/auth.php';

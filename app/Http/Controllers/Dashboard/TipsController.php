@@ -29,4 +29,11 @@ class TipsController extends Controller
         })->make(true);
     }
 
+
+    public function toggleActive(Request $request)
+    {
+       $tip = Tips::find($request->id);
+       $tip->delete();
+
+    }
 }
