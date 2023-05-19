@@ -24,7 +24,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $count = Appointment::where('is_done',false)->count();
-        View::share('acount', $count);
+        $appointments =  Appointment::with('patient')->where('is_done',false)->get();
+        $count = $appointments->count() ;
+        View::share(['acount'=>$count,'appointmets'=>$appointments]);
     }
 }
