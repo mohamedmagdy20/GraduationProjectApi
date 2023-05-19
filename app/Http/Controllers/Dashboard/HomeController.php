@@ -29,7 +29,7 @@ class HomeController extends Controller
     {
         // Invoice Amount //
         $amount = [];
-        $invoices = Invoice::where('currency','EG')->get('amount');
+        $invoices = Invoice::where('currency','EGP')->get('amount');
         foreach($invoices as $invoice)
         {
             array_push($amount,$invoice->amount);

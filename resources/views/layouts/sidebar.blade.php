@@ -246,20 +246,7 @@
               </li>
 
 
-              {{-- <li class="nav-item">
-                <a class="nav-link"
-                  href="{{route('doctors.create')}}">
-                  <span class="sidebar-text">Add Doctors</span>
-                </a>
-              </li>  --}}
-
-
-                <li class="nav-item">
-                  <a class="nav-link"
-                    href="{{route('loginHisory.index')}}">
-                    <span class="sidebar-text">login history</span>
-                  </a>
-                </li>
+       
 
             </ul>
           </div>
