@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\AppointmentEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
 use App\Models\AppointmentTime;
 use App\Models\Category;
 use App\Models\Invoice;
+use App\Models\Patient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -84,6 +86,9 @@ class AppointmentController extends Controller
         ////
         if(Appointment::create(array_merge($request->all(),['invoice_id'=>$invoice->id])))
         {
+            $patient = Patient::find($request->patient_id)->name;
+    
+            event(new AppointmentEvent($patient));
             return response()->json([
                 'msg'=>'Success',
                 'status'=>true

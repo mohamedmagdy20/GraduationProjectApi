@@ -16,7 +16,6 @@ class Notification extends Model
         'is_readed'
     ];
 
-
     public function patient()
     {
         return $this->belongsTo(Patient::class,'patient_id');
@@ -25,5 +24,16 @@ class Notification extends Model
     public function doctor()
     {
         return $this->belongsTo(Doctor::class,'doctor_id');
+    }
+
+
+    public function scopeFilter($query ,$params)
+    {
+      
+        if(isset($params['is_readed']))
+        {
+            $query->where('is_readed',$params['is_readed']);
+        }
+        return $query;
     }
 }

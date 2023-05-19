@@ -18,6 +18,26 @@
             <h1 class="h4">Notifications</h1>
         </div>     
     </div>
+    <div class="row  w-100 ">
+
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="">Type</label>
+                <select name="" class=" form-control select" id="is_readed">
+                   <option value="1">Seen</option>
+                   <option value="0">Not Seen</option>
+                   
+                </select>
+            </div>
+        </div>
+        <div class="col-md-2" style="margin-top: 31px">
+            <div class="form-group">
+                <button onclick="handleFilter()" class="btn btn-primary" >Search <i class="fa-solid fa-magnifying-glass"></i></button>
+                <button onclick="ClearFilter()" class="btn btn-light" >Clear</button>
+            </div>    
+        </div> 
+    </div>
 </div>
 
 
@@ -96,6 +116,25 @@ function setPatientDatatable() {
 
 setPatientDatatable();
 
+
+function handleFilter()
+{
+    isseen = $('#is_readed').val() || '';
+
+    if (PatientTable) {
+        var url = "{{ route('notifications.get-data') }}" + `?is_readed=${isseen}`;
+        PatientTable.ajax.url(url).load()
+    }
+}
+
+function ClearFilter()
+{
+    $('#is_readed').val('') || '';
+
+    var url = "{{ route('notifications.get-data') }}";
+    PatientTable.ajax.url(url).load()
+
+}
 
 
 

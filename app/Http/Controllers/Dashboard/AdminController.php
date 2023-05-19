@@ -11,7 +11,10 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
-
+use Kreait\Firebase\Messaging\CloudMessaging;
+use Kreait\Firebase\Messaging\Message;
+use Kreait\Firebase\Messaging\Notification;
+use Kreait\Laravel\Firebase\Facades\Firebase;
 class AdminController extends Controller
 {
     //
@@ -147,6 +150,7 @@ class AdminController extends Controller
 
     public function store(Request $request)
     {
+        // return $request->all();
         $rule =[
             'name'=>'required',
             'email'=>'required|email|unique:users,email',
@@ -162,6 +166,11 @@ class AdminController extends Controller
                 'status'=>false
             ], 400);
         }
+
+        // Create Notifcation Token
+        // $messaging = Firebase::messaging();
+        // $token = $messaging->getDeviceToken($userId);
+
         $data = array_merge($request->all(),['password'=>Hash::make($request->password)]);
         $user = User::create($data);
         if($user)
@@ -194,4 +203,5 @@ class AdminController extends Controller
         $admin->restore();
         return response()->json(['msg'=>'Admin Activate','status'=>true], 200);
     }
+
 }

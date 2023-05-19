@@ -15,7 +15,7 @@
         </ol>
     </nav>
     <h1 class="h4">Appointments</h1>
-    <div class="row justify-content-center w-100 ">
+    <div class="row  w-100 ">
 
         <div class="col-md-4">
             <div class="form-group">
@@ -56,19 +56,12 @@
                 </select>
             </div>
         </div>
-        <div class="col-md-2 mt-4 ">
+        <div class="col-md-2" style="margin-top: 31px">
             <div class="form-group">
-                <button onclick="handleFilter()" class="btn btn-primary" >Search <i class="fa fa-glasses"></i></button>
-            </div>    
-        </div>
-        <div class="col-md-2 mt-4">
-            <div class="form-group">
+                <button onclick="handleFilter()" class="btn btn-primary" >Search <i class="fa-solid fa-magnifying-glass"></i></button>
                 <button onclick="ClearFilter()" class="btn btn-light" >Clear</button>
-            </div>
-      
-        </div>
-        
-  
+            </div>    
+        </div> 
     </div>
 </div>
 
@@ -81,7 +74,6 @@
                     <tr>
                         <th class="border-0 rounded-start">Name</th>
                         <th class="border-0">Date</th>
-                        {{-- <th class="border-0">Doctor Name</th> --}}
                         <th class="border-0">Category</th>
                         <th class="border-0">Time</th>
                         <th class="border-0">Amount</th>

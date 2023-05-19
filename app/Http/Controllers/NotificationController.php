@@ -19,8 +19,7 @@ class NotificationController extends Controller
 
     public function data(Request $request)
     {
-        $query = Notification::query()->whereNotNull('doctor_id');
-
+        $query = Notification::filter($request->except('_token'))->whereNotNull('doctor_id');
         return DataTables::eloquent($query)
         ->editColumn('doctor_id',function($query)
         {
@@ -31,5 +30,17 @@ class NotificationController extends Controller
         })
         ->toJson();
     }
+
+    /**
+    * Noitication For Admins
+    */
+
+    // public function updateTokenUser(Request $request)
+    // {
+    //     $user = User::findOrFail($request->id);
+
+    //     $user->notifcation_token = Toificatio
+    // }
+
     
 }

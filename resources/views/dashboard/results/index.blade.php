@@ -18,6 +18,59 @@
             <h1 class="h4">Results</h1>
         </div>     
     </div>
+
+    <div class="row  w-100 ">
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="">Patient</label>
+                <select name="" class=" form-control select" id="patient_id">
+                    @foreach ($patients as $patient)
+                        <option value="{{$patient->id}}">{{$patient->name}}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="">Doctors</label>
+                <select name="" class=" form-control select" id="doctor_id">
+                    @foreach ($doctors as $doctor)
+                        <option value="{{$doctor->id}}">{{$doctor->name}}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="">Category</label>
+                <select name="category" class=" form-control select" id="category_id">
+                    @foreach ($category as $cat)
+                        <option value="{{$cat->id}}">{{$cat->name}}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        
+        
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="">Date</label>
+                <input type="text" name="dates" id="dates" class="form-control">
+            </div>
+        </div>
+
+        <div class="col-md-2" style="margin-top: 31px">
+            <div class="form-group">
+                <button onclick="handleFilter()" class="btn btn-primary" >Search <i class="fa-solid fa-magnifying-glass"></i></button>
+                <button onclick="ClearFilter()" class="btn btn-light" >Clear</button>
+            </div>    
+        </div> 
+    </div>
+
 </div>
 
 
@@ -27,7 +80,7 @@
             <table class="table table-centered table-nowrap mb-0 rounded" id="patient-table">
                 <thead class="thead-light">
                     <tr>
-                        <th class="border-0 rounded-start">img</th>
+                        <th class="border-0 rounded-start">Img</th>
                         <th class="border-0 ">Patient Name</th>
                         <th class="border-0 ">Doctor Name</th>
                         <th class="border-0">Category</th>
@@ -101,6 +154,30 @@ function setPatientDatatable() {
 setPatientDatatable();
 
 
+function handleFilter()
+{
+    patient = $('#patient_id').val() || '';
+    doctor = $('#doctor_id').val() || '';
+
+    dates = $('#dates').val() || '';
+    category = $("#category_id").val() || '';
+  
+    if (PatientTable) {
+        var url = "{{ route('results.get-data') }}"+`?patient_id=${patient}&doctor_id=${doctor}&category_id=${category}&dates=${dates}`;
+        // console.log(url);
+        PatientTable.ajax.url(url).load()
+    }
+}
+
+function ClearFilter()
+{
+    $('#patient_id').val('');
+    $('#doctor_id').val('');
+    $('#dates').val('');
+    $("#category_id").val('');
+    var url = "{{ route('results.get-data') }}";
+    PatientTable.ajax.url(url).load()
+}
 
 
 </script>

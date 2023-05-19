@@ -53,12 +53,54 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/7.2.96/css/materialdesignicons.min.css" integrity="sha512-LX0YV/MWBEn2dwXCYgQHrpa9HJkwB+S+bnBpifSOTO1No27TqNMKYoAn6ff2FBh03THAzAiiCwQ+aPX+/Qt/Ow==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 
+{{-- <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-messaging.js"></script> --}}
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
 
 @yield('css')
 
+<style>
+    #notification-count {
+        background-color: #E11D48;
+        color: white;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        text-align: center;
+        line-height: 20px;
+    }
+</style>
+
 {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}
+<script src="https://js.pusher.com/7.2/pusher.min.js"></script>
+<script>
+       
+        Pusher.logToConsole = true;
+        
+        var pusher = new Pusher('330999961f09239ec1cc', {
+          cluster: 'ap1'
+        });
+    
+        var channel = pusher.subscribe('my-channel');
+        channel.bind('appointment-added', function(data) {
+          // alert(JSON.stringify(data));
+          notyf.open({
+              type: 'success',
+              message: `${data.name} Has Make Appointment`,
+          });
+          
+          var audio = document.getElementById("audio");
+          audio.muted = true;
+          audio.play();
+
+          old = $('#notification-count').text();
+          $('#notification-count').text(parseInt(old) + 1 );
+
+  });
+  // Enable pusher logging - don't include this in production
+  
+</script>
 </head>
 
 <body>
@@ -75,6 +117,9 @@
           <span class="navbar-toggler-icon"></span>
         </button>
     </div>
+
+    <audio id="audio" src="{{asset('sounds/notification.mp3')}}" autoplay muted></audio>
+
 </nav>
 @include('layouts.sidebar')    
 

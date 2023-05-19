@@ -172,7 +172,10 @@
             <span class="sidebar-icon">
               <i class="fa fa-code-pull-request"></i>
             </span>
-            <span class="mt-1 ms-1 sidebar-text">Classficiation Requests</span>
+            <span class="mt-1 ms-1 sidebar-text">Requests</span>
+            <span class="mt-1 ms-1 sidebar-icon">
+              <div id="notification-count">{{$acount}}</div>
+            </span>
           </a>
         </li>
 

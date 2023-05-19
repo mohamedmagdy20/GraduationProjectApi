@@ -18,6 +18,47 @@
             <h1 class="h4">Invoices</h1>
         </div>     
     </div>
+
+    <div class="row  w-100 ">
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="">Patient</label>
+                <select name="" class=" form-control select" id="patient_id">
+                    @foreach ($patients as $patient)
+                        <option value="{{$patient->id}}">{{$patient->name}}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="">From</label>
+                <input type="number" class="form-control" name="from" id="from">
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="">To</label>
+                <input type="number" class="form-control" name="to" id="to">
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="">Date</label>
+                <input type="text" name="dates" id="dates" class="form-control">
+            </div>
+        </div>
+
+        <div class="col-md-2" style="margin-top: 31px">
+            <div class="form-group">
+                <button onclick="handleFilter()" class="btn btn-primary" >Search <i class="fa-solid fa-magnifying-glass"></i></button>
+                <button onclick="ClearFilter()" class="btn btn-light" >Clear</button>
+            </div>    
+        </div> 
+    </div>
 </div>
 
 
@@ -136,10 +177,29 @@ function setPatientDatatable() {
 setPatientDatatable();
 
 
+function handleFilter()
+{
+    patient = $('#patient_id').val() || '';
+    dates = $('#dates').val() || '';
+    from = $("#from").val() || '';
+    to = $("#to").val() || '';
 
+    if (PatientTable) {
+        var url = "{{ route('invoices.get-data') }}"+`?patient_id=${patient}&from=${from}&to=${to}&dates=${dates}`;
+        console.log(url);
+        PatientTable.ajax.url(url).load()
+    }
+}
 
-
-
+function ClearFilter()
+{
+    $('#patient_id').val('');
+    $('#dates').val('');
+    $("#from").val('');
+    $("#to").val('')   
+    var url = "{{ route('invoices.get-data') }}";
+    PatientTable.ajax.url(url).load()
+}
 </script>
 @endsection
 

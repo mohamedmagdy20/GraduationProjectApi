@@ -50,7 +50,7 @@ class Appointment extends Model
 
         if(isset($params['dates']))
         {
-            $dates = explode("-",$params['date']);
+            $dates = explode("-",$params['dates']);
             $start_from = Carbon::parse($dates[0]);
             $end_to = Carbon::parse($dates[1]);               
             $query->whereBetween('register_date',[$start_from,$end_to]);

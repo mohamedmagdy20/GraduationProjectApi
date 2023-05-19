@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\ApiAuth;
 
+use App\Events\AppointmentEvent;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -115,9 +116,11 @@ class PatientAuthController extends Controller
             $data = array_merge($validator->validated(),['en'=>$data_en],['ar'=>$data_ar],['img'=>$image,'password'=>Hash::make($request->password),'code'=>$code ]);
             // return $data;
             $patient = Patient::create($data);
+
             if($patient)
             {
                 Mail::to($patient->email)->send(new PatientEmail($patient->email,$code));
+                // fire Notification 
                 return response()->json([
                     'msg'=>'Patient Registerd Check your Email for Verification code',
                     'status'=>true,
