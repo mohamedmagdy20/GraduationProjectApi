@@ -35,7 +35,7 @@ class PermissionTableSeeder extends Seeder
         [
            'name'=>'delete_admins',
            'display_name'=>'Delete Admins',
-           'decription'=>'حذف المشرفين'
+           'description'=>'حذف المشرفين'
         ],
         [
          'name'=>'show_permissions',
@@ -134,8 +134,6 @@ class PermissionTableSeeder extends Seeder
             'display_name'=>'Show Invoices',
             'description'=>'عرض الفواتير'
         ],
-
-
         [
             'name'=>'show_notifications',
             'display_name'=>'Show Notifications',

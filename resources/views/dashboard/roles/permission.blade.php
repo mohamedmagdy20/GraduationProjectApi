@@ -35,7 +35,19 @@
                      <input type="hidden" name="role_id" value="{{$role->id}}" id="role_id">
                         <div class="col-md-12">
                             <label for="role">Role <span class="text-danger">*</span></label>
+                            <div class="col-md-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="selectAll"
+                                     value="" name=""
+                                     >
+                                    <label class="form-check-label" for="selectAll">
+                                       Select All
+                                    </label>
+                                </div>
+                            </div>
+                        
                             <div class="row">
+                            
                                 @foreach ($data as $permission )
                                 <div class="col-md-2">
                                     <div class="form-check">
@@ -67,7 +79,7 @@
 @endsection
 
 @section('js')
-<script>
+<script>  
 
        $(document).ready(function(){
         $("#permissions-form").submit(function(e){
@@ -118,6 +130,12 @@
 
             });
         });
+
+        $("#selectAll").click(function(){
+            $("input[type=checkbox]").prop('checked', $(this).prop('checked'));
+    
+        });
+
                 
         });
   
