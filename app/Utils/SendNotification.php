@@ -25,7 +25,7 @@ class SendNotification
     
                 "title" => 'Medical Brain Center',
     
-                "body" => 'Dear Dr'. $name .'there are new Result added in your queue would like to perform us your Notes',
+                "body" => 'Dear '. $name .'there are new Result added in your queue would like to perform us your Notes',
     
                 "sound"=> "default" // required for sound on ios
     

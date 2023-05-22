@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\DoctorEmail;
+use App\Models\Patient;
+use App\Models\Result;
 use App\Utils\CheckCode;
 use Illuminate\Support\Facades\Hash;
 
@@ -208,6 +210,17 @@ class DoctorController extends Controller
         }
     }
 
+    public function doctorsPatient()
+    {
+        $data = Patient::with(['result'=>function($q){
+            $q->whereHas('doctorDignose')->where('doctor_id',auth()->user()->id);
+        }])->get();
+
+        return response()->json([
+            'data'=>$data,
+            'status'=>true
+        ], 200);
+    }
     // public function send
     public function genetrateCode()
     {

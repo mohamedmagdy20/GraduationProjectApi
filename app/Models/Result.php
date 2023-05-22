@@ -44,6 +44,14 @@ class Result extends Model
         return $this->belongsTo(Doctor::class,'doctor_id');
     }
 
+
+
+    // one to one 
+    public function doctorDignose()
+    {
+        return $this->hasOne(DoctorDignose::class,'result_id');
+    }
+    
     public function scopFilter($query, $params)
     {
         if(isset($params['patient_id']))

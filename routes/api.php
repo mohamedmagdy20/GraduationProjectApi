@@ -13,6 +13,7 @@ use App\Http\Controllers\Dashboard\PatientController as PatientDasboard;
 use App\Http\Controllers\Api\DoctorController;
 use App\Http\Controllers\Api\LocationController;
 use App\Http\Controllers\Api\PaymentController;
+use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Dashboard\AdminController;
 use App\Http\Controllers\Dashboard\DoctorController as DoctorDashboard;
 use  App\Http\Controllers\Dashboard\ModelController;
@@ -87,6 +88,9 @@ Route::middleware('auth:api-doctor')->prefix('doctor')->group(function(){
     Route::post('profile/check-code',[DoctorController::class,'CheckVerification']);
     Route::post('profile/change-password',[DoctorController::class,'changePassword']);
     Route::post('reset-setting',[DoctorAuthController::class,'resetSetting']);
+    Route::get('/doctor-work-profile',[DoctorController::class,'doctorsPatient']);
+    Route::get('/reports',[ReportController::class,'index']);
+    Route::post('/make-reports',[ReportController::class,'makeReport']);
 });
 
 Route::post('admin/login',[UserAuthController::class,'login']);
