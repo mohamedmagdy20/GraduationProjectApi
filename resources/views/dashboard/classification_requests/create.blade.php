@@ -1,4 +1,7 @@
 @extends('dashboard')
+@section('css')
+<link rel="stylesheet" href="{{asset('css/uploads-imgs.css')}}">
+@stop
 @section('content')
 
 <div class="py-4">
@@ -17,7 +20,7 @@
             <h1 class="h4">Classfication Request For {{$data->patient->name}}</h1>
         </div>
         <div>
-            <a href="https://themesberg.com/docs/volt-bootstrap-5-dashboard/components/forms/" class="btn btn-outline-gray"><i class="far fa-question-circle me-1"></i> Forms Docs</a>
+            {{-- <a href="https://themesberg.com/docs/volt-bootstrap-5-dashboard/components/forms/" class="btn btn-outline-gray"><i class="far fa-question-circle me-1"></i> Forms Docs</a> --}}
         </div>
     </div>
 </div>
@@ -35,7 +38,7 @@
                             <!-- input -->
                             <div class="mb-4">
                                 <label for="doctor_id">Doctor <span class="text-danger">*</span></label>
-                                <select name="doctor_id" class="form-select " id="doctor_id">
+                                <select name="doctor_id" class="selectize " id="doctor_id">
                                     @foreach ($doctors as $doctor)
                                         <option value="{{$doctor->id}}">{{$doctor->name}}</option>
                                     @endforeach
@@ -185,15 +188,28 @@
                             </table> --}}
                     </div>
                     </div>
-
-                
-                    <br>
-                    <br>
                     <p class="text-warning">Save File to Patient Through Google Drive</p>
-                    <div class="form-group">
-                        <label for="select-files">Files</label>
-                           <input type="file" name="files[]" class="form-control" multiple id="files">
-
+                           {{-- <input type="file" name="files[]" class="form-control" multiple id="files"> --}}
+                           
+                        {{-- <div class="multiple-uploader" id="multiple-uploader">
+                            <div class="mup-msg">
+                                <span class="mup-main-msg">click to upload images.</span>
+                                <span class="mup-msg" id="max-upload-number">Upload up to 10 images</span>
+                                <span class="mup-msg">Only images, pdf and psd files are allowed for upload</span>
+                            </div>
+                        </div> --}}
+                            <div class="from-group">
+                                <div class="upload__box">
+                                    <div class="upload__btn-box">
+                                      <label class="upload__btn">
+                                        <p>Upload images</p>
+                                        <input type="file" multiple="" name="files[]" data-max_length="20" id="files" class="upload__inputfile btn btn-info">
+                                      </label>
+                                    </div>
+                                    <div class="upload__img-wrap"></div>
+                                  </div>
+                              
+                     
                     </div>
 
                     <div class="form-group">
@@ -227,6 +243,7 @@
 @endsection
 
 @section('js')
+<script src="{{asset('js/multiple-uploader.js')}}"></script>
 <script>
     $(document).ready(function(){
 

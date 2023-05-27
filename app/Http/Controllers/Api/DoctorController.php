@@ -212,9 +212,19 @@ class DoctorController extends Controller
 
     public function doctorsPatient()
     {
-        $data = Patient::with(['result'=>function($q){
-            $q->whereHas('doctorDignose')->where('doctor_id',auth()->user()->id);
-        }])->get();
+        // $data = Doctor::has('result')->with('result.patient')->get();
+        // $data = Patient::has(['result'=>function($q){
+        //     $q->where('doctor_id',auth()->user()->id);
+        // }])->get();
+        $doctorId = auth()->user()->id;
+        $data = Patient::whereHas('result', function ($query) use ($doctorId) {
+            $query->whereHas('doctorDignose')->where('doctor_id', $doctorId);
+        })
+        ->with('result')
+        ->get();
+        // $data = Patient::whereHas(['result'=>function($q){
+        //     $q->where('doctor_id',auth()->user()->id);
+        // }])->get();
 
         return response()->json([
             'data'=>$data,

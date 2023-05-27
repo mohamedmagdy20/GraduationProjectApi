@@ -11,8 +11,16 @@ class SendNotification
     //     $this->$token = $token;
     // }
 
-    public static function Send($token,$name)
+    public static function Send($token,$name,$type)
     {
+        $message = '';
+        if($type == 'doc')
+        {
+            $message = 'Dear '. $name .'there are new Result added in your queue would like to perform us your Notes';
+        }elseif($type == 'pat')
+        {
+            $message = 'Dear '. $name .'We Have Send a New Result to Your Profile';
+        }
         $SERVER_API_KEY = config('app.FCM_KEY');
 
         $data = [
@@ -25,7 +33,7 @@ class SendNotification
     
                 "title" => 'Medical Brain Center',
     
-                "body" => 'Dear '. $name .'there are new Result added in your queue would like to perform us your Notes',
+                "body" =>$message ,
     
                 "sound"=> "default" // required for sound on ios
     

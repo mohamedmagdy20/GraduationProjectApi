@@ -7,6 +7,7 @@ use App\Models\Appointment;
 use App\Models\Doctor;
 use App\Models\Patient;
 use App\Models\Result;
+use App\Models\ResultImage;
 use App\Utils\GoogleDrive;
 use App\Utils\SendNotification;
 use Exception;
@@ -57,6 +58,7 @@ class ClassificationRequestController extends Controller
 
     public function makeClassification(Request $request)
     {
+        // return $request->all();
         $request->validate([
             'patient_id'=>'required',
             'doctor_id'=>'required',
@@ -96,9 +98,20 @@ class ClassificationRequestController extends Controller
 
         $result = Result::create($data);
 
+
         if($result)
         {
-
+            // Add Images 
+            foreach($request->file('files') as $file)
+            {
+                $imgName = time().$request->file('img')->getClientOriginalName();
+                Storage::disk('results')->put($imgName, file_get_contents($request->file('img')));    
+                $image = asset('files/results/'.$imgName);
+                ResultImage::create([
+                    'result_id'=>$result->id,
+                    'image'=>$image
+                ]);
+            }
             // find Doctor 
             $doctor = Doctor::findOrFail($request->doctor_id);
             $appointment  = Appointment::findOrFail($request->appointment_id);
@@ -109,9 +122,9 @@ class ClassificationRequestController extends Controller
                     'is_done'=>true
                 ]);
 
+                // send Notification
                 $notificataion = new SendNotification;
-                $notificataion->Send($doctor->notification_token,$doctor->name);  
-
+                $notificataion->Send($doctor->notification_token,$doctor->name,'doc');  
 
             }catch(Exception $e){
                 return response()->json([

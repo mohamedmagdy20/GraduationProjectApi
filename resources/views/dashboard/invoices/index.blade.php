@@ -68,7 +68,8 @@
             <table class="table table-centered table-nowrap mb-0 rounded" id="patient-table">
                 <thead class="thead-light">
                     <tr>
-                        <th class="border-0 rounded-start">Amount</th>
+                        <th class="border-0 rounded-start">Code</th>
+                        <th class="border-0 ">Amount</th>
                         <th class="border-0 ">Currency</th>
                         <th class="border-0 ">Status</th>
                         <th class="border-0">Date</th>
@@ -129,7 +130,11 @@ function setPatientDatatable() {
         },
 
         
-        columns: [{
+        columns: [
+            {
+                data: 'code'
+            },
+            {
                 data: 'amount'
             },
             {

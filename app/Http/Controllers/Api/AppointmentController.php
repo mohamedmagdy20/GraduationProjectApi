@@ -69,7 +69,7 @@ class AppointmentController extends Controller
             'patient_id'=>'required',
             'appointment_times_id'=>'required',
             'register_date'=>'required',
-            'url'=>'required'
+            'url'=>'required',
         ];
 
         $validator = Validator::make($request->all(),$rules);
@@ -82,7 +82,15 @@ class AppointmentController extends Controller
         $InvoiceData = $this->getReservationResult($request->url);
        
         ////
-        $invoice = Invoice::create($InvoiceData);
+        if(! Invoice::where('code',$InvoiceData['code'])->first())
+        {
+            $invoice = Invoice::create($InvoiceData);
+        }else{
+            return response()->json([
+                'error'=>'Fail',
+                'status'=>false
+            ], 200);
+        }
         ////
         if(Appointment::create(array_merge($request->all(),['invoice_id'=>$invoice->id])))
         {
@@ -118,7 +126,8 @@ class AppointmentController extends Controller
             'amount'=>$json->amount_cents,
             'status'=>$json->success,
             'date'=>$json->created_at,
-            'data_message'=>$json->data_message
+            'data_message'=>$json->data_message,
+            'code'=>$json->id
         ];
 
         return $data;

@@ -17,11 +17,15 @@ class Invoice extends Model
         'currency',
         'amount',
         'status',
+        'code',
         'date',
         'data_message',
     ];
 
-
+    public function appointment()
+    {
+        return $this->hasOne(Appointment::class,'invoice_id');
+    }
     public function patient()
     {
         return $this->belongsToMany(Patient::class,'appointments');

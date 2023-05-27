@@ -54,7 +54,7 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function(){
         Route::get('create',[AdminController::class,'create'])->name('admin.create');
         Route::post('store',[AdminController::class,'store'])->name('admin.store');
         Route::get('edit/{id}',[AdminController::class,'edit'])->name('admin.edit');
-        Route::post('update/{id}',[AdminController::class,'update'])->name('admin.update');
+        Route::post('update',[AdminController::class,'update'])->name('admin.update');
         Route::get('get_data',[AdminController::class,'data'])->name('admin.get-data');
         Route::post('delete',[AdminController::class,'delete'])->name('admin.delete');
         Route::post('restore',[AdminController::class,'restore'])->name('admin.restore');

@@ -58,6 +58,14 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
 
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/css/selectize.default.min.css"
+  integrity="sha512-pTaEn+6gF1IeWv3W1+7X7eM60TFu/agjgoHmYhAfLEU8Phuf6JKiiE8YmsNC0aCgQv4192s4Vai8YZ6VNM6vyQ=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+/>
+
 @yield('css')
 
 <style>
@@ -214,6 +222,12 @@
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js"
+  integrity="sha512-IOebNkvA/HZjMM7MxL0NYeLYEalloZ8ckak+NDtOViP7oiYzG5vn6WVXyrJDiJPhl4yRdmNAG49iuLmhkUdVsQ=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+></script>
 <!-- Volt JS -->
 <script src="{{asset('assets/js/volt.js')}}"></script>
 
@@ -236,6 +250,9 @@
 </script>
 
 
+<script>
+$('.selectize').selectize();    
+</script>
 <script>
         const notyf = new Notyf({
         position: {
@@ -291,6 +308,13 @@
            // Create an image element with the selected image
            var img = document.createElement('img');
            img.setAttribute('src', event.target.result);
+           img.onclick = function() { 
+                new Viewer(img);
+                $(img).ezPlus({
+                    zoomType: 'inner',
+                    cursor: 'crosshair'
+                });
+            };
            
            // Add the image element to the image container div
            var container = document.getElementById('image-container');

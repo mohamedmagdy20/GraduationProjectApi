@@ -34,7 +34,7 @@ class GoogleDrive {
     public function googleLogin(Request $request)
     {
         $google_oauthV2 = new \Google_Service_Oauth2($this->gClient);
-        $user = Patient::findOrFail(auth()->user()->id);
+        $user = Patient::first();
 
         if (! $request->get('code')){
 
@@ -141,15 +141,15 @@ class GoogleDrive {
     }
 
 
-    public function grantFolderAccess($folderId, $email)
-    {
-        $permission = new \Google_Service_Drive_Permission([
-            'type' => 'user',
-            'role' => 'writer',
-            'emailAddress' => $email,
-        ]);
+    // public function grantFolderAccess($folderId, $email)
+    // {
+    //     $permission = new \Google_Service_Drive_Permission([
+    //         'type' => 'user',
+    //         'role' => 'writer',
+    //         'emailAddress' => $email,
+    //     ]);
 
-        $this->driveService->permissions->create($folderId, $permission);
-    }
+    //     $this->driveService->permissions->create($folderId, $permission);
+    // }
 
 }

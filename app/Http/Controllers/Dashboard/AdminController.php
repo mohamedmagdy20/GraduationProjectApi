@@ -188,6 +188,32 @@ class AdminController extends Controller
         }
     }
 
+    public function edit($id)
+    {
+        $roles = Role::all();
+        $data  = User::findOrFail($id);
+        return view('dashboard.admins.edit',['roles'=>$roles,'data'=>$data]);
+    }
+
+    public function update(Request $request)
+    {
+        $request->update([
+            'name'=>'required',
+            'email'=>'required|email',
+            'role_id'=>'required'
+        ]);
+
+        $data = User::findOrFail($request->id);
+        $data->update($request->all());
+        $data->attachRole($request->role_id);
+        return response()->json([
+            'msg'=>'Admin Updated',
+            'status'=>true
+        ], 200);
+    }
+
+
+
 
     public function delete(Request $request)
     {

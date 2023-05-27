@@ -132,13 +132,14 @@ class CategoryController extends Controller
 
             }
             $newdata = array_merge($request->all(),['img'=>$image,'img_name'=>$imgName]);
-
+            $data->update($newdata);        
+            return response()->json(['msg'=>'Category Updated','status'=>true], 200);
         }
-        
 
+        $newdata = array_merge($request->all());
         //  update 
         // update category set name="mohamed" where id=2; 
-        $data->update($request->all());
+        $data->update($newdata);
         
         return response()->json(['msg'=>'Category Updated','status'=>true], 200);
 

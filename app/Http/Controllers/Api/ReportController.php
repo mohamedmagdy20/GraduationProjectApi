@@ -55,7 +55,7 @@ class ReportController extends Controller
        
             // Send Notification 
             $notification = new SendNotification($patient->notification_token);
-            $notification->Send($patient->notification_token,$patient->name);
+            $notification->Send($patient->notification_token,$patient->name,'pat');
             
         }else{
             return response()->json([
