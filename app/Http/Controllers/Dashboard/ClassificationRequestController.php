@@ -10,6 +10,7 @@ use App\Models\Result;
 use App\Models\ResultImage;
 use App\Utils\GoogleDrive;
 use App\Utils\SendNotification;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -28,7 +29,8 @@ class ClassificationRequestController extends Controller
 
     public function data()
     {
-        $query = Appointment::with('category')->with('patient')->where('is_done','0');
+        $query = Appointment::with('category')->with('patient')->where('is_done',false)
+        ->where('register_date',Carbon::today());
         
         $result = DataTables::eloquent($query)
         
@@ -119,7 +121,7 @@ class ClassificationRequestController extends Controller
             try{
                 
                 $appointment->update([
-                    'is_done'=>true
+                    'is_done'=>1
                 ]);
 
                 // send Notification

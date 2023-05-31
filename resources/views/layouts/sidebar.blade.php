@@ -165,6 +165,18 @@
 
 
 
+        <li class="nav-item">
+          <a href="{{route('appointments.index')}}" class="nav-link d-flex align-items-center">
+            <span class="sidebar-icon">
+              <i class="fa fa-calendar-check"></i>
+            </span>
+            <span class="mt-1 ms-1 sidebar-text">Appointments</span>
+            <span class="mt-1 ms-1 sidebar-text">
+              <div id="notification-count">{{$acount}}</div>
+
+            </span>
+          </a>
+        </li>
 
         {{-- Classificatieon Request --}}
         <li class="nav-item">
@@ -174,8 +186,10 @@
             </span>
             <span class="mt-1 ms-1 sidebar-text">Requests</span>
             <span class="mt-1 ms-1 sidebar-icon">
-              <div id="notification-count">{{$acount}}</div>
+              <div id="notification-count">{{$now}}</div>
+          
             </span>
+          
           </a>
         </li>
 
@@ -253,14 +267,6 @@
         </li>
 
 
-        <li class="nav-item">
-          <a href="{{route('appointments.index')}}" class="nav-link d-flex align-items-center">
-            <span class="sidebar-icon">
-              <i class="fa fa-calendar-check"></i>
-            </span>
-            <span class="mt-1 ms-1 sidebar-text">Appointments</span>
-          </a>
-        </li>
            {{-- Appointment Times --}}
            <li class="nav-item">
             <a href="{{route('appointment_times.index')}}" class="nav-link d-flex align-items-center">

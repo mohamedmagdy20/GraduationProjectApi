@@ -20,7 +20,7 @@
         <div class="col-md-4">
             <div class="form-group">
                 <label for="">Patient</label>
-                <select name="" class=" form-control select" id="patient_id">
+                <select name="" class="selectize" id="patient_id">
                     @foreach ($patients as $patient)
                         <option value="{{$patient->id}}">{{$patient->name}}</option>
                     @endforeach
