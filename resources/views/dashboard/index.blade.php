@@ -168,7 +168,9 @@
     fetch('{{route('invoice.chart')}}')
         .then(response => response.json())
         .then(data => {
-            chart.data.datasets[0].data = data;
+            chart.data.lables = data.months;
+            
+            chart.data.datasets[0].data = data.totals;
             chart.update();
     });
 

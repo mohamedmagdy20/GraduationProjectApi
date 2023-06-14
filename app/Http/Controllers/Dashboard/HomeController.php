@@ -26,16 +26,16 @@ class HomeController extends Controller
 
 
     public function amountChart()
-    {
-        // Invoice Amount //
-        $amount = [];
-        $invoices = Invoice::where('currency','EGP')->get('amount');
-        foreach($invoices as $invoice)
-        {
-            array_push($amount,$invoice->amount);
-        }
+    {   
+        $invoices = Invoice::selectRaw('SUM(amount) as total, MONTH(date) as month')
+        ->groupBy('date')
+        ->get();
 
-        return response()->json($amount);
+        // Prepare the data for the chart
+        $months = $invoices->pluck('month');
+        $totals = $invoices->pluck('total');
+
+        return response()->json(['totals'=>$totals,'months'=>$months]);
     }
 
     public function genderData()
