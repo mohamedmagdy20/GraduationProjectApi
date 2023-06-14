@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AppointmentController;
+use App\Http\Controllers\Api\ClassificationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApiAuth\PatientAuthController;
@@ -93,6 +94,8 @@ Route::middleware('auth:api-doctor')->prefix('doctor')->group(function(){
     Route::get('/doctor-work-profile',[DoctorController::class,'doctorsPatient']);
     Route::get('/reports',[ReportController::class,'index']);
     Route::post('/make-reports',[ReportController::class,'makeReport']);
+    Route::post('/classification-result',[ClassificationController::class,'result']);
+
 });
 
 Route::post('admin/login',[UserAuthController::class,'login']);
