@@ -141,7 +141,6 @@
 @section('js')
 <script>
     var ctx = document.getElementById('myChart').getContext('2d');
-    console.log(ctx);
     var chart = new Chart(ctx, {
         type: 'line',
         data: {
@@ -212,83 +211,83 @@
         });
     };
 
-// Alzhimer Chart
-
-const AlzhimerChartData = async () => {
-        const response = await fetch("{{route('alzhimer.chart')}}");
-        const data = await response.json();
-        return data;
+    // Alzhimer Chart
+    
+    const AlzhimerChartData = async () => {
+            const response = await fetch("{{route('alzhimer.chart')}}");
+            const data = await response.json();
+            return data;
+        };
+    
+    const AlzhimerrenderChart = async () => {
+        const data = await AlzhimerChartData();
+        const ctx = document.getElementById('alzhimer-chart').getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['MildDemented', 'ModerateDemented','NonDemented','VeryMildDemented'],
+                datasets: [{
+                    data: [data.mild, data.mod, data.nond, data.verymild],
+                    backgroundColor: ['#3498db', '#e74c3c','green','red'],
+                }]
+            },
+            options: {
+                responsive: true,
+                legend: {
+                    position: 'bottom',
+                },
+                title: {
+                    display: true,
+                    text: 'Alzhimer',
+                },
+                animation: {
+                    animateScale: true,
+                    animateRotate: true,
+                },
+            }
+        });
     };
-
-const AlzhimerrenderChart = async () => {
-    const data = await AlzhimerChartData();
-    const ctx = document.getElementById('alzhimer-chart').getContext('2d');
-    const chart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: ['MildDemented', 'ModerateDemented','NonDemented','VeryMildDemented'],
-            datasets: [{
-                data: [data.mild, data.mod, data.nond, data.verymild],
-                backgroundColor: ['#3498db', '#e74c3c','green','red'],
-            }]
-        },
-        options: {
-            responsive: true,
-            legend: {
-                position: 'bottom',
+    
+    
+    
+    // Brain Chart
+    
+    const BrainchartData = async () => {
+            const response = await fetch("{{route('brain.chart')}}");
+            const data = await response.json();
+            return data;
+        };
+    
+    const BrainrenderChart = async () => {
+        const data = await BrainchartData();
+        const ctx = document.getElementById('brain-chart').getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Glioma', 'meningioma','notumor','pituitary'],
+                datasets: [{
+                    data: [data.glioma, data.meningioma, data.nond, data.verymild],
+                    backgroundColor: ['#3498db', '#e74c3c','green','red'],
+                }]
             },
-            title: {
-                display: true,
-                text: 'Alzhimer',
-            },
-            animation: {
-                animateScale: true,
-                animateRotate: true,
-            },
-        }
-    });
-};
-
-
-
-// Brain Chart
-
-const BrainchartData = async () => {
-        const response = await fetch("{{route('brain.chart')}}");
-        const data = await response.json();
-        return data;
+            options: {
+                responsive: true,
+                legend: {
+                    position: 'bottom',
+                },
+                title: {
+                    display: true,
+                    text: 'Brain Tumor',
+                },
+                animation: {
+                    animateScale: true,
+                    animateRotate: true,
+                },
+            }
+        });
     };
-
-const BrainrenderChart = async () => {
-    const data = await BrainchartData();
-    const ctx = document.getElementById('brain-chart').getContext('2d');
-    const chart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: ['Glioma', 'meningioma','notumor','pituitary'],
-            datasets: [{
-                data: [data.glioma, data.meningioma, data.nond, data.verymild],
-                backgroundColor: ['#3498db', '#e74c3c','green','red'],
-            }]
-        },
-        options: {
-            responsive: true,
-            legend: {
-                position: 'bottom',
-            },
-            title: {
-                display: true,
-                text: 'Brain Tumor',
-            },
-            animation: {
-                animateScale: true,
-                animateRotate: true,
-            },
-        }
-    });
-};
-GenderrenderChart();
-AlzhimerrenderChart();
-BrainrenderChart();
+    GenderrenderChart();
+    AlzhimerrenderChart();
+    BrainrenderChart();
 </script>
 @endsection

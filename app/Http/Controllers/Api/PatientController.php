@@ -175,7 +175,8 @@ class PatientController extends Controller
 
     public function classifications()
     {
-        $result = Result::with('category')->with('doctor')->where('patient_id',auth()->user()->id)->get();
+        $result = Result::with('resultImages')->with('category')->with('doctor')
+        ->where('patient_id',auth()->user()->id)->get();
         return response()->json([
             'data'=>$result,
             'status'=>true

@@ -9,10 +9,12 @@ use App\Models\AppointmentTime;
 use App\Models\Category;
 use App\Models\Invoice;
 use App\Models\Patient;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
 
-use function PHPUnit\Framework\returnSelf;
+// use function PHPUnit\Framework\returnSelf;
 
 class AppointmentController extends Controller
 {
@@ -92,13 +94,15 @@ class AppointmentController extends Controller
             ], 200);
         }
         ////
-        if(Appointment::create(array_merge($request->all(),['invoice_id'=>$invoice->id])))
+        $code = $request->patient_id.'-'.time();
+        if(Appointment::create(array_merge($request->all(),['code'=>$code,'invoice_id'=>$invoice->id])))
         {
             $patient = Patient::find($request->patient_id)->name;
     
             event(new AppointmentEvent($patient));
             return response()->json([
                 'msg'=>'Success',
+                'code'=>$code,
                 'status'=>true
             ], 200);
         }else
@@ -129,8 +133,69 @@ class AppointmentController extends Controller
             'data_message'=>$json->data_message,
             'code'=>$json->id
         ];
+        return $data;    
+    }
 
-        return $data;
-    
+    public function cancelPayment(Request $request)
+    {
+        $rule = [
+            'id'=>'required',
+            'date'=>'required|date'
+        ];
+        
+        $validator = Validator::make($request->all(),$rule);
+        if($validator->fails())
+        {
+            return response()->json(['error'=>$validator->errors()],400);
+        }
+
+        $appointment = Appointment::findOrFail($request->id);
+        $date = Carbon::parse($request->date); //20-2-20
+        $registerDate = Carbon::parse($appointment->register_date); //20-2-25
+        // return $appointment->invoice->o;
+        if($registerDate->gt($date->addDays(1)))
+        {
+            $res = Http::withHeaders([
+                // 'Authorization'=> 'Bearer '.config('app.PAYMOD_KEY'),
+                'Content-Type'=> 'application/json'   
+            ])->withBody(json_encode((object)["api_key"=>config('app.PAYMOD_KEY')]),'application/json')->post('https://accept.paymob.com/api/auth/tokens');
+            // return $res['token'];
+
+            $data = (object)[
+                'auth_token'=>(string) $res['token'],
+                'transaction_id'=>(int)$appointment->invoice->code,
+                'amount_cents'=>(float) $appointment->invoice->amount   
+            ];
+            // return $data;
+            // you can cencel and Call Cencel API
+            $responce = Http::withHeaders([
+                // 'Authorization'=> 'Bearer '.config('app.PAYMOD_KEY'),
+                'Content-Type'=> 'application/json'   
+            ])->withBody(json_encode($data),'application/json')->post('https://accept.paymob.com/api/acceptance/void_refund/refund');
+
+            return $responce->body();
+            if($responce->ok())
+            {
+                $appointment->delete();
+                return response()->json([
+                    'msg'=>'Appointment Cenceled',
+                    'status'=>true
+                ], 200);
+           
+            }else{
+                return response()->json([
+                    'error'=>'ERROR Accure',
+                    'status'=>false
+                ], 200);
+            }
+
+            
+             }else{
+            // you can not 
+            return response()->json([
+                'error'=>'You Can Not Cencel Appointment',
+                'status'=>false
+            ], 200);
+        }
     }
 }

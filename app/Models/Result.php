@@ -32,6 +32,11 @@ class Result extends Model
         return $this->belongsTo(Patient::class,'patient_id');
     }
 
+    public function resultImages()
+    {
+        return $this->hasMany(ResultImage::class,'result_id');
+    }
+
     // 1 category to many result
     public function category()
     {

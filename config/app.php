@@ -62,6 +62,7 @@ return [
     'recaptcha_secretkey'=>env('RECAPTCHA_SECRETEKEY'),
 
     'FCM_KEY'=>env('FCM_Key'),
+    'PAYMOD_KEY'=>env('PAYMODE_KEY'),
 
     "App_Name"=>env('GOOGLE_APP_Name'),
     "Folder_Name"=>env('GOOGLE_DRIVE_FOLDER_NAME'),

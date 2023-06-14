@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
+use App\Jobs\ImageUploadJob;
 class ClassificationRequestController extends Controller
 {
     //
@@ -29,8 +30,8 @@ class ClassificationRequestController extends Controller
 
     public function data()
     {
-        $query = Appointment::with('category')->with('patient')->where('is_done',false)
-        ->where('register_date',Carbon::today());
+        $query = Appointment::with('category')->with('patient')->where('is_done',0)
+        ->whereDate('register_date','>=',Carbon::today());
         
         $result = DataTables::eloquent($query)
         
@@ -94,11 +95,25 @@ class ClassificationRequestController extends Controller
         $drive = new GoogleDrive;
         $files = $request->file('files');
         $url = $drive->googleDriveFilePpload($request->patient_id,$files);
-
+        // return $url;
 
         $data =  array_merge($request->all(),['img'=>$image,'files_url'=>$url]);
-
         $result = Result::create($data);
+
+        // if($request->hasFile('files'))
+        // {
+        //     $filePaths = [];
+        //     // $files = $request->file('files');
+        //     foreach($request->file('files') as $file)
+        //     {
+        //         $filePaths[] = $file->getRealPath();
+        //     }
+
+        //     // $access_token = Patient::findOrFail($request->patient_id)->access_token;
+        //     // ImageUploadJob::dispatch($filePaths, $result->id,$access_token)->onQueue('image_uploads');
+
+        // }
+        // return $filePath;
 
 
         if($result)
@@ -126,7 +141,7 @@ class ClassificationRequestController extends Controller
 
                 // send Notification
                 $notificataion = new SendNotification;
-                $notificataion->Send($doctor->notification_token,$doctor->name,'doc');  
+                return $notificataion->Send($doctor->notification_token,$doctor->name,'doc');  
 
             }catch(Exception $e){
                 return response()->json([

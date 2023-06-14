@@ -18,7 +18,30 @@ class ReportController extends Controller
     // Show Doctor Report To Make //
     public function index()
     {
-        $data = Result::with('patient')->doesnthave('doctorDignose')->where('doctor_id',auth()->user()->id)->get();
+        // $data = Result::with('patient')->doesnthave('doctorDignose')->where('doctor_id',auth()->user()->id)->get();
+        // $data = DB::table('results')
+        // ->join('category','results.category_id','category.id')
+        // ->join('patients','results.patient_id','patients.id')
+        // ->join(;)
+        $res  =[];
+        $data = Result::with('resultImages:result_id,image')->with('patient')->with('category')->doesnthave('doctorDignose')->where('doctor_id',auth()->user()->id)->get();
+        
+        foreach($data as $d)
+        {
+            array_push($res,[
+                'id'=>$d->id,
+                'result'=>$d->result,
+                'rate'=>$d->rate,
+                'image'=>$d->img,
+                'category'=>$d->category->name,
+                'patient'=>$d->patient->name,
+                'patient_image'=>$d->patient->img,
+                'resultImages'=>$d->resultImages->img
+              
+            ]);
+        }
+        // $res = [
+        //      // ];
         return response()->json([
             'data'=>$data,
             'status'=>true

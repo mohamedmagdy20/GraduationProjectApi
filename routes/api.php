@@ -72,6 +72,8 @@ Route::middleware('auth:api-patient')->prefix('patient')->group(function(){
      Route::get('paymod/auth',[PaymentController::class,'getToken']);
    
     Route::get('get-reservation-result',[AppointmentController::class,'getReservationResult']);
+
+    Route::post('cencel-payment',[AppointmentController::class,'cancelPayment']);
     
     
 });

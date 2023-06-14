@@ -12,6 +12,7 @@ class Appointment extends Model
     use SoftDeletes;
     protected $table  ='appointments';
     protected $fillable = [
+        'code',
         'register_date',
         'appointment_times_id',
         'patient_id',

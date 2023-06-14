@@ -90,8 +90,7 @@ class TipsController extends Controller
             try{
                 foreach($request->file('images') as $img)
                 {
-                    $imgName = time().$img->getClientOriginalName();
-                    // return $imgName;
+                     // return $imgName;
                     Storage::disk('tips')->put($imgName, $img);
                     $imgPath = asset('files/tips' . $imgName);
                     $tipsImage =  TipImage::create(['image'=>$imgPath,'tip_id'=>$tips->id]);

@@ -343,6 +343,7 @@
                 e.preventDefault()
 
                 doctor_id = $("#doctor_id").val();
+                note = $("#note").val();
                 result = $('#result').val();
                 img = document.getElementById('image');
                 category_id = $('#category_id').val();
@@ -367,6 +368,8 @@
                 form_data.append('img',img.files[0])
                 form_data.append('appointment_id',appointment_id)
                 form_data.append('_token',"{{csrf_token()}}")
+                form_data.append('note',note)
+
 
                 // console.log(alldata);
                 $.ajaxSetup({

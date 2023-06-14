@@ -72,7 +72,8 @@
             <table class="table table-centered table-nowrap mb-0 rounded" id="appointment-table">
                 <thead class="thead-light">
                     <tr>
-                        <th class="border-0 rounded-start">Name</th>
+                        <th class="border-0 rounded-start">Code</th>
+                        <th class="border-0 ">Name</th>
                         <th class="border-0">Date</th>
                         <th class="border-0">Category</th>
                         <th class="border-0">Time</th>
@@ -118,6 +119,9 @@ function setAppointment() {
 
         
         columns: [
+            {
+                data:'code'
+            },
             {
                 data:'patient_id'
             },

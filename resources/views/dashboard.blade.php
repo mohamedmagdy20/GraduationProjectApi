@@ -98,9 +98,9 @@
               message: `${data.name} Has Make Appointment`,
           });
           
-          var audio = document.getElementById("audio");
-          audio.muted = true;
-          audio.play();
+        //   var audio = document.getElementById("audio");
+        //   audio.muted = true;
+        //   audio.play();
 
           old = $('#notification-count').text();
           $('#notification-count').text(parseInt(old) + 1 );
