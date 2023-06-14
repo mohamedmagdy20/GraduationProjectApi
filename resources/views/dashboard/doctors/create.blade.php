@@ -35,8 +35,8 @@
                             <!-- input -->
                             <div class="mb-4">
                                 <label for="email">Name <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="name"  aria-describedby="" name="name">
-                                <span class="text-danger m-1 name_err"></span>
+                                <input type="text" class="form-control" id="name" placeholder="Enter Name "  aria-describedby="" name="name">
+                                <span class="text-danger  name_err"></span>
                             </div>
                             <!-- End of input -->
                         </div>
@@ -45,8 +45,8 @@
                             <!-- input -->
                             <div class="mb-4">
                                 <label for="phone">Phone <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="phone" aria-describedby="" name="phone">
-                                <span class="text-danger m-1 phone_err"></span>
+                                <input type="text" class="form-control" id="phone" placeholder="Enter Phone " aria-describedby="" name="phone">
+                                <span class="text-danger  phone_err"></span>
                           
                             </div>
                             <!-- End of input -->
@@ -56,18 +56,31 @@
                             <!-- input -->
                             <div class="mb-4">
                                 <label for="email">Email </label>
-                                <input name="email" id="email" cols="30" rows="10" class="form-control">
-                                <span class="text-danger m-1 email_err"></span>
+                                <input name="email" id="email" cols="30" rows="10" placeholder="Enter Email " class="form-control">
+                                <span class="text-danger  email_err"></span>
                            
                             </div>
                             <!-- End of input -->
                         </div>
 
                         <div class="col-lg-12 col-sm-12">
+                            <!-- input -->
+                            <div class="mb-4">
+                                <label for="">Role </label>
+                                <select name="role" class="form-select" id="role">
+                                    <option value="Rt">Radiologiest</option>
+                                    <option value="Nt">Neurologists</option>
+                                </select>
+                            </div>
+                            <!-- End of input -->
+                        </div>
+                  
+
+                        <div class="col-lg-12 col-sm-12">
                             <div class="mb-4">
                                 <label for="image">image <span class="text-danger">*</span></label>
                                 <input type="file" class="form-control" id="image-input" aria-describedby="" name="image">
-                                <span class="text-danger m-1 image_err"></span>
+                                <span class="text-danger  image_err"></span>
                            
                             </div>
                         </div> 
@@ -114,7 +127,7 @@
                 success:function(data){
                     console.log(data);
                     
-                    $('submit-form').html('Save').css('disable',true);
+                    $('.submit-form').html('Save').css('disable',true);
 
                         
                     if(data.status === true){

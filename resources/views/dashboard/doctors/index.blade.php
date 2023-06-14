@@ -36,6 +36,7 @@
                         <th class="border-0">img</th>
                         <th class="border-0">phone</th>
                         <th class="border-0">Email</th>
+                        <th class="border-0">Role</th>
 
                         <th class="border-0">actions</th>                       
                     </tr>
@@ -88,7 +89,10 @@ function setDoctorDatatable() {
             },
             {
                 data:'email'
-            },         
+            },
+            {
+                data:'role'
+            },   
             {
                 data: 'action'
             }

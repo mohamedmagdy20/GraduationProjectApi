@@ -76,6 +76,20 @@
                             </div>
                             <!-- End of input -->
                         </div>
+
+
+                        
+                        <div class="col-lg-12 col-sm-12">
+                            <!-- input -->
+                            <div class="mb-4">
+                                <label for="email">Role </label>
+                                <select name="role" class="form-select" id="role">
+                                    <option value="Rt" {{$data->role == 'Rt' ? 'selected' : ''}}>Radiologiest</option>
+                                    <option value="Nt" {{$data->role == 'Nt' ? 'selected' : ''}}>Neurologists</option>
+                                </select>
+                            </div>
+                            <!-- End of input -->
+                        </div>
                   
                   
                         <div class="col-md-12">

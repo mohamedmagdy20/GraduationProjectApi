@@ -94,8 +94,7 @@ Route::middleware('auth:api-doctor')->prefix('doctor')->group(function(){
     Route::get('/doctor-work-profile',[DoctorController::class,'doctorsPatient']);
     Route::get('/reports',[ReportController::class,'index']);
     Route::post('/make-reports',[ReportController::class,'makeReport']);
-    Route::post('/classification-result',[ClassificationController::class,'result']);
-
+    
 });
 
 Route::post('admin/login',[UserAuthController::class,'login']);

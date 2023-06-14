@@ -37,7 +37,8 @@ class Doctor extends Authenticatable implements TranslatableContract
         'verifiyed_at',
         'remember_token',
         'notification_token',
-        'code'
+        'code',
+        'role',
     ];
 
     protected static $logEvents = ['created', 'deleted'];

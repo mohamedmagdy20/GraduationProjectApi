@@ -34,7 +34,7 @@ class DoctorController extends Controller
     public function data()
     {
         // 
-        $data = Doctor::withTrashed();
+        $data = Doctor::withTrashed()->latest();
 
         $result = DataTables()->eloquent($data)
 
@@ -45,6 +45,14 @@ class DoctorController extends Controller
         ->addColumn('image',function($data){
             return view('dashboard.doctors.action',['type'=>'image','data'=>$data]);
             
+        })
+        ->editColumn('role',function($data){
+            if($data->role == 'Rt')
+            {
+                return 'Radiologiest';
+            }else{
+                return 'Neurologists';
+            }
         })
         ->toJson();
         return $result;
@@ -57,7 +65,8 @@ class DoctorController extends Controller
         $request->validate([
             'name'=>'required',
             'email'=>'required|email|unique:doctors,email',
-            'phone'=>'required|unique:doctors,phone'
+            'phone'=>'required|unique:doctors,phone',
+            'role'=>'required',
         ]);
 
 
@@ -99,6 +108,7 @@ class DoctorController extends Controller
             'email'=>'required',
             'phone'=>'required',
             'id'=>'required',
+            'role'=>'required',
         ];
 
         $validator = Validator::make($request->all(),$rule);

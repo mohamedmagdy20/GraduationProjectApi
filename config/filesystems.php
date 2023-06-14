@@ -71,6 +71,12 @@ return [
         ],
 
         
+        'rt-files'=>[
+            'driver'=>'local',
+            'root'=>public_path('files/pdf/rt')
+        ],
+
+        
 
         's3' => [
             'driver' => 's3',
