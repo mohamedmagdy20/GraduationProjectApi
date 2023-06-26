@@ -31,6 +31,17 @@
                 </select>
             </div>
         </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="">Payment Methods</label>
+                <select name="" class=" form-control select" id="method">
+                    @foreach ($methods as $d)
+                        <option value="{{$d->id}}">{{$d->name}}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
         <div class="col-md-4">
             <div class="form-group">
                 <label for="">From</label>
@@ -73,7 +84,8 @@
                         <th class="border-0 ">Currency</th>
                         <th class="border-0 ">Status</th>
                         <th class="border-0">Date</th>
-                        <th class="border-0">Message</th>                    
+                        <th class="border-0">Message</th>        
+                        <th class="border-0">Payment Method</th>            
                         <th>Patient Name</th>   
                     </tr>
                 </thead>
@@ -88,6 +100,8 @@
                         <th></th>
                         <th></th>
                         <th></th>
+                        <th></th>
+
                         <th></th>
 
                     </tr>
@@ -150,9 +164,11 @@ function setPatientDatatable() {
                 data: 'data_message'
             },
             {
+                data:'method'
+            },
+            {
                 data:'name'
             }
-
         ],
 
         footerCallback: function ( row, data, start, end, display ) {
@@ -168,12 +184,12 @@ function setPatientDatatable() {
                 
                     // computing column Total of the complete result 
                     var totalcost = api
-                        .column(0).data().reduce( function (a, b) {
+                        .column(1).data().reduce( function (a, b) {
                                  return intVal(a) + intVal(b);
-                                        }, 0 );
+                                        }, 1 );
 
                         // Update footer by showing the total with the reference of the column index 
-                        $( api.column( 0 ).footer() ).html( "Total: "+totalcost);
+                        $( api.column( 1 ).footer() ).html( "Total: "+totalcost);
                       
         },
     });
@@ -188,9 +204,10 @@ function handleFilter()
     dates = $('#dates').val() || '';
     from = $("#from").val() || '';
     to = $("#to").val() || '';
+    method = $("#method").val()||'';
 
     if (PatientTable) {
-        var url = "{{ route('invoices.get-data') }}"+`?patient_id=${patient}&from=${from}&to=${to}&dates=${dates}`;
+        var url = "{{ route('invoices.get-data') }}"+`?patient_id=${patient}&from=${from}&to=${to}&dates=${dates}&method=${method}`;
         console.log(url);
         PatientTable.ajax.url(url).load()
     }
@@ -202,6 +219,8 @@ function ClearFilter()
     $('#dates').val('');
     $("#from").val('');
     $("#to").val('')   
+    $("#method").val('');
+
     var url = "{{ route('invoices.get-data') }}";
     PatientTable.ajax.url(url).load()
 }

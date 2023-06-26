@@ -43,6 +43,9 @@ return [
 
     'debug' => (bool) env('APP_DEBUG', false),
 
+    'card'=>2,
+    'kosik'=>3,
+
     /*
     |--------------------------------------------------------------------------
     | Application URL

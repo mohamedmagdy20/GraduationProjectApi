@@ -71,6 +71,7 @@ class AppointmentController extends Controller
             'patient_id'=>'required',
             'appointment_times_id'=>'required',
             'register_date'=>'required',
+            'method'=>'required',
             'url'=>'required',
         ];
 
@@ -86,7 +87,7 @@ class AppointmentController extends Controller
         ////
         if(! Invoice::where('code',$InvoiceData['code'])->first())
         {
-            $invoice = Invoice::create($InvoiceData);
+            $invoice = Invoice::create(array_merge($InvoiceData,['payment_method_id'=>$request->method]));
         }else{
             return response()->json([
                 'error'=>'Fail',

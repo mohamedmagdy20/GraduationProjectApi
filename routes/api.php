@@ -92,6 +92,8 @@ Route::middleware('auth:api-doctor')->prefix('doctor')->group(function(){
     Route::post('profile/change-password',[DoctorController::class,'changePassword']);
     Route::post('reset-setting',[DoctorAuthController::class,'resetSetting']);
     Route::get('/doctor-work-profile',[DoctorController::class,'doctorsPatient']);
+    Route::get('/rad-work-profile',[ReportController::class,'doctorProfile']);
+
     Route::get('/reports',[ReportController::class,'index']);
     Route::post('/make-reports',[ReportController::class,'makeReport']);
     

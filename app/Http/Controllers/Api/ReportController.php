@@ -90,7 +90,8 @@ class ReportController extends Controller
 
     public function makeReport(Request $request)
     {
-        
+        // return $request->all();
+        // return $request->images[0];
         $result = Result::findOrFail($request->result_id);
         // Get Result to uPDATE
         if($request->file('img'))
@@ -100,10 +101,10 @@ class ReportController extends Controller
             $img = asset('files/results/'.$imgName);
         }
         // add images to drive link //
-        if($request->file('images'))
+        if($request->images)
         {
             $drive = new GoogleDrive;
-            $link = $drive->googleDriveFilePpload($result->patient_id,$request->file('images'));
+            $link = $drive->googleDriveFilePpload($result->patient_id,$request->images);
         }
 
         if($request->file('pdf'))
@@ -117,6 +118,22 @@ class ReportController extends Controller
 
         return response()->json([
             'msg'=>'Success',
+            'status'=>true
+        ], 200);
+
+    }
+
+    public function doctorProfile()
+    {
+        $doctorId = auth()->user()->id;
+        $data = Patient::whereHas('result', function ($query) use ($doctorId) {
+            $query->whereNotNull('results.result','notes')->where('doctor_id', $doctorId);
+        })
+        ->with('result')
+        ->get();
+
+        return response()->json([
+            'data'=>$data,
             'status'=>true
         ], 200);
 

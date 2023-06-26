@@ -20,6 +20,8 @@ class Invoice extends Model
         'code',
         'date',
         'data_message',
+        'payment_method_id',
+        'deleted_at'
     ];
 
     public function appointment()
@@ -31,6 +33,11 @@ class Invoice extends Model
         return $this->belongsToMany(Patient::class,'appointments');
     }
 
+    public function paymentMethod()
+    {
+        return $this->belongsTo(PaymentMethod::class,'payment_method_id');
+
+    }
     public function scopeFilter($query, $params)
     {
         if(isset($params['patient_id']))
@@ -51,6 +58,13 @@ class Invoice extends Model
             $start_from = Carbon::parse($dates[0]);
             $end_to = Carbon::parse($dates[1]);               
             $query->whereBetween('date',[$start_from,$end_to]);
+        }
+
+
+        
+        if(isset($params['method']))
+        {
+            $query->where('payment_method_id',$params['method']);
         }
 
     }

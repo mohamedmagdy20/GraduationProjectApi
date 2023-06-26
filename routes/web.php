@@ -12,6 +12,7 @@ use App\Http\Controllers\Dashboard\LoginHistoryController;
 use App\Http\Controllers\Dashboard\InvoiceController;
 use App\Http\Controllers\Dashboard\LogController;
 use App\Http\Controllers\Dashboard\PatientController;
+use App\Http\Controllers\Dashboard\PaymentMethodController;
 use App\Http\Controllers\Dashboard\PermissionController;
 use App\Http\Controllers\Dashboard\RoleController;
 use App\Utils\GoogleDrive;
@@ -210,6 +211,13 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function(){
         Route::get('index',[AppointmentController::class,'index'])->name('appointments.index');
         Route::get('data',[AppointmentController::class,'data'])->name('appointements.data');
         Route::post('delete',[AppointmentController::class,'toggleActive'])->name('appointements.delete');
+    });
+
+
+    Route::group(['prefix'=>'payment_methods'],function(){
+        Route::get('index',[PaymentMethodController::class,'index'])->name('payment_methods.index');
+        Route::get('data',[PaymentMethodController::class,'data'])->name('payment_methods.data');
+        Route::post('delete',[PaymentMethodController::class,'toggleActive'])->name('payment_methods.delete');
     });
 
 

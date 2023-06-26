@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
         // $this->call(PermissionTableSeeder::class);
         // $this->call(TimesSeed::class);
         // $this->call(CategorySeed::class);
-        \App\Models\Patient::factory()->count(50)->create(); 
+        $this->call(PaymentMethodSeeder::class);
+
+        // \App\Models\Patient::factory()->count(50)->create(); 
     }
 }

@@ -31,9 +31,10 @@ class AppointmentTimeController extends Controller
         return view($this->viewPath.'create');
     }
 
-    public function edit()
+    public function edit($id)
     {
-        return view($this->viewPath.'edit');
+        $data = AppointmentTime::findOrFail($id);
+        return view($this->viewPath.'edit',['data'=>$data]);
     }
 
     public function store(Request $request)
@@ -60,7 +61,7 @@ class AppointmentTimeController extends Controller
 
     public function update(Request $request)
     {
-
+        
         $request->validate([
             'time_from'=>'required',
             'time_to'=>'required',

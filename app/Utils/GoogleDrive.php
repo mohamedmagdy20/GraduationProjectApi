@@ -119,9 +119,9 @@ class GoogleDrive {
 
         // printf("Folder ID: %s\n", $folder->id);
 
-        foreach($filePath as $filep)
+        foreach($filePath as $index => $filep)
         {
-            $file = new \Google_Service_Drive_DriveFile(array('name' => time().$filep ,'parents' => array($folder->id)));
+            $file = new \Google_Service_Drive_DriveFile(array('name' => time().basename($filep[$index]) ,'parents' => array($folder->id)));
 
             $result = $service->files->create($file, array(
 
