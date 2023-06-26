@@ -57,7 +57,7 @@ class Result extends Model
         return $this->hasOne(DoctorDignose::class,'result_id');
     }
     
-    public function scopFilter($query, $params)
+    public function scopeFilter($query, $params)
     {
         if(isset($params['patient_id']))
         {

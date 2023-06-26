@@ -22,10 +22,10 @@ class ResultController extends Controller
         return view('dashboard.results.index',['patients'=>$patients,'doctors'=>$doctors,'category'=>$category]);
     }
 
-    public function data()
+    public function data(Request $request)
     {
-        $query = Result::query()->with('patient')->with('category')->with('doctor');
-
+        $query = Result::filter($request->except('_token'))->with('patient')->with('category')->with('doctor')->whereNotNull('result');
+        
         return DataTables::eloquent($query)
         ->editColumn('patient_id',function($query){
             return $query->patient->name;
@@ -39,6 +39,7 @@ class ResultController extends Controller
         ->addColumn('img',function($query){
             return view('dashboard.results.action',['type'=>'img','data'=>$query]);
         })
+        
         ->rawColumns(['img'])
         ->make(true);
     }
