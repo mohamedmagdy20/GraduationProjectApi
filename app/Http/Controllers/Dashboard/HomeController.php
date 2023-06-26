@@ -27,7 +27,7 @@ class HomeController extends Controller
 
     public function amountChart()
     {   
-        $invoices = Invoice::selectRaw('SUM(amount) as total, MONTH(date) as month')
+        $invoices = Invoice::selectRaw('SUM(amount/100) as total, MONTH(date) as month')
         ->groupBy('date')
         ->get();
 
