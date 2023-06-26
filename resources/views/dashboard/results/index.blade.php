@@ -86,6 +86,8 @@
                         <th class="border-0">Category</th>
                         <th class="border-0">Result</th>                       
                         <th class="border-0">Rate</th>
+                        <th class="border-0">Date</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -146,7 +148,10 @@ function setPatientDatatable() {
             },
             {
                 data: 'rate'
-            }
+            },
+            {
+                data: 'created_at'
+            },
         ],
     });
 }

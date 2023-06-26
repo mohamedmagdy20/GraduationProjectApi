@@ -189,7 +189,7 @@ function setPatientDatatable() {
                                         }, 1 );
 
                         // Update footer by showing the total with the reference of the column index 
-                        $( api.column( 1 ).footer() ).html( "Total: "+totalcost);
+                        $( api.column( 0 ).footer() ).html( "Total: "+totalcost/100 + " EGP");
                       
         },
     });

@@ -271,7 +271,7 @@
            <li class="nav-item">
             <a href="{{route('payment_methods.index')}}" class="nav-link d-flex align-items-center">
               <span class="sidebar-icon">
-                <i class="fa-solid fa-money"></i>
+                <i class="fa-solid fa-dollar-sign"></i>
               </span>
               <span class="mt-1 ms-1 sidebar-text">Payment Methods</span>
             </a>

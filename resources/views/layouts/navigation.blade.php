@@ -48,7 +48,7 @@
                                             <div>
                                                 <h4 class="h6 mb-0 text-small">{{$data->patient->name}}</h4>
                                             </div>
-                                            <div class="text-end"><small class="text-danger">{{$data->created_at->format('YY-MM-DD')}}</small>
+                                            <div class="text-end"><small class="text-danger">{{$data->created_at->format('Y M D')}}</small>
                                             </div>
                                         </div>
                                         <p class="font-small mt-1 mb-0">{{$data->patient->name}} Has Make New Appointment </p>
