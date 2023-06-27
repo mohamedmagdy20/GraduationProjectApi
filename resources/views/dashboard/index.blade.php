@@ -2,16 +2,19 @@
 @section('content')
     <div class="row mt-3">
         <div class="col-md-12">
+            
             <div class="card  border-0 shadow p-4 mb-2">
                 <div style="width: 100%;">
+                    @if (auth()->user()->hasPermission('show_statistics'))
                     <canvas id="myChart"></canvas>
-
-                </div>
+                    @endif
+                </div>    
+                
             </div>
         </div>
 
     </div>
-
+    @if (auth()->user()->hasPermission('show_statistics'))
     <div class="row mt-3">
         <div class="col-md-4">
             <div class="card  border-0 shadow p-4 mb-2">
@@ -42,6 +45,9 @@
         </div>
 
     </div>
+    @endif
+
+    @if (auth()->user()->hasPermission('show_statistics'))
     <div class="row mt-3">
         <div class="col-12 col-sm-6 col-xl-4 mb-4">
             <div class="card border-0 shadow">
@@ -134,8 +140,9 @@
                 </div>
             </div>
         </div>
-    </div> 
-          
+    </div>           
+    @endif
+    
 @endsection
 
 @section('js')
