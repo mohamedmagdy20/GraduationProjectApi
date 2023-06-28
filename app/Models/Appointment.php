@@ -43,11 +43,11 @@ class Appointment extends Model
 
     public function scopeFilter($query, $params)
     {
-        if ( isset($params['is_done']) == 1) {
-            $query->where('is_done',true);
-        }else{
-            $query->where('is_done',false);
-        }
+        // if ( isset($params['is_done']) == 1) {
+        //     $query->where('is_done',true);
+        // }else{
+        //     $query->where('is_done',false);
+        // }
 
         if(isset($params['dates']))
         {

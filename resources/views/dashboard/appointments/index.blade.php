@@ -14,8 +14,20 @@
             <li class="breadcrumb-item active" aria-current="page">Appointments</li>
         </ol>
     </nav>
-    <h1 class="h4">Appointments</h1>
+    <div class="row justify-content-around w-100 ">
+        <div class="col-md-6">
+            <h1 class="h4">Appointments</h1>
+
+        </div>
+        <div class="col-md-6">
+            <a href="{{route('appointements.create')}}" class="btn btn-primary">@lang('lang.add') @lang('lang.appointment')</a>
+ 
+        </div>
+        
+    </div>
     <div class="row  w-100 ">
+
+        
 
         <div class="col-md-4">
             <div class="form-group">
@@ -63,6 +75,7 @@
             </div>    
         </div> 
     </div>
+
 </div>
 
 

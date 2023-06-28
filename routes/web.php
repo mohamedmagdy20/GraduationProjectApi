@@ -212,6 +212,9 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function(){
         Route::get('index',[AppointmentController::class,'index'])->middleware('permission:show_appointments')->name('appointments.index');
         Route::get('data',[AppointmentController::class,'data'])->middleware('permission:show_appointments')->name('appointements.data');
         Route::post('delete',[AppointmentController::class,'toggleActive'])->name('appointements.delete');
+        Route::get('time-data',[AppointmentController::class,'getAvalableTime'])->middleware('permission:show_appointments')->name('appointements.time.data');
+        Route::get('create',[AppointmentController::class,'create'])->middleware('permission:show_appointments')->name('appointements.create');
+        Route::post('store',[AppointmentController::class,'store'])->middleware('permission:show_appointments')->name('appointments.store');
     });
 
 

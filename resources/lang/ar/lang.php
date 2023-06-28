@@ -42,5 +42,7 @@ return [
     'genral_info'=>'المعلومات العامه',
     'arabic'=>'عربية',
     'english'=>'انجليزية',
-    'language'=>'اللغه'
+    'language'=>'اللغه',
+    'date'=>'التاريخ',
+    'code'=>'كود'
 ];

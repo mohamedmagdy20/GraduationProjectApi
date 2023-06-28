@@ -42,7 +42,11 @@ return [
     'genral_info'=>'General Info',
     'arabic'=>'Arabic',
     'english'=>'English',
-    'language'=>'Language'
+    'language'=>'Language',
+    'date'=>'Date',
+    'code'=>'Code'
+
+
 
 
 ];
