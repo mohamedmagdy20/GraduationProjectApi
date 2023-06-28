@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\ResultController;
 use App\Http\Controllers\Dashboard\SettingsController;
 use App\Http\Controllers\Dashboard\TipsController;
+use App\Http\Controllers\LocalizationController;
 use App\Http\Controllers\NotificationController;
 
 /*
@@ -34,7 +35,7 @@ use App\Http\Controllers\NotificationController;
 */
 
 Route::get('/', [HomeController::class,'index'])->middleware(['auth']);
-
+Route::get('change-language/{lang}',[LocalizationController::class,'setLocal'])->name('change-language');
 
 Route::get('upload-google-drive',[GoogleDriveController::class,'uploadDrive'])->middleware(['auth']);
 Route::get('google/login',[GoogleDrive::class,'googleLogin'])->name('google.login');

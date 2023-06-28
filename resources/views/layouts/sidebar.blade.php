@@ -11,7 +11,7 @@
             <h2 class="h5 mb-3">Hi, {{auth()->user()->name}}</h2>
             <a href="{{route('logout')}}" class="btn btn-secondary btn-sm d-inline-flex align-items-center">
               <svg class="icon icon-xxs me-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
-              Sign Out
+          @lang('lang.logout')
             </a>
           </div>
         </div>
@@ -30,7 +30,7 @@
             <span class="sidebar-icon">
               <img src="{{asset('assets/image/favicon/brain-logo.png')}}" height="20" width="20" alt="Volt Logo">
             </span>
-            <span class="mt-1 ms-1 sidebar-text">Dashboard</span>
+            <span class="mt-1 ms-1 sidebar-text">@lang('lang.dashboard')</span>
           </a>
         </li>
         @if (auth()->user()->hasPermission('show_admins'))
@@ -42,7 +42,7 @@
               <span class="sidebar-icon">
                 <i class="fa fa-user"></i>
               </span>
-              <span class="sidebar-text">Admins</span>
+              <span class="sidebar-text">@lang('lang.admins')</span>
             </span>
             <span class="link-arrow">
               <svg class="icon icon-sm" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
@@ -54,14 +54,14 @@
               <li class="nav-item">
                 <a class="nav-link"
                   href="{{route('admin.index')}}">
-                  <span class="sidebar-text">All Admins</span>
+                  <span class="sidebar-text">@lang('lang.show') @lang('lang.admins')</span>
                 </a>
               </li>
               @if (auth()->user()->hasPermission('add_admins'))
                 
               <li class="nav-item ">
                 <a class="nav-link" href="{{route('admin.create')}}">
-                  <span class="sidebar-text">Add Admins</span>
+                  <span class="sidebar-text">@lang('lang.add') @lang('lang.admins')</span>
                 </a>
               </li>
               @endif
@@ -69,7 +69,7 @@
               @if (auth()->user()->hasPermission('show_permissions'))
               <li class="nav-item ">
                 <a class="nav-link" href="{{route('roles.index')}}">
-                  <span class="sidebar-text">Roles</span>
+                  <span class="sidebar-text">@lang('lang.roles')</span>
                 </a>
               </li>
               @endif
@@ -89,7 +89,7 @@
               <span class="sidebar-icon">
                 <i class="fa fa-file"></i>
               </span>
-              <span class="sidebar-text">Category</span>
+              <span class="sidebar-text">@lang('lang.category')</span>
             </span>
             <span class="link-arrow">
               <svg class="icon icon-sm" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
@@ -101,13 +101,13 @@
               <li class="nav-item">
                 <a class="nav-link"
                   href="{{route('category.index')}}">
-                  <span class="sidebar-text">All Category</span>
+                  <span class="sidebar-text">@lang('lang.show') @lang('lang.category')</span>
                 </a>
               </li>
               @if (auth()->user()->hasPermission('add_categories'))
               <li class="nav-item ">
                 <a class="nav-link" href="{{route('category.create')}}">
-                  <span class="sidebar-text">Add Category</span>
+                  <span class="sidebar-text">@lang('lang.add') @lang('lang.category')</span>
                 </a>
               </li>      
               @endif
@@ -134,7 +134,7 @@
                 <i class="fa fa-user-doctor"></i>
 
               </span>
-              <span class="sidebar-text">Doctors</span>
+              <span class="sidebar-text">@lang('lang.doctors')</span>
             </span>
             <span class="link-arrow">
               <svg class="icon icon-sm" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
@@ -146,14 +146,14 @@
               <li class="nav-item">
                 <a class="nav-link"
                   href="{{route('doctors.index')}}">
-                  <span class="sidebar-text">All Doctors</span>
+                  <span class="sidebar-text">@lang('lang.show') @lang('lang.doctors')</span>
                 </a>
               </li>
               @if (auth()->user()->hasPermission('add_doctors'))
               <li class="nav-item">
                 <a class="nav-link"
                   href="{{route('doctors.create')}}">
-                  <span class="sidebar-text">Add Doctors</span>
+                  <span class="sidebar-text">@lang('lang.add') @lang('lang.doctors')</span>
                 </a>
               </li>    
               @endif
@@ -174,7 +174,7 @@
             <span class="sidebar-icon">
               <i class="fa fa-users"></i>
             </span>
-            <span class="mt-1 ms-1 sidebar-text">Patients</span>
+            <span class="mt-1 ms-1 sidebar-text">@lang('lang.patient')</span>
           </a>
         </li>
         @endif
@@ -189,7 +189,7 @@
             <span class="sidebar-icon">
               <i class="fa fa-calendar-check"></i>
             </span>
-            <span class="mt-1 ms-1 sidebar-text">Appointments</span>
+            <span class="mt-1 ms-1 sidebar-text">@lang('lang.appointment')</span>
             <span class="mt-1 ms-1 sidebar-text">
               <div id="notification-count">{{$acount}}</div>
 
@@ -207,7 +207,7 @@
             <span class="sidebar-icon">
               <i class="fa fa-code-pull-request"></i>
             </span>
-            <span class="mt-1 ms-1 sidebar-text">Requests</span>
+            <span class="mt-1 ms-1 sidebar-text">@lang('lang.request')</span>
             <span class="mt-1 ms-1 sidebar-icon">
               <div id="notification-count">{{$now}}</div>
           
@@ -226,7 +226,7 @@
             <span class="sidebar-icon">
               <i class="fa fa-square-poll-vertical"></i>
             </span>
-            <span class="mt-1 ms-1 sidebar-text">Results</span>
+            <span class="mt-1 ms-1 sidebar-text">@lang('lang.results')</span>
           </a>
         </li>
         @endif
@@ -238,7 +238,7 @@
               <span class="sidebar-icon">
                 <i class="fa-solid fa-file-invoice"></i>
               </span>
-              <span class="mt-1 ms-1 sidebar-text">Invoices</span>
+              <span class="mt-1 ms-1 sidebar-text">@lang('lang.invoices')</span>
             </a>
           </li>
           @endif
@@ -251,7 +251,7 @@
               <span class="sidebar-icon">
                 <i class="fa fa-bell"></i>
               </span>
-              <span class="mt-1 ms-1 sidebar-text">Notifications</span>
+              <span class="mt-1 ms-1 sidebar-text">@lang('lang.notification')</span>
             </a>
           </li>
     
@@ -269,7 +269,7 @@
                   <i class="fa-solid fa-shield-halved"></i>
   
                 </span>
-                <span class="sidebar-text">Security</span>
+                <span class="sidebar-text">@lang('lang.security')</span>
               </span>
               <span class="link-arrow">
                 <svg class="icon icon-sm" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
@@ -281,14 +281,14 @@
                 <li class="nav-item">
                   <a class="nav-link"
                     href="{{route('activity.index')}}">
-                    <span class="sidebar-text">Activity</span>
+                    <span class="sidebar-text">@lang('lang.activity')</span>
                   </a>
                 </li>
   
                 <li class="nav-item">
                   <a class="nav-link"
                     href="{{route('loginHisory.index')}}">
-                    <span class="sidebar-text">login history</span>
+                    <span class="sidebar-text">@lang('lang.login_history')</span>
                   </a>
                 </li>
   
@@ -310,7 +310,7 @@
               <span class="sidebar-icon">
                 <i class="fa-solid fa-dollar-sign"></i>
               </span>
-              <span class="mt-1 ms-1 sidebar-text">Payment Methods</span>
+              <span class="mt-1 ms-1 sidebar-text">@lang('lang.payment_method')</span>
             </a>
           </li>      
            @endif
@@ -324,7 +324,7 @@
               <span class="sidebar-icon">
                 <i class="fa-solid fa-calendar-days"></i>
               </span>
-              <span class="mt-1 ms-1 sidebar-text">Appointment Times</span>
+              <span class="mt-1 ms-1 sidebar-text">@lang('lang.appointment_time')</span>
             </a>
           </li>
            @endif
@@ -336,7 +336,7 @@
               <span class="sidebar-icon">
                 <i class="fa-solid fa-calendar-days"></i>
               </span>
-              <span class="mt-1 ms-1 sidebar-text">Tips</span>
+              <span class="mt-1 ms-1 sidebar-text">@lang('lang.tips')</span>
             </a>
           </li>
           @endif

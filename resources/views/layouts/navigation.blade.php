@@ -23,6 +23,25 @@
                 </form> --}}
             </div>
             <ul class="navbar-nav align-items-center">
+
+                <li class="nav-item dropdown"><a class="nav-link text-dark  dropdown-toggle"
+                    data-unread-notifications="true" href="#" role="button" data-bs-toggle="dropdown"
+                    data-bs-display="static" aria-expanded="false">
+                    <i class="fa-solid fa-language" style="font-size:20px; color:#333"></i>
+
+                 </a>
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-center mt-2 py-0">
+                        <a
+                        class="dropdown-item d-flex align-items-center" href="{{route('change-language','ar')}}">
+                          @lang('lang.arabic')</a>
+
+                        <a class="dropdown-item d-flex align-items-center" href="{{route('change-language','en')}}">
+                            @lang('lang.english') </a>      
+                      
+                      
+                    
+                </div>
+            </li>
                 <li class="nav-item dropdown"><a class="nav-link text-dark notification-bell unread dropdown-toggle"
                         data-unread-notifications="true" href="#" role="button" data-bs-toggle="dropdown"
                         data-bs-display="static" aria-expanded="false">
@@ -99,6 +118,10 @@
                             </svg> Logout</a>
                     </div>
                 </li>
+
+                
+            
+                
             </ul>
         </div>
     </div>
