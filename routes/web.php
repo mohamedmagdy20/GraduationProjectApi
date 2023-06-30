@@ -188,6 +188,7 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function(){
 
         Route::get('index',[SettingsController::class,'index'])->name('settings.index');
         Route::post('toggle-recaptcha',[SettingsController::class,'toggleRecaptcha'])->name('settings.toggle-activate');
+        Route::post('updatelocation',[SettingsController::class,'updateLocation'])->name('settings.location.update');
 
     });
 

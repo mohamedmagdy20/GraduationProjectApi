@@ -55,18 +55,18 @@ class ClassificationRequestController extends Controller
     {
         $data = Appointment::findOrFail($id);
 
-        $doctors = Doctor::all();
-        return view('dashboard.classification_requests.create',compact('data','doctors'));
+        $doctorsRt = Doctor::where('role','Rt')->get();
+        $doctors =  Doctor::where('role','Nt')->get();
+        return view('dashboard.classification_requests.create',compact('data','doctorsRt','doctors'));
     }
 
     public function makeClassification(Request $request)
     {
-        // return $request->all();
         $request->validate([
             'patient_id'=>'required',
             'doctor_id'=>'required',
-            'img'=>'required|image',
-            'result'=>'required',
+            // 'img'=>'required|image',
+            // 'result'=>'required',
             'category_id'=>'required',
             'appointment_id'=>'required'
         ]);
@@ -80,24 +80,24 @@ class ClassificationRequestController extends Controller
 
         // store 
 
-        if($request->file('img'))
-        {
-            $imgName = time().$request->file('img')->getClientOriginalName();
+        // if($request->file('img'))
+        // {
+        //     $imgName = time().$request->file('img')->getClientOriginalName();
 
-            Storage::disk('results')->put($imgName, file_get_contents($request->file('img')));
+        //     Storage::disk('results')->put($imgName, file_get_contents($request->file('img')));
 
-            $image = asset('files/results/'.$imgName);
+        //     $image = asset('files/results/'.$imgName);
 
-        }
+        // }
 
 
         // Store Files in google Drive 
-        $drive = new GoogleDrive;
-        $files = $request->file('files');
-        $url = $drive->googleDriveFilePpload($request->patient_id,$files);
+        // $drive = new GoogleDrive;
+        // $files = $request->file('files');
+        // $url = $drive->googleDriveFilePpload($request->patient_id,$files);
         // return $url;
 
-        $data =  array_merge($request->all(),['img'=>$image,'files_url'=>$url]);
+        $data =  array_merge($request->all());
         $result = Result::create($data);
 
         // if($request->hasFile('files'))
@@ -121,8 +121,8 @@ class ClassificationRequestController extends Controller
             // Add Images 
             foreach($request->file('files') as $file)
             {
-                $imgName = time().$request->file('img')->getClientOriginalName();
-                Storage::disk('results')->put($imgName, file_get_contents($request->file('img')));    
+                $imgName = time().$file->getClientOriginalName();
+                Storage::disk('results')->put($imgName, file_get_contents($file));    
                 $image = asset('files/results/'.$imgName);
                 ResultImage::create([
                     'result_id'=>$result->id,

@@ -90,7 +90,7 @@
                             <!-- input -->
                             <div class="mb-4">
                                 <label for="appointment_time_id">@lang('lang.payment_method') <span class="text-danger">*</span></label>
-                                <select name="payment_id" class="form-select" id="payment_id">
+                                <select name="payment_id" class="form-select" id="payment_id" onchange="showCode()">
                                     @foreach ($payments as $item)
                                     <option value="{{$item->id}}">{{$item->name}}</option>
                                     @endforeach
@@ -101,7 +101,7 @@
                             <!-- End of input -->
                         </div>
 
-                        <div class="col-lg-6 col-sm-12" id="code-dev">
+                        <div class="col-lg-6 col-sm-12 d-none" id="code-dev">
                             <!-- input -->
                             <div class="mb-4">
                                 <label for="code">@lang('lang.code') <span class="text-danger"></span></label>
@@ -216,6 +216,18 @@
         //                 });
         //         })
         // }
+
+        function showCode()
+        {
+            let method = $("#payment_id").val();
+            let code_div = $("#code-dev");
+            if(method == '2' || method == '3' )
+            {
+                code_div.removeClass('d-none')
+            }else{
+                code_div.addClass('d-none')
+            }
+        }
 
        
 </script>

@@ -58,7 +58,7 @@ class AppointmentController extends Controller
             'appointment_times_id'=>'required',
             'payment_id'=>'required'
         ]);
-        $price =Category::find($request->category_id)->price;
+        $price = Category::find($request->category_id)->price;
 
         // create invoice First //
         if($request->payment_method == '2' || $request->payment_method == '3')
