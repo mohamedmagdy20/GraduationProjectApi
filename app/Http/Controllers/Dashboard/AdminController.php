@@ -139,8 +139,11 @@ class AdminController extends Controller
             
         })
         ->addColumn('image',function($data){
-            return view('dashboard.admins.action',['type'=>'image','data'=>$data]);
-            
+            return view('dashboard.admins.action',['type'=>'image','data'=>$data]);  
+        })
+
+        ->addColumn('role',function($data){
+            return $data->roles[0]->display_name;  
         })
         ->toJson();
         return $result;
@@ -222,6 +225,16 @@ class AdminController extends Controller
         // return back();
          return response()->json(['msg'=>'Admin DeActivate','status'=>true], 200);
     }
+
+
+    public function forcedelete(Request $request)
+    {
+        $admin = User::withTrashed()->findOrFail($request->id);
+        $admin->forceDelete();
+         return response()->json(['msg'=>'Admin Deleted','status'=>true], 200);
+    }
+
+    
 
     public function restore(Request $request)
     {

@@ -59,9 +59,9 @@
 
                             @foreach ($roles as $r )
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" value="{{$r->name}}" id="defaultCheck-{{$r->id}}" name="role_id">
+                                    <input class="form-check-input" type="radio" value="{{$r->name}}" {{$data->roles[0]->id == $r->id ? 'checked' : '' }} id="defaultCheck-{{$r->id}}" name="role_id">
                                     <label class="form-check-label" for="defaultCheck-{{$r->id}}">
-                                      {{$r->display_name}}
+                                      {{ $r->display_name}}
                                     </label>
                                 </div>
                          

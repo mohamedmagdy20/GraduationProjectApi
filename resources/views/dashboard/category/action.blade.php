@@ -17,12 +17,15 @@
     <div class="form-check form-switch">
         <input class="form-check-input" type="checkbox" checked onchange="deleteCategory({{$data->id}})" id="flexSwitchCheckDefault">
     </div>
+    <a href="{{route('category.edit',$data->id)}}" class="btn btn-sm btn-info"><i class="fa fa-pen"></i></a>
+
     @else
     <div class="form-check form-switch">
         <input class="form-check-input" type="checkbox" onchange="restoreCategory({{$data->id}})"  id="flexSwitchCheckDefault">
     </div>
+    <a onclick="deleteConfirmation({{$data->id}})" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
+
     @endif
-    <a href="{{route('category.edit',$data->id)}}" class="btn btn-sm btn-info"><i class="fa fa-pen"></i></a>
 @elseif ($type == 'img_name')
     <img style="width: 40px;border-radius: 8px" src="{{
      

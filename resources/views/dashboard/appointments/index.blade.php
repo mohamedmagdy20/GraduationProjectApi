@@ -261,5 +261,46 @@ function restoreAppointment(id)
     });
 }
 
+// // Delete 
+function deleteConfirmation(id) {
+        swal({
+            title: "@lang('lang.delete')?",
+            text: "@lang('lang.are_you_sure_delete')!",
+            type: "warning",
+            showCancelButton: !0,
+            confirmButtonText: "@lang('lang.yes')!",
+            cancelButtonText: "@lang('lang.not')!",
+            reverseButtons: !0
+        }).then(function (e) {
+
+            if (e.value === true) {
+                var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+                $.ajax({
+                    type: 'POST',
+                    url: "{{route('appointments.forcedelete')}}",
+                    data: {_token: CSRF_TOKEN,id:id},
+                    dataType: 'JSON',
+                    success: function (results) {
+
+                        if (results.status === true) {
+                            swal("Done!", results.message, "success");
+                            AppointmentTable.ajax.reload()
+                        } else {
+                            swal("Error!", results.message, "error");
+                        }
+                    }
+                });
+
+            } else {
+                e.dismiss;
+            }
+
+        }, function (dismiss) {
+            return false;
+        })
+
+}
+
 </script>
 @endsection

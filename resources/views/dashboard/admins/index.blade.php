@@ -37,6 +37,8 @@
                         <th class="border-0 rounded-start">@lang('lang.name')</th>
                         <th class="border-0">@lang('lang.email')</th>
                         <th class="border-0">@lang('lang.image')</th>
+                        <th class="border-0">@lang('lang.roles')</th>
+
                         <th class="border-0">@lang('lang.actions')</th>                       
                     </tr>
                 </thead>
@@ -92,6 +94,9 @@ function setAdminsDatatable() {
                 data: 'image'
             },
             {
+                data:'role'
+            },
+            {
                 data: 'action'
             }
         ],
@@ -103,45 +108,45 @@ $(function() {
 
 
 // // Delete 
-// function deleteConfirmation(id) {
-//         swal({
-//             title: "Delete?",
-//             text: "Please ensure and then confirm!",
-//             type: "warning",
-//             showCancelButton: !0,
-//             confirmButtonText: "Yes, delete it!",
-//             cancelButtonText: "No, cancel!",
-//             reverseButtons: !0
-//         }).then(function (e) {
+function deleteConfirmation(id) {
+        swal({
+            title: "Delete?",
+            text: "Please ensure and then confirm!",
+            type: "warning",
+            showCancelButton: !0,
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "No, cancel!",
+            reverseButtons: !0
+        }).then(function (e) {
 
-//             if (e.value === true) {
-//                 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            if (e.value === true) {
+                var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
-//                 $.ajax({
-//                     type: 'POST',
-//                     url: "{{route('admin.delete')}}",
-//                     data: {_token: CSRF_TOKEN,id:id},
-//                     dataType: 'JSON',
-//                     success: function (results) {
+                $.ajax({
+                    type: 'POST',
+                    url: "{{route('admin.forcedelete')}}",
+                    data: {_token: CSRF_TOKEN,id:id},
+                    dataType: 'JSON',
+                    success: function (results) {
 
-//                         if (results.success === true) {
-//                             swal("Done!", results.message, "success");
-//                             AdminTable.ajax.reload()
-//                         } else {
-//                             swal("Error!", results.message, "error");
-//                         }
-//                     }
-//                 });
+                        if (results.status === true) {
+                            swal("Done!", results.message, "success");
+                            AdminTable.ajax.reload()
+                        } else {
+                            swal("Error!", results.message, "error");
+                        }
+                    }
+                });
 
-//             } else {
-//                 e.dismiss;
-//             }
+            } else {
+                e.dismiss;
+            }
 
-//         }, function (dismiss) {
-//             return false;
-//         })
+        }, function (dismiss) {
+            return false;
+        })
 
-// }
+}
 
 function deleteAdmin(id)
 {

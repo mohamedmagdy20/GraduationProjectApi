@@ -4,12 +4,15 @@
         <div class="form-check form-switch">
             <input class="form-check-input" type="checkbox" checked onchange="deleteDoctor({{$data->id}})" id="flexSwitchCheckDefault">
         </div>
+        <a href="{{route('doctors.edit',$data->id)}}" class="btn btn-sm btn-info"><i class="fa fa-pen"></i></a>
+
         @else
         <div class="form-check form-switch">
             <input class="form-check-input" type="checkbox" onchange="restoreDoctor({{$data->id}})"  id="flexSwitchCheckDefault">
         </div>
+        <a onclick="deleteConfirmation({{$data->id}})" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
+
         @endif
-        <a href="{{route('doctors.edit',$data->id)}}" class="btn btn-sm btn-info"><i class="fa fa-pen"></i></a>
         @break
     @case('image')
             {{-- F:\GraduationProject\GraduationProject\public\files\doctor\167880566811.png --}}

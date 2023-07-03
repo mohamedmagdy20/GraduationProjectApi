@@ -159,6 +159,13 @@ class CategoryController extends Controller
         $data->delete();
         return response()->json(['msg'=>'Category Activate','status'=>true], 200);
     }
+    public function forcedelete(Request $request)
+    {
+        $admin = Category::withTrashed()->findOrFail($request->id);
+        $admin->forceDelete();
+         return response()->json(['msg'=>'Category Deleted','status'=>true], 200);
+    }
+
 
     public function restore(Request $request)
     {

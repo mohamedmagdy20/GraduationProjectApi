@@ -169,6 +169,13 @@ class DoctorController extends Controller
         $doctor->restore();
         return response()->json(['msg'=>'Doctor Activate','status'=>true], 200);
     }
+    public function forcedelete(Request $request)
+    {
+        $admin = Doctor::withTrashed()->findOrFail($request->id);
+        $admin->forceDelete();
+         return response()->json(['msg'=>'Doctor Deleted','status'=>true], 200);
+    }
+
 
   
 

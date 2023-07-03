@@ -60,6 +60,7 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function(){
         Route::get('get_data',[AdminController::class,'data'])->middleware('permission:show_admins')->name('admin.get-data');
         Route::post('delete',[AdminController::class,'delete'])->middleware('permission:delete_admins')->name('admin.delete');
         Route::post('restore',[AdminController::class,'restore'])->middleware('permission:delete_admins')->name('admin.restore');
+        Route::post('delete-force',[AdminController::class,'forcedelete'])->middleware('permission:delete_admins')->name('admin.forcedelete');
 
         Route::get('profile',[AdminController::class,'profile'])->name('admin.profile');
         Route::get('change-password',[AdminController::class,'changePasswordView'])->name('change-password');
@@ -82,6 +83,7 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function(){
         Route::get('get_data',[CategoryController::class,'data'])->middleware('permission:show_categories')->name('category.get-data');
         Route::post('delete',[CategoryController::class,'delete'])->middleware('permission:delete_categories')->name('category.delete');
         Route::post('restore',[CategoryController::class,'restore'])->middleware('permission:delete_categories')->name('category.restore');
+        Route::post('delete-force',[CategoryController::class,'forcedelete'])->middleware('permission:delete_categories')->name('category.forcedelete');
 
     });
 
@@ -99,6 +101,7 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function(){
         Route::post('update',[DoctorController::class,'update'])->middleware('permission:edit_doctors')->name('doctors.update');
         Route::post('delete',[DoctorController::class,'delete'])->middleware('permission:delete_doctors')->name('doctors.delete');
         Route::post('restore',[DoctorController::class,'restore'])->middleware('permission:delete_doctors')->name('doctors.restore');
+        Route::post('delete-force',[DoctorController::class,'forcedelete'])->middleware('permission:delete_doctors')->name('doctors.forcedelete');
 
     });
 
@@ -216,6 +219,8 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function(){
         Route::get('time-data',[AppointmentController::class,'getAvalableTime'])->middleware('permission:show_appointments')->name('appointements.time.data');
         Route::get('create',[AppointmentController::class,'create'])->middleware('permission:show_appointments')->name('appointements.create');
         Route::post('store',[AppointmentController::class,'store'])->middleware('permission:show_appointments')->name('appointments.store');
+        Route::post('delete-force',[AppointmentController::class,'forcedelete'])->middleware('permission:show_appointments')->name('appointments.forcedelete');
+    
     });
 
 

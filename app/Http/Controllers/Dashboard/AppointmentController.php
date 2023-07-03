@@ -132,4 +132,12 @@ class AppointmentController extends Controller
         $data->save();
         return response()->json(['status'=>true]);
     }
+
+
+    public function forcedelete(Request $request)
+    {
+        $admin = Appointment::withTrashed()->findOrFail($request->id);
+        $admin->forceDelete();
+         return response()->json(['msg'=>'Category Deleted','status'=>true], 200);
+    }
 }

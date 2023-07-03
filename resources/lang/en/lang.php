@@ -48,6 +48,11 @@ return [
     'rate'=>'Rate',
     'doc'=>'Documents',
 
+    'are_you_sure_delete'=>'Are You Sure You Want To Delete This Record',
+    'yes'=>'Yes',
+    'not'=>'No',
+    'delete'=>'Delete',
+
     'settings'=>'Settings',
     'select_all'=>'Select All',
 
