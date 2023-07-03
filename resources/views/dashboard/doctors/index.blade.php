@@ -11,15 +11,15 @@
                 </a>
             </li>
             {{-- <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Dashboard</a></li> --}}
-            <li class="breadcrumb-item active" aria-current="page">Doctor</li>
+            <li class="breadcrumb-item active" aria-current="page">@lang('lang.doctors')</li>
         </ol>
     </nav>
     <div class="row justify-content-around w-100 ">
         <div class="col-md-6">
-            <h1 class="h4">Doctor</h1>
+            <h1 class="h4">@lang('lang.doctors')</h1>
         </div>
         <div class="col-md-6">
-            <a href="{{route('doctors.create')}}" class="btn btn-primary"><i class="fa fa-plus"></i>Add Doctor</a>
+            <a href="{{route('doctors.create')}}" class="btn btn-primary"><i class="fa fa-plus"></i>@lang('lang.add') @lang('lang.doctors')</a>
         </div>
         
     </div>
@@ -32,13 +32,12 @@
             <table class="table table-centered table-nowrap mb-0 rounded" id="doctors-table">
                 <thead class="thead-light">
                     <tr>
-                        <th class="border-0 rounded-start">name</th>
-                        <th class="border-0">img</th>
-                        <th class="border-0">phone</th>
-                        <th class="border-0">Email</th>
-                        <th class="border-0">Role</th>
-
-                        <th class="border-0">actions</th>                       
+                        <th class="border-0 rounded-start">@lang('lang.name')</th>
+                        <th class="border-0">@lang('lang.image')</th>
+                        <th class="border-0">@lang('lang.phone')</th>
+                        <th class="border-0">@lang('lang.email')</th>
+                        <th class="border-0">@lang('lang.roles')</th>
+                        <th class="border-0">@lang('lang.actions')</th>                       
                     </tr>
                 </thead>
                 <tbody>

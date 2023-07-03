@@ -11,12 +11,12 @@
                 </a>
             </li>
             {{-- <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Dashboard</a></li> --}}
-            <li class="breadcrumb-item active" aria-current="page">Classification Request</li>
+            <li class="breadcrumb-item active" aria-current="page">@lang('lang.request')</li>
         </ol>
     </nav>
     <div class="row justify-content-around w-100 ">
         <div class="col-md-6">
-            <h1 class="h4">Classification Request</h1>
+            <h1 class="h4">@lang('lang.request')</h1>
         </div>
 
     </div>
@@ -29,11 +29,11 @@
             <table class="table table-centered table-nowrap mb-0 rounded" id="classification-table">
                 <thead class="thead-light">
                     <tr>
-                        <th class="border-0 rounded-start">name</th>
-                        <th class="border-0">Date</th>
-                        <th class="border-0">category</th>
-                        <th class="border-0">Time</th>
-                        <th class="border-0">actions</th>                       
+                        <th class="border-0 rounded-start">@lang('lang.name')</th>
+                        <th class="border-0">@lang('lang.date')</th>
+                        <th class="border-0">@lang('lang.category')</th>
+                        <th class="border-0">@lang('lang.appointment_time')</th>
+                        <th class="border-0">@lang('lang.actions')</th>                       
                     </tr>
                 </thead>
                 <tbody>

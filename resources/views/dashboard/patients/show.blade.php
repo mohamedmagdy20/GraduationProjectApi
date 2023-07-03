@@ -16,7 +16,7 @@
                     </div>
                 </div>
             </div>
-            <h2 class="h5 mb-4">Personal Information</h2>
+            <h2 class="h5 mb-4">@lang('lang.genral_info')</h2>
 
             <div class="col-md-12 card card-body border-0 shadow mb-4">
                 <div class="row">
@@ -25,49 +25,49 @@
                             {{-- <label for="name">Name</label>
                             <input class="form-control" id="name"  name="name" type="text" value="{{auth()->user()->name}}" required> --}}
                             <div>
-                                <span>Name : </span>{{$data->name}}
+                                <span>@lang('name') : </span>{{$data->name}}
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6 mb-3">
                         <div class="form-group">
-                            <span>Email : </span>{{$data->email}}
+                            <span>@lang('lang.email') : </span>{{$data->email}}
                         </div>
                     </div>
         
                     <div class="col-md-6 mb-3">
                         <div class="form-group">
-                            <span>Phone : </span>{{$data->phone}}
+                            <span>@lang('lang.phone') : </span>{{$data->phone}}
                         </div>
                     </div>
         
                     <div class="col-md-6 mb-3">
                         <div class="form-group">
-                            <span>Gender : </span>{{$data->gender}}
+                            <span>@lang('lang.gender') : </span>{{$data->gender}}
                         </div>
                     </div>
         
                     <div class="col-md-6 mb-3">
                         <div class="form-group">
-                            <span>Date Of Birth : </span>{{$data->date_of_birth}}
+                            <span>@lang('lang.date') : </span>{{$data->date_of_birth}}
                         </div>
                     </div>
                 </div>
               
             </div>
 
-            <h2 class="h5 mb-4">Informations</h2>
+            <h2 class="h5 mb-4">@lang('lang.genral_info')</h2>
 
 
                 <div class="card-title">
                     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
 
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Results</button>
+                            <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">@lang('lang.results')</button>
                         </li>
                         
                         <li class="nav-item" role="presentation">
-                          <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Appointments</button>
+                          <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">@lang('lang.appointment')</button>
                         </li>
 
                     </ul>

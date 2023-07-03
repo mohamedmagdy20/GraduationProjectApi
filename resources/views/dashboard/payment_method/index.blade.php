@@ -10,12 +10,12 @@
                     <svg class="icon icon-xxs" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
                 </a>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">Notifications</li>
+            <li class="breadcrumb-item active" aria-current="page">@lang('lang.payment_method')</li>
         </ol>
     </nav>
     <div class="row justify-content-around w-100 ">
         <div class="col-md-12">
-            <h1 class="h4">Payment Methods</h1>
+            <h1 class="h4">@lang('lang.payment_method')</h1>
         </div>     
     </div>
     
@@ -28,9 +28,9 @@
             <table class="table table-centered table-nowrap mb-0 rounded" id="paymentmethods-table">
                 <thead class="thead-light">
                     <tr>
-                        <th class="border-0 rounded-start">Name</th>
-                        <th class="border-0 ">Note</th>
-                        <th class="border-0">Status</th>
+                        <th class="border-0 rounded-start">@lang('lang.name')</th>
+                        <th class="border-0 ">@lang('lang.note')</th>
+                        <th class="border-0">@lang('lang.status')</th>
                     </tr>
                 </thead>
                 <tbody>

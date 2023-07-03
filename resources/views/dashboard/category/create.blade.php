@@ -9,12 +9,12 @@
                     <svg class="icon icon-xxs" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
                 </a>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">Add Category</li>
+            <li class="breadcrumb-item active" aria-current="page">@lang('lang.add') @lang('lang.category')</li>
         </ol>
     </nav>
     <div class="d-flex justify-content-between w-100 flex-wrap">
         <div class="mb-3 mb-lg-0">
-            <h1 class="h4">Category </h1>
+            <h1 class="h4">@lang('lang.category') </h1>
         </div>
     </div>
 </div>
@@ -31,8 +31,8 @@
                         <div class="col-lg-6 col-sm-12">
                             <!-- input -->
                             <div class="mb-4">
-                                <label for="email">Name <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="name"  aria-describedby="" name="name" placeholder="Enter Name">
+                                <label for="email">@lang('lang.name') <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="name"  aria-describedby="" name="name" placeholder="@lang('lang.enter') @lang('lang.name')">
                                 <span class="text-danger name_err"></span>
                             
                             </div>
@@ -41,8 +41,8 @@
                         <div class="col-lg-6 col-sm-12">
                             <!-- input -->
                             <div class="mb-4">
-                                <label for="price">Price <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="price" aria-describedby="" name="price" placeholder="Enter Price">
+                                <label for="price">@lang('lang.price') <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="price" aria-describedby="" name="price" placeholder="@lang('lang.enter') @lang('lang.price')">
                                 <span class="text-danger price_err"></span>
                             
                             </div>
@@ -52,7 +52,7 @@
                         <div class="col-lg-12 col-sm-12">
                             <!-- input -->
                             <div class="mb-4">
-                                <label for="url">Url <span class="text-danger">*</span></label>
+                                <label for="url">@lang('lang.url') <span class="text-danger">*</span></label>
                                 <input type="url" class="form-control" id="url" aria-describedby="" name="url" placeholder="Enter Url">
                                 <span class="text-danger url_err"></span>
                           
@@ -63,7 +63,7 @@
                         <div class="col-lg-12 col-sm-12">
                             <!-- input -->
                             <div class="mb-4">
-                                <label for="img">image <span class="text-danger">*</span></label>
+                                <label for="img">@lang('lang.image') <span class="text-danger">*</span></label>
                                 <input type="file" class="form-control" id="image-input" aria-describedby="" name="img">
                                 <span class="text-danger img_err"></span>
                     
@@ -78,7 +78,7 @@
                         <div class="col-lg-12 col-sm-12">
                             <!-- input -->
                             <div class="mb-4">
-                                <label for="img">Note </label>
+                                <label for="img">@lang('lang.note') </label>
                                 <textarea name="notes" id="notes" cols="30" rows="10" class="form-control"></textarea>
                             </div>
                             <!-- End of input -->
@@ -87,7 +87,7 @@
                   
                         <div class="col-md-12">
                             {{-- <input type="submit" value="Save" class="btn btn-primary"> --}}
-                            <button class="btn btn-primary submit-button">Save</button>
+                            <button class="btn btn-primary submit-button">@lang('lang.save')</button>
                         </div>
                 </form>    
          

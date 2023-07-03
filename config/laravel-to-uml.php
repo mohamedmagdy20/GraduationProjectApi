@@ -29,7 +29,7 @@ return [
     'providers'     => true,
     'requests'      => true,
     'resources'     => false,
-    'rules'         => false,
+    'rules'         => true,
 
     /**
      * You can define specific nomnoml styling.
@@ -46,7 +46,7 @@ return [
         'gravity'    => 1,
         'edges'      => 'rounded',
         'fill'       => '#3A6EA5',
-        'fillArrows' => false,
+        'fillArrows' => true,
         'font'       => 'Calibri',
         'fontSize'   => 12,
         'leading'    => 1.25,

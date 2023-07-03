@@ -120,7 +120,7 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function(){
     Route::group(['prefix'=>'roles'],function(){
         Route::get('index',[RoleController::class,'index'])->middleware('permission:show_permissions')->name('roles.index');
         Route::get('edit/{id}',[RoleController::class,'edit'])->middleware('permission:edit_permissions')->name('role.edit');
-        Route::get('update',[RoleController::class,'update'])->middleware('permission:edit_permissions')->name('role.update');
+        Route::post('update',[RoleController::class,'update'])->middleware('permission:edit_permissions')->name('role.update');
     });
 
 

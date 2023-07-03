@@ -34,17 +34,53 @@ return [
     'appointment_time'=>'Appointment Times',
     'tips'=>'Tips',
     'activity'=>'Activity',
+    'actions'=>'Actions',
+    'enter'=>'Enter',
+    'password_confirmation'=>'Confirm Password',
+
+
     'login_history'=>'Login History',
     'change_password'=>'Change Password',
     'old_password'=>'Old Password',
     'new_password'=>'New Password',
     'image'=>'Image',
     'genral_info'=>'General Info',
+    'rate'=>'Rate',
+    'settings'=>'Settings',
+    'select_all'=>'Select All',
+
+
+
     'arabic'=>'Arabic',
     'english'=>'English',
     'language'=>'Language',
     'date'=>'Date',
-    'code'=>'Code'
+    'code'=>'Code',
+
+
+    'time_from'=>'Time From',
+    'time_to'=>'Time To',
+    'amount'=>'Amount',
+    'price'=>'Price',
+    'url'=>'Url',
+    'note'=>'Notes',
+    'phone'=>'Phone',
+    'currency'=>'Currency',
+    'status'=>'Status',
+    'message'=>'Message',
+    'from'=>'From',
+    'to'=>'To',
+    
+    'search'=>'Search',
+    'clear'=>'Clear',
+    'address'=>'Address',
+
+
+
+
+
+
+
 
 
 

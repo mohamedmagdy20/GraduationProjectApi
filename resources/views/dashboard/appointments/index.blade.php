@@ -11,12 +11,12 @@
                 </a>
             </li>
             {{-- <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Dashboard</a></li> --}}
-            <li class="breadcrumb-item active" aria-current="page">Appointments</li>
+            <li class="breadcrumb-item active" aria-current="page">@lang('lang.appointment')</li>
         </ol>
     </nav>
     <div class="row justify-content-around w-100 ">
         <div class="col-md-6">
-            <h1 class="h4">Appointments</h1>
+            <h1 class="h4">@lang('lang.appointment')</h1>
 
         </div>
         <div class="col-md-6">
@@ -31,7 +31,7 @@
 
         <div class="col-md-4">
             <div class="form-group">
-                <label for="">Patient</label>
+                <label for="">@lang('lang.patient')</label>
                 <select name="" class="selectize" id="patient_id">
                     @foreach ($patients as $patient)
                         <option value="{{$patient->id}}">{{$patient->name}}</option>
@@ -42,7 +42,7 @@
 
         <div class="col-md-4">
             <div class="form-group">
-                <label for="">Category</label>
+                <label for="">@lang('lang.category')</label>
                 <select name="" class=" form-control select" id="category_id">
                     @foreach ($category as $cat)
                         <option value="{{$cat->id}}">{{$cat->name}}</option>
@@ -53,14 +53,14 @@
 
         <div class="col-md-4">
             <div class="form-group">
-                <label for="">Date</label>
+                <label for="">@lang('lang.date')</label>
                 <input type="text" name="dates" id="dates" class="form-control">
             </div>
         </div>
 
         <div class="col-md-4">
             <div class="form-group">
-                <label for="">Time</label>
+                <label for="">@lang('lang.appointment_time')</label>
                 <select name="" class=" form-control select" id="time_id">
                     @foreach ($times as $time)
                         <option value="{{$time->id}}">{{$time->time_from}} {{$time->time_to}}</option>
@@ -85,13 +85,13 @@
             <table class="table table-centered table-nowrap mb-0 rounded" id="appointment-table">
                 <thead class="thead-light">
                     <tr>
-                        <th class="border-0 rounded-start">Code</th>
-                        <th class="border-0 ">Name</th>
-                        <th class="border-0">Date</th>
-                        <th class="border-0">Category</th>
-                        <th class="border-0">Time</th>
-                        <th class="border-0">Amount</th>
-                        <th class="border-0">actions</th>                       
+                        <th class="border-0 rounded-start">@lang('lang.code')</th>
+                        <th class="border-0 ">@lang('lang.name')</th>
+                        <th class="border-0">@lang('lang.date')</th>
+                        <th class="border-0">@lang('lang.category')</th>
+                        <th class="border-0">@lang('lang.appointment_time')</th>
+                        <th class="border-0">@lang('lang.amount')</th>
+                        <th class="border-0">@lang('lang.actions')</th>                       
                     </tr>
                 </thead>
                 <tbody>

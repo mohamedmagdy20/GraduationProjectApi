@@ -10,12 +10,12 @@
                     <svg class="icon icon-xxs" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
                 </a>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">Appointment Times</li>
+            <li class="breadcrumb-item active" aria-current="page">@lang('lang.appointment_time')</li>
         </ol>
     </nav>
     <div class="row justify-content-around w-100 ">
         <div class="col-md-6">
-            <h1 class="h4">Appointment Times</h1>
+            <h1 class="h4">@lang('lang.appointment_time')</h1>
         </div>     
 
         <div class="col-md-6">
@@ -32,9 +32,9 @@
                 <thead class="thead-light">
                     <tr>
                         
-                        <th>Time From </th>
-                        <th>Time To</th>
-                        <th>actions</th>
+                        <th>@lang('lang.time_from') </th>
+                        <th>@lang('lang.time_to')</th>
+                        <th>@lang('lang.actions')</th>
                        
                     </tr>
                 </thead>

@@ -122,7 +122,7 @@ class PatientController extends Controller
     public function sendReport(Request $request)
     {
         $patient = Patient::first();
-        $res = SendNotification::send($patient->notification_token,$patient->name);  
+        $res = SendNotification::send($patient->notification_token,$patient->name,'doc');  
     
         // Store Notification in Db //
         if(Notification::create([

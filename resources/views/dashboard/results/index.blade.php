@@ -10,12 +10,12 @@
                     <svg class="icon icon-xxs" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
                 </a>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">Results</li>
+            <li class="breadcrumb-item active" aria-current="page">@lang('lang.results')</li>
         </ol>
     </nav>
     <div class="row justify-content-around w-100 ">
         <div class="col-md-12">
-            <h1 class="h4">Results</h1>
+            <h1 class="h4">@lang('lang.results')</h1>
         </div>     
     </div>
 
@@ -23,7 +23,7 @@
 
         <div class="col-md-4">
             <div class="form-group">
-                <label for="">Patient</label>
+                <label for="">@lang('lang.patient')</label>
                 <select name="" class=" form-control select" id="patient_id">
                     @foreach ($patients as $patient)
                         <option value="{{$patient->id}}">{{$patient->name}}</option>
@@ -35,7 +35,7 @@
 
         <div class="col-md-4">
             <div class="form-group">
-                <label for="">Doctors</label>
+                <label for="">@lang('lang.doctors')</label>
                 <select name="" class=" form-control select" id="doctor_id">
                     @foreach ($doctors as $doctor)
                         <option value="{{$doctor->id}}">{{$doctor->name}}</option>
@@ -46,7 +46,7 @@
 
         <div class="col-md-4">
             <div class="form-group">
-                <label for="">Category</label>
+                <label for="">@lang('lang.category')</label>
                 <select name="category" class=" form-control select" id="category_id">
                     @foreach ($category as $cat)
                         <option value="{{$cat->id}}">{{$cat->name}}</option>
@@ -58,15 +58,15 @@
         
         <div class="col-md-4">
             <div class="form-group">
-                <label for="">Date</label>
+                <label for="">@lang('lang.date')</label>
                 <input type="text" name="dates" id="dates" class="form-control">
             </div>
         </div>
 
         <div class="col-md-2" style="margin-top: 31px">
             <div class="form-group">
-                <button onclick="handleFilter()" class="btn btn-primary" >Search <i class="fa-solid fa-magnifying-glass"></i></button>
-                <button onclick="ClearFilter()" class="btn btn-light" >Clear</button>
+                <button onclick="handleFilter()" class="btn btn-primary" >@lang('lang.search') <i class="fa-solid fa-magnifying-glass"></i></button>
+                <button onclick="ClearFilter()" class="btn btn-light" >@lang('lang.clear')</button>
             </div>    
         </div> 
     </div>
@@ -80,13 +80,13 @@
             <table class="table table-centered table-nowrap mb-0 rounded" id="patient-table">
                 <thead class="thead-light">
                     <tr>
-                        <th class="border-0 rounded-start">Img</th>
-                        <th class="border-0 ">Patient Name</th>
-                        <th class="border-0 ">Doctor Name</th>
-                        <th class="border-0">Category</th>
-                        <th class="border-0">Result</th>                       
-                        <th class="border-0">Rate</th>
-                        <th class="border-0">Date</th>
+                        <th class="border-0 rounded-start">@lang('lang.image')</th>
+                        <th class="border-0 ">@lang('lang.patient') @lang('lang.name')</th>
+                        <th class="border-0 ">@lang('lang.doctors') @lang('lang.name')</th>
+                        <th class="border-0">@lang('lang.category')</th>
+                        <th class="border-0">@lang('lang.results')</th>                       
+                        <th class="border-0">@lang('lang.rate')</th>
+                        <th class="border-0">@lang('lang.date')</th>
 
                     </tr>
                 </thead>

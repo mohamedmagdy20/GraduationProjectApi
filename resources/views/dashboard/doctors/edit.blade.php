@@ -9,12 +9,12 @@
                     <svg class="icon icon-xxs" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
                 </a>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">Edit Doctor</li>
+            <li class="breadcrumb-item active" aria-current="page">@lang('lang.edit') @lang('lang.doctors')</li>
         </ol>
     </nav>
     <div class="d-flex justify-content-between w-100 flex-wrap">
         <div class="mb-3 mb-lg-0">
-            <h1 class="h4">Edit Doctors</h1>
+            <h1 class="h4">@lang('lang.edit') @lang('lang.doctors')</h1>
             {{-- <p class="mb-0">Dozens of reusable components built to provide buttons, alerts, popovers, and more.</p> --}}
         </div>
         <div>
@@ -37,7 +37,7 @@
                         <div class="col-lg-6 col-sm-12">
                             <!-- input -->
                             <div class="mb-4">
-                                <label for="email">Name <span class="text-danger">*</span></label>
+                                <label for="email">@lang('lang.name') <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="name" aria-describedby="" name="name" value="{{$data->name}}">
                             </div>
                             <!-- End of input -->
@@ -45,7 +45,7 @@
                         <div class="col-lg-6 col-sm-12">
                             <!-- input -->
                             <div class="mb-4">
-                                <label for="phone">Phone <span class="text-danger">*</span></label>
+                                <label for="phone">@lang('lang.phone') <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="phone" aria-describedby="" name="phone" value="{{$data->phone}}">
                             </div>
                             <!-- End of input -->
@@ -55,7 +55,7 @@
                             <!-- input -->
                             <div class="col-lg-12 col-sm-12">
                                 <div class="mb-4">
-                                    <label for="image">image <span class="text-danger">*</span></label>
+                                    <label for="image">@lang('lang.image') <span class="text-danger">*</span></label>
                                     <input type="file" class="form-control" id="image-input" aria-describedby="" name="image">
                                     <span class="text-danger m-1 image_err"></span>
                                
@@ -71,7 +71,7 @@
                         <div class="col-lg-12 col-sm-12">
                             <!-- input -->
                             <div class="mb-4">
-                                <label for="email">Email </label>
+                                <label for="email">@lang('lang.email') </label>
                                 <input name="email" id="email" cols="30" rows="10" class="form-control" value="{{$data->email}}">
                             </div>
                             <!-- End of input -->
@@ -82,10 +82,10 @@
                         <div class="col-lg-12 col-sm-12">
                             <!-- input -->
                             <div class="mb-4">
-                                <label for="email">Role </label>
+                                <label for="email">@lang('lang.roles') </label>
                                 <select name="role" class="form-select" id="role">
-                                    <option value="Rt" {{$data->role == 'Rt' ? 'selected' : ''}}>Radiologiest</option>
-                                    <option value="Nt" {{$data->role == 'Nt' ? 'selected' : ''}}>Neurologists</option>
+                                    <option value="Rt" {{$data->role == 'Rt' ? 'selected' : ''}}>@lang('lang.rt')</option>
+                                    <option value="Nt" {{$data->role == 'Nt' ? 'selected' : ''}}>@lang('lang.ms')</option>
                                 </select>
                             </div>
                             <!-- End of input -->

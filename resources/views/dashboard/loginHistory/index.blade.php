@@ -11,12 +11,12 @@
                 </a>
             </li>
             {{-- <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Dashboard</a></li> --}}
-            <li class="breadcrumb-item active" aria-current="page">Login History</li>
+            <li class="breadcrumb-item active" aria-current="page">@lang('lang.login_history')</li>
         </ol>
     </nav>
     <div class="row justify-content-around w-100 ">
         <div class="col-md-6">
-            <h1 class="h4">Login History</h1>
+            <h1 class="h4">@lang('lang.login_history')</h1>
         </div>
 
     </div>
@@ -29,12 +29,12 @@
             <table class="table table-centered table-nowrap mb-0 rounded" id="doctors-table">
                 <thead class="thead-light">
                     <tr>
-                        <th class="border-0 rounded-start">Name</th>
+                        <th class="border-0 rounded-start">@lang('lang.name')</th>
                         <th class="border-0">IP</th>
                         <th class="border-0">Device Name</th>
                         <th class="border-0">Browser</th>
 
-                        <th class="border-0">Date</th>
+                        <th class="border-0">@lang('lang.date')</th>
                     </tr>
                 </thead>
                 <tbody>

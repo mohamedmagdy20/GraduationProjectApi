@@ -29,10 +29,10 @@
             <table class="table table-centered table-nowrap mb-0 rounded" id="admin-table">
                 <thead class="thead-light">
                     <tr>
-                        <th class="border-0 rounded-start">name</th>
-                        <th class="border-0">description</th>
-                        <th class="border-0"></th>
-                        <th class="border-0">actions</th>                       
+                        <th class="border-0 rounded-start">#</th>
+                        <th class="border-0">@lang('lang.name')</th>
+                        <th class="border-0">@lang('lang.note')</th>
+                        <th class="border-0">@lang('lang.actions')</th>                       
                     </tr>
                 </thead>
                 <tbody>
@@ -43,7 +43,7 @@
                             <td>{{$role->description}}</td>
                             <td>
                                 <a href="{{route('permissions.edit',$role->id)}}" class="btn btn-warning"> <i class="fa fa-eye"></i></a>
-                                <a href="" class="btn btn-primary"> <i class="fa fa-pen"></i></a>
+                                <a href="{{route('role.edit',$role->id)}}" class="btn btn-primary"> <i class="fa fa-pen"></i></a>
                             </td>
 
 

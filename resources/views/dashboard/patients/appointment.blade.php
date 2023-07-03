@@ -5,12 +5,12 @@
                 <thead class="thead-light">
                     <tr>
                         
-                        <th class="border-0 rounded-start">Date</th>
-                        <th class="border-0 ">Time From and To</th>
-                        <th class="border-0 ">Category</th>
-                        <th class="border-0">Currency</th>
-                        <th class="border-0">Amount</th>                       
-                        <th class="border-0">Payment Status</th>
+                        <th class="border-0 rounded-start">@lang('lang.date')</th>
+                        <th class="border-0 ">@lang('lang.time_from')  @lang('lang.time_to')</th>
+                        <th class="border-0 ">@lang('lang.category')</th>
+                        <th class="border-0">@lang('lang.currency')</th>
+                        <th class="border-0">@lang('lang.amount')</th>                       
+                        <th class="border-0">@lang('lang.status')</th>
                         <th class="border-0">Payment Date</th>
 
                     </tr>

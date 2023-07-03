@@ -199,4 +199,18 @@ class AppointmentController extends Controller
             ], 200);
         }
     }
+
+
+    public function checkKosik(Request $request)
+    {     
+        // check payment method
+        
+        // get invoice code 
+        // get invoice data 
+        // check after 2 day from payment
+        // check if pay or not
+    
+
+
+    }
 }

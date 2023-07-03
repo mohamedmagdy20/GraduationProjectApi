@@ -11,12 +11,12 @@
                 </a>
             </li>
             {{-- <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Dashboard</a></li> --}}
-            <li class="breadcrumb-item active" aria-current="page">Category</li>
+            <li class="breadcrumb-item active" aria-current="page">@lang('lang.category')</li>
         </ol>
     </nav>
     <div class="row justify-content-around w-100 ">
         <div class="col-md-6">
-            <h1 class="h4">Category</h1>
+            <h1 class="h4">@lang('lang.category')</h1>
         </div>
         <div class="col-md-6">
             <a href="{{route('category.create')}}" class="btn btn-primary"><i class="fa fa-plus"></i>Add Category</a>
@@ -32,10 +32,10 @@
             <table class="table table-centered table-nowrap mb-0 rounded" id="category-table">
                 <thead class="thead-light">
                     <tr>
-                        <th class="border-0 rounded-start">name</th>
-                        <th class="border-0">img</th>
-                        <th class="border-0">price</th>
-                        <th class="border-0">actions</th>                       
+                        <th class="border-0 rounded-start">@lang('lang.name')</th>
+                        <th class="border-0">@lang('lang.image')</th>
+                        <th class="border-0">@lang('lang.price')</th>
+                        <th class="border-0">@lang('lang.actions')</th>                       
                     </tr>
                 </thead>
                 <tbody>

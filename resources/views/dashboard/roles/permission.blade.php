@@ -9,18 +9,16 @@
                     <svg class="icon icon-xxs" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
                 </a>
             </li>
-            <li class="breadcrumb-item"><a href="{{route('roles.index')}}">Roles</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Edit Permissions</li>
+            <li class="breadcrumb-item"><a href="{{route('roles.index')}}">@lang('lang.roles')</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@lang('lang.edit') @lang('lang.permission')</li>
         </ol>
     </nav>
     <div class="d-flex justify-content-between w-100 flex-wrap">
         <div class="mb-3 mb-lg-0">
-            <h1 class="h4">Edit Permissions For {{$role->display_name}}</h1>
+            <h1 class="h4">@lang('lang.edit') @lang('lang.permission')  {{$role->display_name}}</h1>
             {{-- <p class="mb-0">Dozens of reusable components built to provide buttons, alerts, popovers, and more.</p> --}}
         </div>
-        <div>
-            <a href="https://themesberg.com/docs/volt-bootstrap-5-dashboard/components/forms/" class="btn btn-outline-gray"><i class="far fa-question-circle me-1"></i> Forms Docs</a>
-        </div>
+        
     </div>
 </div>
 
@@ -34,14 +32,14 @@
                     <div class="row mb-4">
                      <input type="hidden" name="role_id" value="{{$role->id}}" id="role_id">
                         <div class="col-md-12">
-                            <label for="role">Role <span class="text-danger">*</span></label>
+                            <label for="role">@lang('lang.roles') <span class="text-danger">*</span></label>
                             <div class="col-md-2">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="selectAll"
                                      value="" name=""
                                      >
                                     <label class="form-check-label" for="selectAll">
-                                       Select All
+                                       @lang('lang.select_all')
                                     </label>
                                 </div>
                             </div>
@@ -56,7 +54,7 @@
                                          value="{{ $permission->id }}" name="permissions[]"
                                          >
                                         <label class="form-check-label" for="defaultCheck-{{$permission->id}}">
-                                            {{$permission->display_name}}
+                                            {{  App::isLocale('ar') ? $permission->description :  $permission->display_name}}
                                         </label>
                                     </div>
                                 </div>
@@ -67,7 +65,7 @@
                         <div class="col-md-12">
                             {{-- <input type="submit" value="Save" class="btn btn-primary "> --}}
                             
-                            <button type="submit" class="btn btn-primary submit-button">Save</button>
+                            <button type="submit" class="btn btn-primary submit-button">@lang('lang.save')</button>
                         </div>
                 </form>    
          

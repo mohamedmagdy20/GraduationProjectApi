@@ -17,9 +17,22 @@ class RoleController extends Controller
 
     public function edit($id)
     {
-        $role = Role::findOrFail($id);
+        $data = Role::findOrFail($id);
         return view('dashboard.roles.edit',compact('data'));
     }
 
-    // public
+    public function update(Request $request)
+    {
+        $request->validate([
+            'display_name'=>'required',
+            'id'=>'required',
+            'discription'=>'nullable'
+        ]);
+
+        $data = Role::findOrFail($request->id);
+
+        $data->update($request->all());
+        return response()->json(['status'=>true,'msg'=>'Role Updated'], 200);
+
+    }
 }
