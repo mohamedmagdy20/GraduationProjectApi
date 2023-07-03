@@ -25,7 +25,7 @@ class ResultController extends Controller
 
     public function data(Request $request)
     {
-        $query = Result::filter($request->except('_token'))->with('patient')->with('category')->with('doctor')->whereNotNull('result');
+        $query = Result::filter($request->except('_token'))->with('patient')->with('category')->with('doctor')->whereNotNull('notes');
 
         return DataTables::eloquent($query)
         ->editColumn('patient_id',function($query){
@@ -39,6 +39,15 @@ class ResultController extends Controller
         })
         ->addColumn('img',function($query){
             return view('dashboard.results.action',['type'=>'img','data'=>$query]);
+        })->
+        editColumn('file_url',function($query){
+            return view('dashboard.results.action',['type'=>'file_url','data'=>$query]);
+
+        })->
+
+        editColumn('notes',function($query){
+            return view('dashboard.results.action',['type'=>'notes','data'=>$query]);
+
         })
         ->editColumn('created_at',function($query){
             return Carbon::parse($query->created_at)->format('M d Y');

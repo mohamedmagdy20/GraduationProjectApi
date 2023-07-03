@@ -46,6 +46,8 @@ return [
     'image'=>'Image',
     'genral_info'=>'General Info',
     'rate'=>'Rate',
+    'doc'=>'Documents',
+
     'settings'=>'Settings',
     'select_all'=>'Select All',
 

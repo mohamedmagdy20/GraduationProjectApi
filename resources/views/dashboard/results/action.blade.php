@@ -6,7 +6,14 @@
         
         }}"  onclick="viewImg(this)"  alt="{{$data->img}}">
         @break
+        @case('file_url')
+         <a href="{{$data->files_url}}" target="__blank"><i class="fa-solid fa-link"></i></a> 
+        @break
 
+
+        @case('notes')
+         <a href="{{$data->notes}}" target="__blank"><i class="fa-solid fa-link"></i></a> 
+        @break
     @default
         
 @endswitch

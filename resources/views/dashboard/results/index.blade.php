@@ -81,11 +81,14 @@
                 <thead class="thead-light">
                     <tr>
                         <th class="border-0 rounded-start">@lang('lang.image')</th>
-                        <th class="border-0 ">@lang('lang.patient') @lang('lang.name')</th>
-                        <th class="border-0 ">@lang('lang.doctors') @lang('lang.name')</th>
+                        <th class="border-0 ">@lang('lang.patient')</th>
+                        <th class="border-0 ">@lang('lang.doctors')</th>
                         <th class="border-0">@lang('lang.category')</th>
                         <th class="border-0">@lang('lang.results')</th>                       
                         <th class="border-0">@lang('lang.rate')</th>
+                        <th class="border-0">@lang('lang.url')</th>
+                        <th class="border-0">@lang('lang.doc')</th>
+
                         <th class="border-0">@lang('lang.date')</th>
 
                     </tr>
@@ -148,6 +151,13 @@ function setPatientDatatable() {
             },
             {
                 data: 'rate'
+            },
+            {
+                data:'file_url'
+            },
+
+            {
+                data:'notes'
             },
             {
                 data: 'created_at'
