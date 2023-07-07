@@ -191,7 +191,7 @@
             </span>
             <span class="mt-1 ms-1 sidebar-text">@lang('lang.appointment')</span>
             <span class="mt-1 ms-1 sidebar-text">
-              <div id="notification-count">{{$acount}}</div>
+              <div class="notification" id="notification-count">{{$acount}}</div>
 
             </span>
           </a>
@@ -209,7 +209,7 @@
             </span>
             <span class="mt-1 ms-1 sidebar-text">@lang('lang.request')</span>
             <span class="mt-1 ms-1 sidebar-icon">
-              <div id="notification-count">{{$now}}</div>
+              <div class="notification" id="notification-count">{{$now}}</div>
           
             </span>
           
@@ -244,6 +244,22 @@
           @endif
 
 
+
+          @if (auth()->user()->hasPermission('show_notifications'))
+          <li class="nav-item">
+           <a href="{{route('chat.index')}}" class="nav-link d-flex align-items-center">
+             <span class="sidebar-icon">
+               <i class="fa fa-comment"></i>
+             </span>
+             <span class="mt-1 ms-1 sidebar-text">@lang('lang.chat')</span>
+             <span class="mt-1 ms-1 sidebar-icon">
+              <div class="notification" id="chat-count">{{$chatCount}}</div>
+          
+            </span>
+           </a>
+         </li>
+          @endif
+
            {{-- Invoices --}}
            @if (auth()->user()->hasPermission('show_notifications'))
            <li class="nav-item">
@@ -254,8 +270,9 @@
               <span class="mt-1 ms-1 sidebar-text">@lang('lang.notification')</span>
             </a>
           </li>
-    
            @endif
+
+
          
 
            @if (auth()->user()->hasPermission('show_security'))

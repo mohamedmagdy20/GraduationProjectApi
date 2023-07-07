@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Models\Appointment;
+use App\Models\Chat;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\View;
 
@@ -28,6 +29,7 @@ class AppServiceProvider extends ServiceProvider
         $appointments =  Appointment::with('patient')->where('is_done',false)->take(5)->get();
         $count = Appointment::whereDate('created_at','=',Carbon::today())->count();
         $requestNow = Appointment::whereDate('register_date','>=',Carbon::today())->where('is_done',0)->count();
-        View::share(['acount'=>$count,'appointmets'=>$appointments,'now'=>$requestNow]);
+        $chatRequestCount = Chat::count();
+        View::share(['acount'=>$count,'appointmets'=>$appointments,'now'=>$requestNow,'chatCount'=>$chatRequestCount]);
     }
 }

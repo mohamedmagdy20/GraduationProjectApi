@@ -75,6 +75,7 @@ function setPatientDatatable() {
                 "next": "<i class='mdi mdi-chevron-right'>"
             },
         },
+        
 
         
         columns: [{

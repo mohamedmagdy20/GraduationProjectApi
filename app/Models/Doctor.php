@@ -51,6 +51,13 @@ class Doctor extends Authenticatable implements TranslatableContract
             ->setDescriptionForEvent(fn(string $eventName) => "Doctor has been {$eventName} by ($admin)");
     }
 
+
+    public function chats()
+    {
+        return $this->hasMany(Chat::class,'created_by');
+    }
+
+
     
     public function result()
     {

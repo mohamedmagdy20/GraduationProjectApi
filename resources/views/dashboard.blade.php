@@ -63,7 +63,7 @@
 @yield('css')
 
 <style>
-    #notification-count {
+    .notification {
         background-color: #E11D48;
         color: white;
         border-radius: 50%;
@@ -90,15 +90,26 @@
               type: 'success',
               message: `${data.name} Has Make Appointment`,
           });
-          
-        //   var audio = document.getElementById("audio");
-        //   audio.muted = true;
-        //   audio.play();
-
+         
           old = $('#notification-count').text();
           $('#notification-count').text(parseInt(old) + 1 );
 
-  });
+        });
+
+
+        var othChannel  = pusher.subscribe('start-message');
+
+        othChannel.bind('start-chat-with-doctor', function(data) {
+          console.log(data);
+          notyf.open({
+              type: 'success',
+              message: `${data.docName} Has Sent Request To Start Chat`,
+          });         
+          old = $('#chat-count').text();
+          $('#chat-count').text(parseInt(old) + 1 );
+        });
+
+
   // Enable pusher logging - don't include this in production
   
 </script>
@@ -330,6 +341,13 @@ $('.selectize').selectize();
     });
 </script>
 
+
+{{-- Datatables Buttons --}}
+<script src="https://cdn.datatables.net/buttons/2.0.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.html5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 </body>
 
 </html>

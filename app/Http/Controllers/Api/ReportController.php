@@ -15,9 +15,6 @@ use Illuminate\Support\Facades\Storage;
 
 class ReportController extends Controller
 {
-    //
-
-    // Show Doctor Report To Make //
     public function index()
     {
         $res  =[];
@@ -25,29 +22,41 @@ class ReportController extends Controller
         ->doesnthave('doctorDignose')
         ->whereNull('result')
         ->where('doctor_id',auth()->user()->id)->get();
-        
         foreach($data as $d)
         {
             array_push($res,[
                 'id'=>$d->id,
-                'result'=>$d->result,
-                'rate'=>$d->rate,
-                'image'=>$d->img,
                 'category'=>$d->category->name,
+                'category_url'=>$d->category->url,
                 'patient'=>$d->patient->name,
                 'patient_image'=>$d->patient->img,
-                'resultImages'=>$d->resultImages->img
+                'resultImages'=>$d->resultImages
               
             ]);
         }
         // $res = [
        //      // ];
         return response()->json([
-            'data'=>$data,
+            'data'=>$res,
             'status'=>true
         ], 200);
     }
+    
+    public function doctorProfile()
+    {
+        $doctorId = auth()->user()->id;
+                $data = Patient::whereHas('result', function ($query) use ($doctorId) {
+            $query->whereNotNull('result')->where('doctor_id', $doctorId);
+        })
+        ->with('result')
+        ->get();
 
+        return response()->json([
+            'data'=>$data,
+            'status'=>true
+        ], 200);
+
+    }
     // public function makeReport(Request $request)
     // {
     //     $rule = [
@@ -87,8 +96,7 @@ class ReportController extends Controller
     //     }
 
     // }
-
-    public function makeReport(Request $request)
+  public function makeReport(Request $request)
     {
         // return $request->all();
         // return $request->images[0];
@@ -123,19 +131,4 @@ class ReportController extends Controller
 
     }
 
-    public function doctorProfile()
-    {
-        $doctorId = auth()->user()->id;
-        $data = Patient::whereHas('result', function ($query) use ($doctorId) {
-            $query->whereNotNull('results.result','notes')->where('doctor_id', $doctorId);
-        })
-        ->with('result')
-        ->get();
-
-        return response()->json([
-            'data'=>$data,
-            'status'=>true
-        ], 200);
-
-    }
 }

@@ -67,6 +67,8 @@ class User extends Authenticatable
         return new NewAccessToken($token, $token->getKey().'|'.$plainTextToken);
     }
 
+
+
     public function tapActivity(Activity $activity, string $eventName)
     {
         $this->setActivityCauser($activity);

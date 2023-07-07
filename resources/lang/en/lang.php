@@ -37,7 +37,7 @@ return [
     'actions'=>'Actions',
     'enter'=>'Enter',
     'password_confirmation'=>'Confirm Password',
-
+    'chat'=>'Chats',
 
     'login_history'=>'Login History',
     'change_password'=>'Change Password',

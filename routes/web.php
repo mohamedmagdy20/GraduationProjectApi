@@ -5,6 +5,7 @@ use App\Http\Controllers\Dashboard\AppointmentController;
 use App\Http\Controllers\Dashboard\AppointmentTimeController;
 use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\CategoryController;
+use App\Http\Controllers\Dashboard\ChatController;
 use App\Http\Controllers\Dashboard\ClassificationRequestController;
 use App\Http\Controllers\Dashboard\DoctorController;
 use App\Http\Controllers\Dashboard\GoogleDriveController;
@@ -228,6 +229,18 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function(){
         Route::get('index',[PaymentMethodController::class,'index'])->middleware('permission:show_payment_method')->name('payment_methods.index');
         Route::get('data',[PaymentMethodController::class,'data'])->middleware('permission:show_payment_method')->name('payment_methods.data');
         Route::post('delete',[PaymentMethodController::class,'toggleActive'])->middleware('permission:toggle_active_payment_method')->name('payment_methods.delete');
+    });
+
+
+
+    Route::group(['prefix'=>'chat'],function(){
+
+        Route::get('index',[ChatController::class,'index'])->middleware('permission:show_payment_method')->name('chat.index');
+        Route::get('data',[ChatController::class,'data'])->middleware('permission:show_payment_method')->name('chat.data'); 
+        Route::get('/{chat_id}',[ChatController::class,'chat'])->middleware('permission:show_payment_method')->name('chat.start');
+        Route::post('delete',[ChatController::class,'delete'])->middleware('permission:show_appointments')->name('chat.delete');
+        Route::post('send-message',[ChatController::class,'store'])->middleware('permission:show_appointments')->name('chat.send');
+    
     });
 
 

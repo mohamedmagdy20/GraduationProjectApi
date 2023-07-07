@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Api\AppointmentController;
+use App\Http\Controllers\Api\ChatController;
+use App\Http\Controllers\Api\ChatMessageController;
 use App\Http\Controllers\Api\ClassificationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -96,6 +98,19 @@ Route::middleware('auth:api-doctor')->prefix('doctor')->group(function(){
 
     Route::get('/reports',[ReportController::class,'index']);
     Route::post('/make-reports',[ReportController::class,'makeReport']);
+
+
+
+    // Chat Routes
+    Route::get('chat',[ChatController::class,'index']);
+    Route::post('chat',[ChatController::class,'store']);
+    Route::get('chat/{chat}',[ChatController::class,'show']);
+
+    Route::get('user',[ChatMessageController::class,'getUser']);
+
+    Route::get('chat_message',[ChatMessageController::class,'index']);
+    Route::post('chat_message',[ChatMessageController::class,'store']);
+ 
     
 });
 

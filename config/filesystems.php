@@ -77,6 +77,13 @@ return [
         ],
 
         
+        'chat-files'=>[
+            'driver'=>'local',
+            'root'=>public_path('files/chat-files')
+        ],
+
+
+        
 
         's3' => [
             'driver' => 's3',
