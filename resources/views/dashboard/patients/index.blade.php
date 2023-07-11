@@ -14,8 +14,12 @@
         </ol>
     </nav>
     <div class="row justify-content-around w-100 ">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <h1 class="h4">@lang('lang.patient')</h1>
+        </div>     
+
+        <div class="col-md-6" class="m-auto">
+            <a href="{{route('patients.create')}}" class="btn btn-primary">Add Patients</a>
         </div>     
     </div>
 </div>
@@ -171,6 +175,48 @@ function restorePatient(id)
     });
 
 }
+
+// // Delete 
+function deleteConfirmation(id) {
+        swal({
+            title: "Delete?",
+            text: "Please ensure and then confirm!",
+            type: "warning",
+            showCancelButton: !0,
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "No, cancel!",
+            reverseButtons: !0
+        }).then(function (e) {
+
+            if (e.value === true) {
+                var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+                $.ajax({
+                    type: 'POST',
+                    url: "{{route('patients.forcedelete')}}",
+                    data: {_token: CSRF_TOKEN,id:id},
+                    dataType: 'JSON',
+                    success: function (results) {
+
+                        if (results.status === true) {
+                            swal("Done!", results.message, "success");
+                            PatientTable.ajax.reload()
+                        } else {
+                            swal("Error!", results.message, "error");
+                        }
+                    }
+                });
+
+            } else {
+                e.dismiss;
+            }
+
+        }, function (dismiss) {
+            return false;
+        })
+
+}
+
 
 
 

@@ -64,13 +64,15 @@
                                         </div>  
                                         <span class="text-danger m-2 password_err"></span>
                                     </div>
-
-                                    {{-- Rechaptcha --}}
-                                    <div class="form-group mb-4">
-                                        <div class="g-recaptcha" data-sitekey="{{ config('app.recaptcha_sitekey') }}"></div>
-                                        <span class="text-danger m-2 g-recaptcha-response_err"></span>
-                                    </div>
+                                    @if ($isRecaptch->value == true)
+                                        {{-- Rechaptcha --}}
+                                        <div class="form-group mb-4">
+                                            <div class="g-recaptcha" data-sitekey="{{ config('app.recaptcha_sitekey') }}"></div>
+                                            <span class="text-danger m-2 g-recaptcha-response_err"></span>
+                                        </div>
                                 
+                                    @endif
+                                   
                                     <!-- End of Form -->
                                     {{-- <div class="d-flex justify-content-between align-items-top mb-4">
                                         <div class="form-check">

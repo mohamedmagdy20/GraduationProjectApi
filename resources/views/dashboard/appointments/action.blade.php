@@ -4,7 +4,7 @@
 <div class="form-check form-switch">
     <input class="form-check-input" type="checkbox" checked onchange="deleteAppointment({{$data->id}})" id="flexSwitchCheckDefault">
 </div>
-<a class="btn  btn-sm btn-info" href="{{route('appointements.data',$data->id)}}"><i class="fa fa-pen"></i></a>
+<a class="btn  btn-sm btn-info" href="{{route('appointements.edit',$data->id)}}"><i class="fa fa-pen"></i></a>
 
 @else
 <div class="form-check form-switch">

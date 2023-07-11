@@ -20,7 +20,8 @@
 
         </div>
         <div class="col-md-6">
-            <a href="{{route('appointements.create')}}" class="btn btn-primary">@lang('lang.add') @lang('lang.appointment')</a>
+            <a href="{{route('appointements.create')}}" class="btn btn-primary"><i class="fa-solid fa-plus"></i>  @lang('lang.add') @lang('lang.appointment')</a>
+            <a href="{{route('patients.create')}}" class="btn btn-success text-white"> <i class="fa-solid fa-plus"></i> @lang('lang.add') @lang('lang.patient')</a>
  
         </div>
         

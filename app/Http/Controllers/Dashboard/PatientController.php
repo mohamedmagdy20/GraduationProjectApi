@@ -9,6 +9,7 @@ use App\Models\Patient;
 use App\Utils\SendNotification;
 use App\Models\Notification;
 use App\Models\Result;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class PatientController extends Controller
@@ -28,7 +29,7 @@ class PatientController extends Controller
 
     public function data()
     {
-        $data = Patient::withTrashed();
+        $data = Patient::withTrashed()->latest();
         $result = DataTables()->eloquent($data)
         ->addColumn('action',function($data){
             return view('dashboard.patients.action',['type'=>'action','data'=>$data]);
@@ -52,6 +53,31 @@ class PatientController extends Controller
         return view('dashboard.patients.show',['data'=>$data]);
     }
 
+    public function create()
+    {
+        return view('dashboard.patients.create');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name'=>'required',
+            'address'=>'nullable',
+            'email'=>'required|unique:patients,email',
+            'phone'=>'required|unique:patients,phone',
+            'gender'=>'required',
+            'image'=>'image'
+        ]);
+
+        if($request->file('img'))
+        {
+            $imgName = time().$request->file('img')->getClientOriginalName();
+            Storage::disk('profile')->put($imgName, file_get_contents($request->file('img')));
+        }
+        $image = asset('files/profile/' . $imgName);
+        Patient::create(array_merge($request->all(),['image'=>$image]));
+        return response()->json(['status'=>true,'msg'=>'Patient Added'], 200);
+    }
 
     // get data from patient //
     public function getResultData($id)
@@ -167,6 +193,14 @@ class PatientController extends Controller
     {
         $notification = Notification::where('patient_id',auth()->user()->id)->where('is_readed',0)->count();
         return response()->json(['count'=>$notification,'status'=>true], 200);
+    }
+
+    public function forceDelete(Request $request)
+    {
+        $admin = Patient::withTrashed()->findOrFail($request->id);
+        $admin->forceDelete();
+         return response()->json(['msg'=>'Patient Deleted','status'=>true], 200);
+   
     }
     
 }

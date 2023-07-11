@@ -8,6 +8,7 @@
             <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" onchange="restorePatient({{$data->id}})"  id="flexSwitchCheckDefault">
             </div>
+            <a onclick="deleteConfirmation({{$data->id}})" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
         @endif
         
         <a class="btn btn-sm btn-warning text-white " href="{{route('patients.show',$data->id)}}"><i class="fa fa-eye"></i></a>

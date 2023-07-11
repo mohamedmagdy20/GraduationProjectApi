@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\DoctorEvent;
 use App\Events\NewMessageSent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Chat\GetMessageRequest;
@@ -20,13 +21,6 @@ class ChatMessageController extends Controller
         $chatId = $data['chat_id'];
         $message = ChatMessage::where('chat_id',$chatId)->with('doctor')->with('user')->latest('created_at')->get();
         return response()->json(['data'=>$message,'status'=>true]);
-    }
-
-    public function getUser()
-    {
-        $data = User::all();
-        return response()->json(['data'=>$data,'status'=>true]);
-
     }
 
     public function store(Request $request)
@@ -56,7 +50,6 @@ class ChatMessageController extends Controller
 
     private function sendNotificationToOther(ChatMessage $chatMessage)
     {
-        // $chatId = $chatMessage->chat_id;
-        broadcast(new NewMessageSent($chatMessage))->toOthers();
+        broadcast(new DoctorEvent($chatMessage))->toOthers();
     }
 }

@@ -18,7 +18,11 @@ class GoogleDrive {
         $this->gClient->setClientSecret('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');
         
         $this->gClient->setRedirectUri(route('google.login'));
+
+
         $this->gClient->setDeveloperKey('AIzaSyCBHhSWiaHn-wuAA15CpCjS1ZqjVfaLPps');
+        
+        
         $this->gClient->setScopes(array(               
             'https://www.googleapis.com/auth/drive.file',
             'https://www.googleapis.com/auth/drive'
@@ -110,14 +114,17 @@ class GoogleDrive {
         }
         
         $fileMetadata = new \Google_Service_Drive_DriveFile(array(
-            'name' => Carbon::now(),  
+            'name' =>  $user->name.'-'.Carbon::now(),  
             'parents'=>array('18xbE1HV2_CG8G--x4kRxbe77sTB33jvS'),           // ADD YOUR GOOGLE DRIVE FOLDER NAME
             'mimeType' => 'application/vnd.google-apps.folder'));
 
         $folder = $service->files->create($fileMetadata,
-         array('fields' => 'id'));
+        array('fields' => 'id'));
+
+
 
         // printf("Folder ID: %s\n", $folder->id);
+
 
         foreach($filePath as $index => $filep)
         {
@@ -141,15 +148,15 @@ class GoogleDrive {
     }
 
 
-    // public function grantFolderAccess($folderId, $email)
-    // {
-    //     $permission = new \Google_Service_Drive_Permission([
-    //         'type' => 'user',
-    //         'role' => 'writer',
-    //         'emailAddress' => $email,
-    //     ]);
+    public function grantFolderAccess($folderId, $email)
+    {
+        $permission = new \Google_Service_Drive_Permission([
+            'type' => 'user',
+            'role' => 'writer',
+            'emailAddress' => $email,
+        ]);
 
-    //     $this->driveService->permissions->create($folderId, $permission);
-    // }
+        $this->driveService->permissions->create($folderId, $permission);
+    }
 
 }

@@ -69,8 +69,6 @@ class ChatController extends Controller
     private function getperviousChat()
     {
         $doctorId = auth()->user()->id;
-        return Chat::where('is_private',1)->whereHas('participants',function($q) use($doctorId){
-            $q->where('doctor_id',$doctorId);
-        })->first();
+        return Chat::where('is_private',0)->where('created_by',$doctorId)->first();
     }
 }

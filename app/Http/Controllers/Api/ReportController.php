@@ -98,12 +98,31 @@ class ReportController extends Controller
     // }
   public function makeReport(Request $request)
     {
-        // return $request->all();
-        // return $request->images[0];
+        $rule = [
+            'result_id'=>'required',
+            'result'=>'required'
+        ];
+
+        $validator = Validator::make($request->all(),$rule);
+        if($validator->fails())
+        {
+            return response()->json([
+                'error'=>$validator->errors(),
+                'status'=>false
+            ], 200);
+        }
         $result = Result::findOrFail($request->result_id);
         // Get Result to uPDATE
         if($request->file('img'))
         {
+            $validate_img = Validator::make($request->all(),[
+                'img'=>['image']
+            ]);
+
+            if($validate_img->fails())
+            {
+                return response()->json(['error'=>$validate_img->errors()],200);
+            }
             $imgName = time().$request->file('img')->getClientOriginalName();
             Storage::disk('results')->put($imgName,file_get_contents($request->file('img')));
             $img = asset('files/results/'.$imgName);
@@ -111,12 +130,31 @@ class ReportController extends Controller
         // add images to drive link //
         if($request->images)
         {
+            
+            $validateimages = Validator::make($request->all(),[
+                'images'=>['array']
+            ]);
+
+            if($validateimages->fails())
+            {
+                return response()->json(['error'=>$validateimages->errors()],200);
+            }
             $drive = new GoogleDrive;
-            $link = $drive->googleDriveFilePpload($result->patient_id,$request->images);
+            $link = $drive->googleDriveFilePpload($result->patient_id, $request->images);
         }
 
         if($request->file('pdf'))
         {
+
+            
+            $validatePdf = Validator::make($request->all(),[
+                'pdf'=>['required|file']
+            ]);
+
+            if($validatePdf->fails())
+            {
+                return response()->json(['error'=>$validatePdf->errors()],200);
+            }
             $pdfName = time().$request->file('pdf')->getClientOriginalName();
             Storage::disk('rt-files')->put($pdfName,file_get_contents($request->file('pdf')));
             $pdf = asset('files/pdf/rt-files/'.$pdfName);

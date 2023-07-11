@@ -110,11 +110,13 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function(){
 
         Route::get('index',[PatientController::class,'index'])->middleware('permission:show_patients')->name('patients.index');
         Route::get('get_data',[PatientController::class,'data'])->middleware('permission:show_patients')->name('patients.get-data');
+        Route::get('create',[PatientController::class,'create'])->middleware('permission:add_patients')->name('patients.create');
+      
         Route::get('show/{id}',[PatientController::class,'show'])->middleware('permission:show_patients')->name('patients.show');
         Route::post('delete',[PatientController::class,'delete'])->middleware('permission:dective_patients')->name('patients.delete');
         Route::post('restore',[PatientController::class,'restore'])->middleware('permission:active_patients')->name('patients.restore');
-
-
+        Route::post('delete-force',[PatientController::class,'forceDelete'])->middleware('permission:dective_patients')->name('patients.forcedelete');
+        Route::post('store',[PatientController::class,'store'])->middleware('permission:add_patients')->name('patients.store');
         Route::get('get-result/{id}',[PatientController::class,'getResultData'])->middleware('permission:show_patients')->name('patients.get-result');
         Route::get('get-appointment/{id}',[PatientController::class,'getAppointmentData'])->middleware('permission:show_patients')->name('patients.get-appointment');
 
@@ -221,6 +223,8 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function(){
         Route::get('create',[AppointmentController::class,'create'])->middleware('permission:show_appointments')->name('appointements.create');
         Route::post('store',[AppointmentController::class,'store'])->middleware('permission:show_appointments')->name('appointments.store');
         Route::post('delete-force',[AppointmentController::class,'forcedelete'])->middleware('permission:show_appointments')->name('appointments.forcedelete');
+        Route::get('edit/{id}',[AppointmentController::class,'edit'])->middleware('permission:edit_appointments')->name('appointements.edit');
+        Route::post('update',[AppointmentController::class,'update'])->middleware('permission:edit_appointments')->name('appointments.update');
     
     });
 

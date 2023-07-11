@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Chat;
 use App\Models\ChatMessage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -20,7 +21,7 @@ class ChatController extends Controller
     }
     public function chat($chatId)
     {
-        $chats =  Chat::with('message')->where('id',$chatId)->first();
+        $chats =  Chat::with('message')->with('craetedBy')->where('id',$chatId)->first();
         return view('dashboard.chat.chat',['data'=>$chats]);
     }
 
@@ -55,12 +56,16 @@ class ChatController extends Controller
         $data['type'] = 'user';
 
         $chatMessage = ChatMessage::create($data);
-        $chatMessage->load('doctor');
-
+        $data = [
+            'image'=>$chatMessage->user->img,
+            'message'=>$chatMessage->message,
+            'file'=>$chatMessage->file,
+            'time'=>Carbon::parse($chatMessage->created_at)->format('h:i:s')
+        ];
         // Real Time Notification Message //
         $this->sendNotificationToOther($chatMessage);
 
-        return response()->json(['data'=>$chatMessage,'message'=>'Message Sent','status'=>true]);
+        return response()->json(['data'=>$data,'message'=>'Message Sent','status'=>true]);
 
     }
 

@@ -102,9 +102,7 @@ function setAdminsDatatable() {
         ],
     });
 }
-$(function() {
-    setAdminsDatatable();
-});
+setAdminsDatatable();
 
 
 // // Delete 

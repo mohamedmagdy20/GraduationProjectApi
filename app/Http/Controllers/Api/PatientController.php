@@ -193,11 +193,7 @@ class PatientController extends Controller
     }
     public function invoice()
     {
-        //$data = Invoice::with(['patient',function($q)
-        //{
-          //  $q::find(auth()->user()->id);
-        //}])->get();
-
+   
         $data =  Invoice::all();
         return response()->json([
             'data'=>$data,

@@ -245,7 +245,7 @@
 
 
 
-          @if (auth()->user()->hasPermission('show_notifications'))
+          @if (auth()->user()->hasPermission('show_chat'))
           <li class="nav-item">
            <a href="{{route('chat.index')}}" class="nav-link d-flex align-items-center">
              <span class="sidebar-icon">

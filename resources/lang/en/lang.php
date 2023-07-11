@@ -18,6 +18,12 @@ return [
     'login'=>'Login',
     'logout'=>'Logout',
     'email'=>'Email',
+    'gender'=>'Gender',
+    'male'=>'Male',
+    'female'=>'Female',
+    'type_message'=>'Type a Message',
+
+
     'password'=>'Password',
     'name'=>'Name',
     'save'=>'Save',

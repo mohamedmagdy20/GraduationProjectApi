@@ -34,6 +34,15 @@ class AppointmentController extends Controller
         return view('dashboard.appointments.create',['patients'=>$patients,'payments'=>$payments,'cats'=>$cats]);
     }
 
+    public function edit($id)
+    {
+        $patients = Patient::all();
+        $cats = Category::all();
+        $payments = PaymentMethod::all();
+        $data=Appointment::findorfail($id);
+        return view('dashboard.appointments.edit',['patients'=>$patients,'cats'=>$cats,'payments'=>$payments,'data'=>$data]);
+    }
+
     public function getAvalableTime(Request $request) 
     {
         $options = '';
@@ -69,6 +78,9 @@ class AppointmentController extends Controller
             $code = 'M'.'-'.time();
         }
 
+        $Acode = $request->patient_id.'-'.time();
+
+
         $invoice =  Invoice::create([
             'code'=>$code,
             'currency'=>'EGP',
@@ -79,10 +91,61 @@ class AppointmentController extends Controller
             'payment_method_id'=>$request->payment_id
         ]);        
 
-        $appointment = Appointment::create(array_merge($request->all(),['invoice_id'=>$invoice->id]));
+        $appointment = Appointment::create(array_merge($request->all(),['invoice_id'=>$invoice->id,'code'=>$Acode]));
         if($appointment)
         {
             return response()->json(['msg'=>'Appointment Added','status'=>true], 200);
+
+        }else{
+            return response()->json(['error'=>'Error Accure','status'=>false], 200);
+
+        }
+        
+    }
+
+
+
+    public function update(Request $request)
+    {
+        $code ='';
+        $request->validate([
+            'id'=>'required',
+            'patient_id'=>'required',
+            'register_date'=>'required|date',
+            'category_id'=>'required',
+            'appointment_times_id'=>'required',
+            'payment_id'=>'required'
+        ]);
+        $data = Appointment::findOrFail($request->id);
+        $price = Category::find($request->category_id)->price;
+
+        // create invoice First //
+        if($request->payment_method == '2' || $request->payment_method == '3')
+        {
+            $code = $request->code;
+            
+        }else{
+            $code = 'M'.'-'.time();
+        }
+
+        $Acode = $request->patient_id.'-'.time();
+        $invoice = Invoice::find($data->invoice_id);
+
+        $invoice->update([
+            'code'=>$code,
+            'currency'=>'EGP',
+            'amount'=>$price,
+            'status'=>'true',
+            'date'=>$request->register_date,
+            'data_message'=>'Manual',
+            'payment_method_id'=>$request->payment_id
+        ]);
+        
+        $data->update(array_merge($request->all(),['invoice_id'=>$invoice->id,'code'=>$Acode]));
+
+        if($data)
+        {
+            return response()->json(['msg'=>'Appointment Updated','status'=>true], 200);
 
         }else{
             return response()->json(['error'=>'Error Accure','status'=>false], 200);
@@ -137,6 +200,7 @@ class AppointmentController extends Controller
     public function forcedelete(Request $request)
     {
         $admin = Appointment::withTrashed()->findOrFail($request->id);
+        $invoice = Invoice::findOrFail($admin->invoice_id);
         $admin->forceDelete();
          return response()->json(['msg'=>'Category Deleted','status'=>true], 200);
     }

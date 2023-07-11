@@ -11,6 +11,12 @@ return [
     'main'=>'الرئيسية',
     'enter'=>'ادخل',
     'password_confirmation'=>'اعاده ادخال كلمه السر',
+    'gender'=>'النوع',
+    'male'=>'ذكر',
+    'female'=>'انثي',
+    'type_message'=>'اكتب رساله',
+
+
 
     'roles'=>'الادوار',
     'permission'=>'الصلاحيات',
