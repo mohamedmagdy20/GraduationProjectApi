@@ -151,7 +151,7 @@ class AppointmentController extends Controller
         }
 
         $appointment = Appointment::findOrFail($request->id);
-        $date = Carbon::parse($request->date); //20-2-20
+        $date = Carbon::now();
         $registerDate = Carbon::parse($appointment->register_date); //20-2-25
         // return $appointment->invoice->o;
         if($registerDate->gt($date->addDays(1)))

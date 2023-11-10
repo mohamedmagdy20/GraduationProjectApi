@@ -100,7 +100,8 @@ class ReportController extends Controller
     {
         $rule = [
             'result_id'=>'required',
-            'result'=>'required'
+            'result'=>'required',
+            'img'=>'required'
         ];
 
         $validator = Validator::make($request->all(),$rule);
@@ -113,42 +114,43 @@ class ReportController extends Controller
         }
         $result = Result::findOrFail($request->result_id);
         // Get Result to uPDATE
-        if($request->file('img'))
+        if($request->img)
         {
-            $validate_img = Validator::make($request->all(),[
-                'img'=>['image']
-            ]);
+            // $validate_img = Validator::make($request->all(),[
+            //     'img'=>['image']
+            // ]);
 
-            if($validate_img->fails())
-            {
-                return response()->json(['error'=>$validate_img->errors()],200);
-            }
-            $imgName = time().$request->file('img')->getClientOriginalName();
-            Storage::disk('results')->put($imgName,file_get_contents($request->file('img')));
+            // if($validate_img->fails())
+            // {
+            //     return response()->json(['error'=>$validate_img->errors()],200);
+            // }
+            $imgName = time().basename($request->img);
+            Storage::disk('results')->put($imgName,file_get_contents($request->img));
             $img = asset('files/results/'.$imgName);
         }
         // add images to drive link //
-        if($request->images)
+        if($request->images1)
         {
+            $dataImage = [];
             
-            $validateimages = Validator::make($request->all(),[
-                'images'=>['array']
-            ]);
+            // $validateimages = Validator::make($request->all(),[
+            //     'images'=>['array']
+            // ]);
 
-            if($validateimages->fails())
-            {
-                return response()->json(['error'=>$validateimages->errors()],200);
-            }
+            // if($validateimages->fails())
+            // {
+            //     return response()->json(['error'=>$validateimages->errors()],200);
+            // }
+            array_push($dataImage,[$request->image1,$request->image2,$request->image3,$request->image4,$request->image5,$request->image6,$request->image7,$request->image8,$request->image9,$request->image10]);
+
             $drive = new GoogleDrive;
-            $link = $drive->googleDriveFilePpload($result->patient_id, $request->images);
+            $link = $drive->googleDriveFilePpload($result->patient_id, $dataImage);
         }
 
         if($request->file('pdf'))
         {
-
-            
             $validatePdf = Validator::make($request->all(),[
-                'pdf'=>['required|file']
+                'pdf'=>['image']
             ]);
 
             if($validatePdf->fails())
